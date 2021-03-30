@@ -1,0 +1,42 @@
+import React, { useEffect } from "react";
+import Select from "react-select";
+import { useAppDispatch } from "../../store/hooks";
+import { IPageSize, IPageSizeSelect } from "../../Interfaces";
+import s from "./style.module.css";
+
+const PageSizeSelect: React.FC<IPageSizeSelect> = ({ setPageSize }) => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(setPageSize(6));
+  }, [setPageSize, dispatch]);
+
+  const pageSizeOptions: IPageSize[] = [
+    { value: "6", label: "6" },
+    { value: "12", label: "12" },
+    { value: "24", label: "24" },
+  ];
+
+  const customTheme = (theme: any) => {
+    return {
+      ...theme,
+      colors: {
+        ...theme.colors,
+        primary25: "#FF768E",
+        primary: "#C60E2E",
+      },
+    };
+  };
+  return (
+    <Select
+      className={s.reactSelectContainer}
+      classNamePrefix="select-paze-size"
+      theme={customTheme}
+      options={pageSizeOptions}
+      defaultValue={pageSizeOptions[0]}
+      onChange={(data: any) => dispatch(setPageSize(data.value))}
+    />
+  );
+};
+
+export default PageSizeSelect;

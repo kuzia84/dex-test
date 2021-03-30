@@ -1,0 +1,20 @@
+.wrapper {
+    display: none;
+}
+@media (max-width: 768px) {
+    .wrapper {
+        display: block;
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
+.burger {
+    width: 24px;
+    height: 24px;
+    display: block;
+    border: none;
+    background: url("../../../img/menu_24px.svg") center no-repeat;
+    cursor: pointer;
+}
