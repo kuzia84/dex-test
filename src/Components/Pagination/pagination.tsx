@@ -1,7 +1,7 @@
 import React from "react";
 import ReactPaginate from "react-paginate";
 import { useAppDispatch } from "../../store/hooks";
-import { IPagination } from "../../Interfaces";
+import { IPagination } from "../../Interfaces/interfaces";
 import s from "./style.module.css";
 
 const Pagination: React.FC<IPagination> = ({

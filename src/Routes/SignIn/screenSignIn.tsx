@@ -1,4 +1,4 @@
-import SignInForm from "../../Components/SignInForm";
+import SignInForm from "../../Components/SignInForm/signInForm";
 import signInBg from "../../img/sign-in-bg.svg";
 
 interface ISignIn {

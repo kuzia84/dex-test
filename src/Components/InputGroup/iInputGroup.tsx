@@ -1,4 +1,4 @@
-import { InputProps } from "../../Interfaces";
+import { InputProps } from "../../Interfaces/interfaces";
 
 import s from "./style.module.css";
 

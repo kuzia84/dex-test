@@ -1,6 +1,6 @@
 import { Controller } from "react-hook-form";
 import Select from "react-select";
-import { SelectProps } from "../../Interfaces";
+import { SelectProps } from "../../Interfaces/interfaces";
 import s from "./style.module.css";
 
 const SelectGroup: React.FC<SelectProps> = ({

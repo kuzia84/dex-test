@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { SingleTeamPageResultState, TeamDto } from "../Interfaces";
+import { SingleTeamPageResultState, TeamDto } from "../Interfaces/interfaces";
 import { RootState } from "./store";
 
 const initialState: SingleTeamPageResultState = {
@@ -16,7 +16,7 @@ const initialState: SingleTeamPageResultState = {
 };
 
 export const fetchSingleTeamAsync = createAsyncThunk<any, string>(
-  "team/fetchData",
+  "team/fetchTeamData",
   async (request) => {
     const myHeaders = new Headers({
       "Content-Type": "application/json",
@@ -31,7 +31,7 @@ export const fetchSingleTeamAsync = createAsyncThunk<any, string>(
   }
 );
 
-export const getSingleTeamSlice = createSlice({
+const getSingleTeamSlice = createSlice({
   name: "getSingleTeam",
   initialState,
   reducers: {
@@ -59,4 +59,4 @@ export const SelectSingleTeamIsLoading = (state: RootState) =>
 export const SelectSingleTeamError = (state: RootState) =>
   state.getSingleTeam.error;
 
-export default getSingleTeamSlice.reducer;
+export const getSingleTeamReducer = getSingleTeamSlice.reducer;

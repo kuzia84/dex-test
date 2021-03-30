@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Select from "react-select";
 import { useAppDispatch } from "../../store/hooks";
-import { IPageSize, IPageSizeSelect } from "../../Interfaces";
+import { IPageSize, IPageSizeSelect } from "../../Interfaces/interfaces";
 import s from "./style.module.css";
 
 const PageSizeSelect: React.FC<IPageSizeSelect> = ({ setPageSize }) => {

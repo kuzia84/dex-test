@@ -1,11 +1,16 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { ITeamAddData, ITeamAddInputs, NewTeamDto } from "../../Interfaces";
+import {
+  ITeamAddData,
+  ITeamAddInputs,
+  NewTeamDto,
+} from "../../Interfaces/interfaces";
 import { fetchAddTeam } from "../../store/addTeamSlise";
 import { SelectSingleTeamData } from "../../store/getTeamSlise";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { newSelectedId } from "../../store/selectedIdSlise";
-import InputGroup from "../InputGroup";
+import { fetchUpdateTeamById } from "../../store/updateTeamById";
+import InputGroup from "../InputGroup/iInputGroup";
 
 const AddNewTeam: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -20,7 +25,6 @@ const AddNewTeam: React.FC = () => {
     setValue,
   } = useForm<ITeamAddInputs>();
   const setTeamDataValues = () => {
-    // setValue("teamPhoto", singleTeam.imageUrl);
     setValue("teamName", singleTeam.name);
     setValue("teamDivision", singleTeam.division);
     setValue("teamConference", singleTeam.conference);
@@ -34,14 +38,27 @@ const AddNewTeam: React.FC = () => {
   }, []);
 
   const onSubmit = (data: ITeamAddData) => {
-    const addTeamData: NewTeamDto = {
-      name: data.teamName,
-      foundationYear: data.teamFoundation,
-      division: data.teamDivision,
-      conference: data.teamConference,
-      imageUrl: data.teamPhoto[0].name,
-    };
-    dispatch(fetchAddTeam(addTeamData));
+    if (selectedId !== 0) {
+      const updateTeamData: NewTeamDto = {
+        name: data.teamName,
+        foundationYear: data.teamFoundation,
+        division: data.teamDivision,
+        conference: data.teamConference,
+        imageUrl: data.teamPhoto[0].name,
+        id: selectedId,
+      };
+      dispatch(fetchUpdateTeamById(updateTeamData));
+    } else {
+      const addTeamData: NewTeamDto = {
+        name: data.teamName,
+        foundationYear: data.teamFoundation,
+        division: data.teamDivision,
+        conference: data.teamConference,
+        imageUrl: data.teamPhoto[0].name,
+      };
+      dispatch(fetchAddTeam(addTeamData));
+    }
+
     reset();
   };
   return (

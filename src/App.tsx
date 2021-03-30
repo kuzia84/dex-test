@@ -1,14 +1,14 @@
 import { Route, Switch } from "react-router-dom";
-import Header from "./Components/Header";
-import Sidebar from "./Components/Sidebar";
-import TeamCards from "./Routes/TeamCards";
-import Team from "./Routes/Team";
-import PlayersCards from "./Routes/PlayersCards";
-import Player from "./Routes/Player";
-import SignIn from "./Routes/SignIn";
-import SignUp from "./Routes/SignUp";
-import AddNewPlayer from "./Routes/AddNewPlayer";
-import AddNewTeam from "./Routes/AddNewTeam";
+import Header from "./Components/Header/header";
+import Sidebar from "./Components/Sidebar/sidebar";
+import TeamCards from "./Routes/TeamCards/screenTeamCards";
+import Team from "./Routes/Team/screenTeam";
+import PlayersCards from "./Routes/PlayersCards/screenPlayerCards";
+import Player from "./Routes/Player/screenPlayer";
+import SignIn from "./Routes/SignIn/screenSignIn";
+import SignUp from "./Routes/SignUp/screenSignUp";
+import AddNewPlayer from "./Routes/AddNewPlayer/sreenAddNewPlayer";
+import AddNewTeam from "./Routes/AddNewTeam/screenAddNewTeam";
 
 function App() {
   return (

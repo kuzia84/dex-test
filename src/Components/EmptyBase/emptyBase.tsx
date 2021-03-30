@@ -1,5 +1,5 @@
 import React from "react";
-import { IEmpty } from "../../Interfaces";
+import { IEmpty } from "../../Interfaces/interfaces";
 
 import s from "./style.module.css";
 

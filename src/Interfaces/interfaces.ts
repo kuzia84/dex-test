@@ -226,6 +226,7 @@ export interface NewPlayerDto {
   height: number;
   weight: number;
   avatarUrl: string;
+  id?: number;
 }
 
 export interface NewTeamDto {
@@ -234,4 +235,5 @@ export interface NewTeamDto {
   division: string;
   conference: string;
   imageUrl: string;
+  id?: number;
 }

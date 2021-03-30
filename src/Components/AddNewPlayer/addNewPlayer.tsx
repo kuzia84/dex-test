@@ -4,7 +4,7 @@ import {
   IPlayerAddData,
   IPlayerAddInputs,
   NewPlayerDto,
-} from "../../Interfaces";
+} from "../../Interfaces/interfaces";
 import { fetchAddPlayer } from "../../store/addPlayerSlise";
 import {
   fetchPlayerPositionsAsync,
@@ -19,8 +19,9 @@ import {
 } from "../../store/getTeamsSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { newSelectedId } from "../../store/selectedIdSlise";
-import InputGroup from "../InputGroup";
-import SelectGroup from "../SelectGroup";
+import { fetchUpdatePlayerById } from "../../store/updatePlayerById";
+import InputGroup from "../InputGroup/iInputGroup";
+import SelectGroup from "../SelectGroup/selectGroup";
 
 const AddPlayer: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -80,17 +81,32 @@ const AddPlayer: React.FC = () => {
   }, [selectedId]);
 
   const onSubmit = (data: IPlayerAddData) => {
-    const addPlayerData: NewPlayerDto = {
-      name: data.playerName,
-      number: data.playerNumber,
-      position: data.playerPosition.value,
-      team: data.playerTeam.value,
-      birthday: data.playerBirthday,
-      height: data.playerHeight,
-      weight: data.playerWeight,
-      avatarUrl: data.playerPhoto[0].name,
-    };
-    dispatch(fetchAddPlayer(addPlayerData));
+    if (selectedId !== 0) {
+      const updatePlayerData: NewPlayerDto = {
+        name: data.playerName,
+        number: data.playerNumber,
+        position: data.playerPosition.value,
+        team: data.playerTeam.value,
+        birthday: data.playerBirthday,
+        height: data.playerHeight,
+        weight: data.playerWeight,
+        avatarUrl: data.playerPhoto[0].name,
+        id: selectedId,
+      };
+      dispatch(fetchUpdatePlayerById(updatePlayerData));
+    } else {
+      const addPlayerData: NewPlayerDto = {
+        name: data.playerName,
+        number: data.playerNumber,
+        position: data.playerPosition.value,
+        team: data.playerTeam.value,
+        birthday: data.playerBirthday,
+        height: data.playerHeight,
+        weight: data.playerWeight,
+        avatarUrl: data.playerPhoto[0].name,
+      };
+      dispatch(fetchAddPlayer(addPlayerData));
+    }
     reset();
   };
 
@@ -144,7 +160,6 @@ const AddPlayer: React.FC = () => {
               control={control}
             />
           )}
-
           <div className="form-row">
             <div className="form-col">
               <InputGroup

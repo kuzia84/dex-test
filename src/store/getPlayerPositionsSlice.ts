@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { PlayerPositionsState } from "../Interfaces";
+import { PlayerPositionsState } from "../Interfaces/interfaces";
 import { RootState } from "./store";
 
 const initialState: PlayerPositionsState = {
@@ -9,7 +9,7 @@ const initialState: PlayerPositionsState = {
 };
 
 export const fetchPlayerPositionsAsync = createAsyncThunk<any, string>(
-  "player/fetchData",
+  "player/fetchPlayerPosition",
   async (request) => {
     const myHeaders = new Headers({
       "Content-Type": "application/json",
@@ -24,7 +24,7 @@ export const fetchPlayerPositionsAsync = createAsyncThunk<any, string>(
   }
 );
 
-export const getPlayerPositionsSlice = createSlice({
+const getPlayerPositionsSlice = createSlice({
   name: "getPlayerPositions",
   initialState,
   reducers: {
@@ -52,4 +52,4 @@ export const SelectPlayerPositionsIsLoading = (state: RootState) =>
 export const SelectPlayerPositionsError = (state: RootState) =>
   state.getPlayerPositions.error;
 
-export default getPlayerPositionsSlice.reducer;
+export const getPlayerPositionsReducer = getPlayerPositionsSlice.reducer;

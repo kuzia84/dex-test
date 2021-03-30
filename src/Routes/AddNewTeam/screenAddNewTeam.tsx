@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setMenuId } from "../../store/sideMenuSlise";
-import AddNewTeam from "../../Components/AddNewTeam";
-import BreadCrumbs from "../../Components/BreadCrumbs";
+import AddNewTeam from "../../Components/AddNewTeam/addNewTeam";
+import BreadCrumbs from "../../Components/BreadCrumbs/breadCrumbs";
 import { SelectSingleTeamData } from "../../store/getTeamSlise";
 
 const AddNewPlayer: React.FC = () => {

@@ -5,7 +5,7 @@ const initialState: { active: boolean } = {
   active: false,
 };
 
-export const sidebarStateSlise = createSlice({
+const sidebarStateSlise = createSlice({
   name: "sidebarState",
   initialState,
   reducers: {
@@ -18,4 +18,5 @@ export const sidebarStateSlise = createSlice({
 
 export const { setSidebrSate } = sidebarStateSlise.actions;
 export const selectSidebrSate = (state: RootState) => state.sidebarState.active;
-export default sidebarStateSlise.reducer;
+
+export const sidebarStateReducer = sidebarStateSlise.reducer;

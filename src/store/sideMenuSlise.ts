@@ -9,7 +9,7 @@ const initialState: IState = {
   menuId: 0,
 };
 
-export const sideMenuSlise = createSlice({
+const sideMenuSlise = createSlice({
   name: "sideMenuId",
   initialState,
   reducers: {
@@ -22,4 +22,4 @@ export const sideMenuSlise = createSlice({
 
 export const { setMenuId } = sideMenuSlise.actions;
 export const silectSideMenuId = (state: RootState) => state.sideMenu.menuId;
-export default sideMenuSlise.reducer;
+export const sideMenuReducer = sideMenuSlise.reducer;

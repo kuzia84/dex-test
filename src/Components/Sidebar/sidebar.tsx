@@ -7,8 +7,8 @@ import { ReactComponent as TeamsImg } from "../../img/group_person_rounded.svg";
 import { ReactComponent as PlayersImg } from "../../img/person_rounded.svg";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { silectSideMenuId, setMenuId } from "../../store/sideMenuSlise";
-import { IMenu } from "../../Interfaces";
-import User from "../Header/User";
+import { IMenu } from "../../Interfaces/interfaces";
+import User from "../Header/User/user";
 import userImg from "../../img/profile.svg";
 import { selectSidebrSate, setSidebrSate } from "../../store/sidebarStateSlise";
 

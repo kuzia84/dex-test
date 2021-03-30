@@ -1,5 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { PlayerDtoPageResult, PlayerDtoPageResultState } from "../Interfaces";
+import {
+  PlayerDtoPageResult,
+  PlayerDtoPageResultState,
+} from "../Interfaces/interfaces";
 import { RootState } from "./store";
 
 const initialState: PlayerDtoPageResultState = {
@@ -14,7 +17,7 @@ const initialState: PlayerDtoPageResultState = {
 };
 
 export const fetchPlayersAsync = createAsyncThunk<any, string>(
-  "players/fatchData",
+  "players/fatchPlayersData",
   async (request) => {
     const myHeaders = new Headers({
       "Content-Type": "application/json",
@@ -29,7 +32,7 @@ export const fetchPlayersAsync = createAsyncThunk<any, string>(
   }
 );
 
-export const getPlayersSlice = createSlice({
+const getPlayersSlice = createSlice({
   name: "getPlayers",
   initialState,
   reducers: {
@@ -56,4 +59,4 @@ export const selectPlayersIsLoading = (state: RootState) =>
   state.getPlayers.isLoading;
 export const selectPlayersError = (state: RootState) => state.getPlayers.error;
 
-export default getPlayersSlice.reducer;
+export const getPlayersReducer = getPlayersSlice.reducer;

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { AddNewPlayerState, NewTeamDto } from "../Interfaces";
+import { AddNewPlayerState, NewTeamDto } from "../Interfaces/interfaces";
 import { RootState } from "./store";
 
 const initialState: AddNewPlayerState = {
@@ -28,7 +28,7 @@ export const fetchAddTeam = createAsyncThunk<any, NewTeamDto>(
   }
 );
 
-export const addTeamSlise = createSlice({
+const addTeamSlise = createSlice({
   name: "addTeam",
   initialState,
   reducers: {
@@ -55,4 +55,4 @@ export const selectAddTeamIsLoading = (state: RootState) =>
   state.addTeam.isLoading;
 export const selectAddTeamIsError = (state: RootState) => state.addTeam.errors;
 
-export default addTeamSlise.reducer;
+export const addTeamReducer = addTeamSlise.reducer;

@@ -6,7 +6,7 @@ import {
   selectTeamsData,
   selectTeamsIsLoading,
 } from "../../store/getTeamsSlice";
-import { PlayerDto } from "../../Interfaces";
+import { PlayerDto } from "../../Interfaces/interfaces";
 import s from "./style.module.css";
 
 const PlayerCard: React.FC<PlayerDto> = ({

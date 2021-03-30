@@ -8,7 +8,7 @@ import { newSelectedId } from "../../store/selectedIdSlise";
 
 import s from "./style.module.css";
 import cn from "classnames";
-import { PlayerDto } from "../../Interfaces";
+import { PlayerDto } from "../../Interfaces/interfaces";
 
 const TeamRoster: React.FC = () => {
   const dispatch = useAppDispatch();

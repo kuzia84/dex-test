@@ -1,5 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { PlayerTeamNameDto, SinglePlayerPageResultState } from "../Interfaces";
+import {
+  PlayerTeamNameDto,
+  SinglePlayerPageResultState,
+} from "../Interfaces/interfaces";
 import { RootState } from "./store";
 
 const initialState: SinglePlayerPageResultState = {
@@ -20,7 +23,7 @@ const initialState: SinglePlayerPageResultState = {
 };
 
 export const fetchSinglePlayerAsync = createAsyncThunk<any, string>(
-  "player/fetchData",
+  "player/fetchPlayerData",
   async (request) => {
     const myHeaders = new Headers({
       "Content-Type": "application/json",
@@ -35,7 +38,7 @@ export const fetchSinglePlayerAsync = createAsyncThunk<any, string>(
   }
 );
 
-export const getSinglePlayerSlice = createSlice({
+const getSinglePlayerSlice = createSlice({
   name: "getSinglePlayer",
   initialState,
   reducers: {
@@ -63,4 +66,4 @@ export const SelectSinglePlayerIsLoading = (state: RootState) =>
 export const SelectSinglePlayerError = (state: RootState) =>
   state.getSinglePlayer.error;
 
-export default getSinglePlayerSlice.reducer;
+export const getSinglePlayerReducer = getSinglePlayerSlice.reducer;

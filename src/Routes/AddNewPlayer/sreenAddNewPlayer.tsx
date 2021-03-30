@@ -1,17 +1,16 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setMenuId } from "../../store/sideMenuSlise";
-import AddPlayer from "../../Components/AddNewPlayer";
-import BreadCrumbs from "../../Components/BreadCrumbs";
+import AddPlayer from "../../Components/AddNewPlayer/addNewPlayer";
+import BreadCrumbs from "../../Components/BreadCrumbs/breadCrumbs";
 import { SelectSinglePlayerData } from "../../store/getPlayerSlise";
-import { PlayerTeamNameDto } from "../../Interfaces";
+import { PlayerTeamNameDto } from "../../Interfaces/interfaces";
 
 const AddNewPlayer: React.FC = () => {
   const dispatch = useAppDispatch();
   const singlePlayer: PlayerTeamNameDto = useAppSelector(
     SelectSinglePlayerData
   );
-  console.log("singlePlayer: ", singlePlayer);
   useEffect(() => {
     dispatch(setMenuId(2));
   }, []);

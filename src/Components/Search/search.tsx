@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ISearch } from "../../Interfaces";
+import { ISearch } from "../../Interfaces/interfaces";
 import { useAppDispatch } from "../../store/hooks";
 
 import s from "./style.module.css";

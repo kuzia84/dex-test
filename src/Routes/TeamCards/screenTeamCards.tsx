@@ -8,14 +8,14 @@ import {
   setSearchText,
 } from "../../store/teamsFetchSuffix";
 
-import AddBtn from "../../Components/AddBtn";
-import Search from "../../Components/Search";
-import TeamCard from "../../Components/TeamCard";
-import SelectPageSize from "../../Components/SelectPageSize";
-import Pagination from "../../Components/Pagination";
+import AddBtn from "../../Components/AddBtn/addBtn";
+import Search from "../../Components/Search/search";
+import TeamCard from "../../Components/TeamCard/teamCard";
+import SelectPageSize from "../../Components/SelectPageSize/selectPageSize";
+import Pagination from "../../Components/Pagination/pagination";
 import EmptyImg from "../../img/empty-team.svg";
-import EmptyBase from "../../Components/EmptyBase";
-import { IFetchSuffix } from "../../Interfaces";
+import EmptyBase from "../../Components/EmptyBase/emptyBase";
+import { IFetchSuffix } from "../../Interfaces/interfaces";
 import { setMenuId } from "../../store/sideMenuSlise";
 import { useHistory } from "react-router";
 import { setId } from "../../store/selectedIdSlise";

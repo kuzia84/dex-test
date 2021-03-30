@@ -8,7 +8,7 @@ import {
   selectTeamsIsLoading,
 } from "../../store/getTeamsSlice";
 import { setTeamIds } from "../../store/playersFetchSuffix";
-import { ITeamSelectOptions, TeamDto } from "../../Interfaces";
+import { ITeamSelectOptions, TeamDto } from "../../Interfaces/interfaces";
 
 import s from "./style.module.css";
 

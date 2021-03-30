@@ -1,4 +1,4 @@
-import SignUpForm from "../../Components/SignUpForm";
+import SignUpForm from "../../Components/SignUpForm/signUpForm";
 import signUpBg from "../../img/sign-up-bg.svg";
 
 interface ISignUp {

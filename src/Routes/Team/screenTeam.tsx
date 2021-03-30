@@ -4,13 +4,13 @@ import {
   fetchSingleTeamAsync,
   SelectSingleTeamData,
 } from "../../store/getTeamSlise";
-import BreadCrumbs from "../../Components/BreadCrumbs";
-import ControlButtons from "../../Components/ControlButtons";
+import BreadCrumbs from "../../Components/BreadCrumbs/breadCrumbs";
+import ControlButtons from "../../Components/ControlButtons/controlButtons";
 import { newSelectedId } from "../../store/selectedIdSlise";
 import { setMenuId } from "../../store/sideMenuSlise";
 import { useHistory } from "react-router";
-import TeamInfo from "../../Components/TeamInfo";
-import TeamRoster from "../../Components/TeamRoster";
+import TeamInfo from "../../Components/TeamInfo/teamInfo";
+import TeamRoster from "../../Components/TeamRoster/teamRoster";
 
 const Team: React.FC = () => {
   const dispatch = useAppDispatch();

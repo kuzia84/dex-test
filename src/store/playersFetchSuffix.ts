@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IFetchSuffix } from "../Interfaces";
+import { IFetchSuffix } from "../Interfaces/interfaces";
 import { RootState } from "./store";
 
 const initialState: IFetchSuffix = {
@@ -9,7 +9,7 @@ const initialState: IFetchSuffix = {
   teamIds: "",
 };
 
-export const playersFetchSuffixSlise = createSlice({
+const playersFetchSuffixSlise = createSlice({
   name: "playersFetchSuffix",
   initialState,
   reducers: {
@@ -41,4 +41,5 @@ export const {
 } = playersFetchSuffixSlise.actions;
 export const selectPlayersFetchSuffix = (state: RootState) =>
   state.playersFetchSuffix;
-export default playersFetchSuffixSlise.reducer;
+
+export const playersFetchSuffixReducer = playersFetchSuffixSlise.reducer;

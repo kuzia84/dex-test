@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import Logo from "../../img/logo.png";
 import s from "./style.module.css";
-import User from "./User";
+import User from "./User/user";
 import userImg from "../../img/profile.svg";
-import BurgerBtn from "./BurgerBtn";
+import BurgerBtn from "./BurgerBtn/burgerBtn";
 
 const Header: React.FC = () => {
   return (

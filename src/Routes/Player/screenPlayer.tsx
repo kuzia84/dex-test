@@ -4,12 +4,12 @@ import {
   fetchSinglePlayerAsync,
   SelectSinglePlayerData,
 } from "../../store/getPlayerSlise";
-import BreadCrumbs from "../../Components/BreadCrumbs";
-import ControlButtons from "../../Components/ControlButtons";
+import BreadCrumbs from "../../Components/BreadCrumbs/breadCrumbs";
+import ControlButtons from "../../Components/ControlButtons/controlButtons";
 import { newSelectedId } from "../../store/selectedIdSlise";
 import { setMenuId } from "../../store/sideMenuSlise";
 import { useHistory } from "react-router";
-import PlayerInfo from "../../Components/PlayerInfo";
+import PlayerInfo from "../../Components/PlayerInfo/playerInfo";
 
 const Player: React.FC = () => {
   const dispatch = useAppDispatch();

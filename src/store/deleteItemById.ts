@@ -32,7 +32,7 @@ export const fetchDeleteItemById = createAsyncThunk(
   }
 );
 
-export const deleteItemByIdSlise = createSlice({
+const deleteItemByIdSlise = createSlice({
   name: "deleteItemById",
   initialState,
   reducers: {
@@ -60,4 +60,4 @@ export const SelectDeleteItemByIdIsloading = (state: RootState) =>
 export const SelectDeleteItemByIdError = (state: RootState) =>
   state.deleteItemById.errors;
 
-export default deleteItemByIdSlise.reducer;
+export const deleteItemByIdReducer= deleteItemByIdSlise.reducer;

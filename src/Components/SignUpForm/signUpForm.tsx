@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from "react";
 import { Link } from "react-router-dom";
-import Checkbox from "../Checkbox";
-import Input from "../Input";
+import Checkbox from "../Checkbox/checkbox";
+import Input from "../Input/input";
 import s from "./style.module.css";
 
 interface IForm {

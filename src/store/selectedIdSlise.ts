@@ -5,7 +5,7 @@ const initialState: { id: number } = {
   id: 0,
 };
 
-export const selectedIdSlice = createSlice({
+const selectedIdSlice = createSlice({
   name: "selectedId",
   initialState,
   reducers: {
@@ -18,4 +18,5 @@ export const selectedIdSlice = createSlice({
 
 export const { resetId, setId } = selectedIdSlice.actions;
 export const newSelectedId = (state: RootState) => state.selectedId.id;
-export default selectedIdSlice.reducer;
+
+export const selectedIdReducer = selectedIdSlice.reducer;

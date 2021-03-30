@@ -1,6 +1,6 @@
 import { ChangeEvent, useState } from "react";
 import { Link } from "react-router-dom";
-import Input from "../Input";
+import Input from "../Input/input";
 import s from "./style.module.css";
 
 interface IForm {
