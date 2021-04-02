@@ -5,14 +5,14 @@ import {
   ITeamAddInputs,
   NewTeamDto,
 } from "../../Interfaces/interfaces";
-import { fetchAddTeam } from "../../store/addTeamSlise";
-import { SelectSingleTeamData } from "../../store/getTeamSlise";
+import { fetchAddTeam } from "../../store/addTeamSlice";
+import { SelectSingleTeamData } from "../../store/getTeamSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { newSelectedId } from "../../store/selectedIdSlise";
+import { newSelectedId } from "../../store/selectedIdSlice";
 import { fetchUpdateTeamById } from "../../store/updateTeamById";
-import InputGroup from "../InputGroup/iInputGroup";
+import { InputGroup } from "../InputGroup/iInputGroup";
 
-const AddNewTeam: React.FC = () => {
+export const AddTeam: React.FC = () => {
   const dispatch = useAppDispatch();
   const selectedId = useAppSelector(newSelectedId);
   const singleTeam = useAppSelector(SelectSingleTeamData);
@@ -35,7 +35,7 @@ const AddNewTeam: React.FC = () => {
     if (selectedId !== 0) {
       setTeamDataValues();
     }
-  }, []);
+  }, [selectedId]);
 
   const onSubmit = (data: ITeamAddData) => {
     if (selectedId !== 0) {
@@ -122,5 +122,3 @@ const AddNewTeam: React.FC = () => {
     </form>
   );
 };
-
-export default AddNewTeam;

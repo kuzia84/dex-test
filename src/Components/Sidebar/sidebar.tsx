@@ -6,13 +6,13 @@ import { ReactComponent as Logout } from "../../img/logout_rounded.svg";
 import { ReactComponent as TeamsImg } from "../../img/group_person_rounded.svg";
 import { ReactComponent as PlayersImg } from "../../img/person_rounded.svg";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { silectSideMenuId, setMenuId } from "../../store/sideMenuSlise";
+import { silectSideMenuId, setMenuId } from "../../store/sideMenuSlice";
 import { IMenu } from "../../Interfaces/interfaces";
-import User from "../Header/User/user";
+import { User } from "../Header/User/user";
 import userImg from "../../img/profile.svg";
-import { selectSidebrSate, setSidebrSate } from "../../store/sidebarStateSlise";
+import { selectSidebrSate, setSidebrSate } from "../../store/sidebarStateSlice";
 
-const Sidebar: React.FC = () => {
+export const Sidebar: React.FC = () => {
   const MENU: IMenu[] = [
     {
       id: 1,
@@ -50,10 +50,14 @@ const Sidebar: React.FC = () => {
     setMenu(newMenu);
   }, []);
 
+  const userName: any = localStorage.getItem("userName")
+    ? localStorage.getItem("userName")
+    : "John Smith";
+
   return (
     <aside className={cn(s.sidebar, { [s.active]: sidebarState })}>
       <div className={s.user}>
-        <User userName="John Smith" userImg={userImg} />
+        <User userName={userName} userImg={userImg} />
       </div>
       <nav className={s.sidebarNav}>
         <ul>
@@ -74,12 +78,17 @@ const Sidebar: React.FC = () => {
             ))}
         </ul>
       </nav>
-      <Link className={s.logout} to="/">
+      <Link
+        className={s.logout}
+        to="/"
+        onClick={() => {
+          localStorage.removeItem("token");
+          localStorage.removeItem("userName");
+        }}
+      >
         <Logout />
         <div>Sign out</div>
       </Link>
     </aside>
   );
 };
-
-export default Sidebar;

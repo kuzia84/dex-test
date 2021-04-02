@@ -1,7 +1,7 @@
 import { ReactComponent as Pen } from "../../img/create.svg";
 import { ReactComponent as Delete } from "../../img/delete.svg";
 import { fetchDeleteItemById } from "../../store/deleteItemById";
-import { silectSideMenuId } from "../../store/sideMenuSlise";
+import { silectSideMenuId } from "../../store/sideMenuSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import s from "./style.module.css";
 import { useHistory } from "react-router";
@@ -10,7 +10,7 @@ interface IProps {
   itemId: number;
 }
 
-const ControlButtons: React.FC<IProps> = (props) => {
+export const ControlButtons: React.FC<IProps> = (props) => {
   const dispatch = useAppDispatch();
   const history = useHistory();
   const currentPageId = useAppSelector(silectSideMenuId);
@@ -51,5 +51,3 @@ const ControlButtons: React.FC<IProps> = (props) => {
     </div>
   );
 };
-
-export default ControlButtons;

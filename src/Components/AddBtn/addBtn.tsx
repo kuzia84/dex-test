@@ -1,11 +1,11 @@
 import { useHistory } from "react-router";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { resetId } from "../../store/selectedIdSlise";
+import { resetId } from "../../store/selectedIdSlice";
 
-import { silectSideMenuId } from "../../store/sideMenuSlise";
+import { silectSideMenuId } from "../../store/sideMenuSlice";
 import s from "./style.module.css";
 
-const AddBtn: React.FC = () => {
+export const AddBtn: React.FC = () => {
   const dispatch = useAppDispatch();
   const currentPageId = useAppSelector(silectSideMenuId);
 
@@ -24,5 +24,3 @@ const AddBtn: React.FC = () => {
     </div>
   );
 };
-
-export default AddBtn;

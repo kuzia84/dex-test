@@ -3,7 +3,7 @@ import Select from "react-select";
 import { SelectProps } from "../../Interfaces/interfaces";
 import s from "./style.module.css";
 
-const SelectGroup: React.FC<SelectProps> = ({
+export const SelectGroup: React.FC<SelectProps> = ({
   label,
   selectName,
   errorText,
@@ -38,5 +38,3 @@ const SelectGroup: React.FC<SelectProps> = ({
     </div>
   );
 };
-
-export default SelectGroup;

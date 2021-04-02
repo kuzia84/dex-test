@@ -4,7 +4,7 @@ import { useAppDispatch } from "../../store/hooks";
 import { IPagination } from "../../Interfaces/interfaces";
 import s from "./style.module.css";
 
-const Pagination: React.FC<IPagination> = ({
+export const Pagination: React.FC<IPagination> = ({
   loadedCardsNumber,
   pageSize,
   pageNumber,
@@ -32,5 +32,3 @@ const Pagination: React.FC<IPagination> = ({
     />
   );
 };
-
-export default Pagination;

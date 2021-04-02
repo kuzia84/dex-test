@@ -3,15 +3,17 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import {
   fetchSinglePlayerAsync,
   SelectSinglePlayerData,
-} from "../../store/getPlayerSlise";
-import BreadCrumbs from "../../Components/BreadCrumbs/breadCrumbs";
-import ControlButtons from "../../Components/ControlButtons/controlButtons";
-import { newSelectedId } from "../../store/selectedIdSlise";
-import { setMenuId } from "../../store/sideMenuSlise";
+} from "../../store/getPlayerSlice";
+import { BreadCrumbs } from "../../Components/BreadCrumbs/breadCrumbs";
+import { ControlButtons } from "../../Components/ControlButtons/controlButtons";
+import { newSelectedId } from "../../store/selectedIdSlice";
+import { setMenuId } from "../../store/sideMenuSlice";
 import { useHistory } from "react-router";
-import PlayerInfo from "../../Components/PlayerInfo/playerInfo";
+import { PlayerInfo } from "../../Components/PlayerInfo/playerInfo";
+import { Sidebar } from "../../Components/Sidebar/sidebar";
+import { Header } from "../../Components/Header/header";
 
-const Player: React.FC = () => {
+export const Player: React.FC = () => {
   const dispatch = useAppDispatch();
   const history = useHistory();
   const singlePlayer = useAppSelector(SelectSinglePlayerData);
@@ -27,18 +29,22 @@ const Player: React.FC = () => {
   }, [request, dispatch]);
 
   return (
-    <div className="item bg">
-      <div className="item__wrapper">
-        <div className="item__top">
-          <BreadCrumbs path="Players" name={singlePlayer.name} />
-          <ControlButtons itemId={singlePlayer.id} />
-        </div>
-        <div className="item__content">
-          <PlayerInfo />
+    <div className="page">
+      <Header />
+      <Sidebar />
+      <div className="page-content">
+        <div className="item bg">
+          <div className="item__wrapper">
+            <div className="item__top">
+              <BreadCrumbs path="Players" name={singlePlayer.name} />
+              <ControlButtons itemId={singlePlayer.id} />
+            </div>
+            <div className="item__content">
+              <PlayerInfo />
+            </div>
+          </div>
         </div>
       </div>
     </div>
   );
 };
-
-export default Player;

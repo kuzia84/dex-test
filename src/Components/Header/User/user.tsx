@@ -4,7 +4,7 @@ interface IUser {
   userName: string;
   userImg: string;
 }
-const User: React.FC<IUser> = ({ userName, userImg }) => {
+export const User: React.FC<IUser> = ({ userName, userImg }) => {
   return (
     <div className={s.user}>
       <div className={s.userName}>{userName}</div>
@@ -12,4 +12,3 @@ const User: React.FC<IUser> = ({ userName, userImg }) => {
     </div>
   );
 };
-export default User;

@@ -1,9 +1,9 @@
-import { SelectSingleTeamData } from "../../store/getTeamSlise";
+import { SelectSingleTeamData } from "../../store/getTeamSlice";
 import { useAppSelector } from "../../store/hooks";
 
 import s from "./style.module.css";
 
-const TeamInfo: React.FC = () => {
+export const TeamInfo: React.FC = () => {
   const singleTeam = useAppSelector(SelectSingleTeamData);
 
   return (
@@ -31,5 +31,3 @@ const TeamInfo: React.FC = () => {
     </>
   );
 };
-
-export default TeamInfo;

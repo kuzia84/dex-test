@@ -6,7 +6,7 @@ interface IProps {
   name: string;
 }
 
-const BreadCrumbs: React.FC<IProps> = (props) => {
+export const BreadCrumbs: React.FC<IProps> = (props) => {
   return (
     <ul className={s.breadcrumbs}>
       <li>
@@ -16,5 +16,3 @@ const BreadCrumbs: React.FC<IProps> = (props) => {
     </ul>
   );
 };
-
-export default BreadCrumbs;

@@ -3,7 +3,7 @@ import { IEmpty } from "../../Interfaces/interfaces";
 
 import s from "./style.module.css";
 
-const EmptyBase: React.FC<IEmpty> = ({ imageUrl }) => {
+export const EmptyBase: React.FC<IEmpty> = ({ imageUrl }) => {
   return (
     <div className={s.emptyWrapper}>
       <div className={s.empty}>
@@ -14,5 +14,3 @@ const EmptyBase: React.FC<IEmpty> = ({ imageUrl }) => {
     </div>
   );
 };
-
-export default EmptyBase;

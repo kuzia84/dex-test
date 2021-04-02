@@ -1,9 +1,9 @@
-import { SelectSinglePlayerData } from "../../store/getPlayerSlise";
+import { SelectSinglePlayerData } from "../../store/getPlayerSlice";
 import { useAppSelector } from "../../store/hooks";
 
 import s from "./style.module.css";
 
-const PlayerInfo: React.FC = () => {
+export const PlayerInfo: React.FC = () => {
   const singlePlayer = useAppSelector(SelectSinglePlayerData);
 
   return (
@@ -46,5 +46,3 @@ const PlayerInfo: React.FC = () => {
     </>
   );
 };
-
-export default PlayerInfo;

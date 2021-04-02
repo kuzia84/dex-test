@@ -1,68 +1,87 @@
-import { ChangeEvent, useState } from "react";
-import { Link } from "react-router-dom";
-import Checkbox from "../Checkbox/checkbox";
-import Input from "../Input/input";
+import { useForm } from "react-hook-form";
+import { Link, useHistory } from "react-router-dom";
+import {
+  ISignUpInputs,
+  ISignUpRequest,
+  ISignUpData,
+} from "../../Interfaces/interfaces";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { selectSignUpError } from "../../store/signUpSlice";
+import { fetchSignUp } from "../../store/signUpSlice";
+import { Checkbox } from "../Checkbox/checkbox";
+import { InputGroup } from "../InputGroup/iInputGroup";
 import s from "./style.module.css";
 
-interface IForm {
-  onSubmit: (props: {
-    userName: string;
-    login: string;
-    password: string;
-  }) => void;
-}
+export const SignUpForm: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const { register, handleSubmit, errors } = useForm<ISignUpInputs>();
+  const signUpError = useAppSelector(selectSignUpError);
+  const history = useHistory();
 
-const SignUpForm: React.FC<IForm> = (props) => {
-  const [login, setLogin] = useState<string>("");
-  const [userName, setUserName] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [password2, setPassword2] = useState<string>("");
-  const handleSubmitForm = (event: React.FormEvent) => {
-    event.preventDefault();
-    props.onSubmit && props.onSubmit({ userName, login, password });
-    setUserName("");
-    setLogin("");
-    setPassword("");
-    setPassword2("");
+  const onSubmit = (data: ISignUpData) => {
+    if (data.password === data.checkPassword) {
+      const signUpRequest: ISignUpRequest = {
+        userName: data.userName,
+        login: data.login,
+        password: data.password,
+      };
+
+      dispatch(fetchSignUp(signUpRequest));
+      if (!signUpError) {
+        history.push("/teams");
+      } else {
+        console.log("signUpError: ", signUpError);
+      }
+    } else {
+      alert("Пароли не совпадают");
+    }
   };
+
   return (
-    <form onSubmit={handleSubmitForm}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <h1 className={s.formTitle}>Sign Up</h1>
-      <Input
+      <InputGroup
         label="Name"
-        name="name"
-        value={userName}
-        onChange={(event: ChangeEvent<HTMLInputElement>) =>
-          setUserName(event.target.value)
-        }
+        inputName="userName"
+        errorText="Enter name"
+        register={register}
+        required
+        errors={errors}
       />
-      <Input
+      <InputGroup
         label="Login"
-        name="login"
-        value={login}
-        onChange={(event: ChangeEvent<HTMLInputElement>) =>
-          setLogin(event.target.value)
-        }
+        inputName="login"
+        errorText="Enter login"
+        register={register}
+        required
+        errors={errors}
       />
-      <Input
+      <InputGroup
+        type="password"
         label="Password"
-        name="password"
-        type="password"
-        value={password}
-        onChange={(event: ChangeEvent<HTMLInputElement>) =>
-          setPassword(event.target.value)
-        }
+        inputName="password"
+        errorText="Enter password"
+        register={register}
+        required
+        errors={errors}
       />
-      <Input
+      <InputGroup
+        type="password"
         label="Enter your password again"
-        name="password2"
-        type="password"
-        value={password2}
-        onChange={(event: ChangeEvent<HTMLInputElement>) =>
-          setPassword2(event.target.value)
-        }
+        inputName="checkPassword"
+        errorText="Enter password"
+        register={register}
+        required
+        errors={errors}
       />
-      <Checkbox name="agreement" label="I accept the agreement" />
+      <Checkbox
+        inputName="agreement"
+        label="I accept the agreement"
+        errorText="Accept the agriment"
+        register={register}
+        required
+        errors={errors}
+      />
       <button className="btn">Sign Up</button>
       <div className={s.signUpLnk}>
         Already a member? <Link to="/sign-in">Sign in</Link>
@@ -70,5 +89,3 @@ const SignUpForm: React.FC<IForm> = (props) => {
     </form>
   );
 };
-
-export default SignUpForm;

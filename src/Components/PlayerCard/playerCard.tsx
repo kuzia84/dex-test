@@ -9,7 +9,7 @@ import {
 import { PlayerDto } from "../../Interfaces/interfaces";
 import s from "./style.module.css";
 
-const PlayerCard: React.FC<PlayerDto> = ({
+export const PlayerCard: React.FC<PlayerDto> = ({
   name,
   number,
   team,
@@ -51,5 +51,3 @@ const PlayerCard: React.FC<PlayerDto> = ({
     </div>
   );
 };
-
-export default PlayerCard;

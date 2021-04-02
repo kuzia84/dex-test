@@ -1,40 +1,44 @@
-import { ChangeEvent, useState } from "react";
-import { Link } from "react-router-dom";
-import Input from "../Input/input";
+import { useForm } from "react-hook-form";
+import { Link, useHistory } from "react-router-dom";
+import { ILoginRequest, ISignInInputs } from "../../Interfaces/interfaces";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { fetchSignIn, selectSignInError } from "../../store/signInSlice";
+import { InputGroup } from "../InputGroup/iInputGroup";
 import s from "./style.module.css";
 
-interface IForm {
-  onSubmit: (props: { login: string; password: string }) => void;
-}
+export const SignInForm: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const { register, handleSubmit, errors } = useForm<ISignInInputs>();
+  const signInError = useAppSelector(selectSignInError);
+  const history = useHistory();
 
-const SignInForm: React.FC<IForm> = (props) => {
-  const [login, setLogin] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const handleSubmitForm = (event: React.FormEvent) => {
-    event.preventDefault();
-    props.onSubmit && props.onSubmit({ login, password });
-    setLogin("");
-    setPassword("");
+  const onSubmit = (data: ILoginRequest) => {
+    dispatch(fetchSignIn(data));
+    if (!signInError) {
+      history.push("/teams");
+    } else {
+      console.log("signInError: ", signInError);
+    }
   };
   return (
-    <form onSubmit={handleSubmitForm}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <h1 className={s.formTitle}>Sign In</h1>
-      <Input
+      <InputGroup
         label="Login"
-        name="login"
-        value={login}
-        onChange={(event: ChangeEvent<HTMLInputElement>) =>
-          setLogin(event.target.value)
-        }
+        inputName="login"
+        errorText="Enter login"
+        register={register}
+        // required
+        errors={errors}
       />
-      <Input
-        label="Password"
-        name="password"
+      <InputGroup
         type="password"
-        value={password}
-        onChange={(event: ChangeEvent<HTMLInputElement>) =>
-          setPassword(event.target.value)
-        }
+        label="Password"
+        inputName="password"
+        errorText="Enter password"
+        register={register}
+        // required
+        errors={errors}
       />
       <button className="btn">Sign In</button>
       <div className={s.signUpLnk}>
@@ -43,5 +47,3 @@ const SignInForm: React.FC<IForm> = (props) => {
     </form>
   );
 };
-
-export default SignInForm;

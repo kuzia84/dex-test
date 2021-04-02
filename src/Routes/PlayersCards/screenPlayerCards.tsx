@@ -10,21 +10,22 @@ import {
   setPageSize,
   setSearchText,
 } from "../../store/playersFetchSuffix";
-
-import AddBtn from "../../Components/AddBtn/addBtn";
-import Search from "../../Components/Search/search";
-import PlayerCard from "../../Components/PlayerCard/playerCard";
-import SelectPageSize from "../../Components/SelectPageSize/selectPageSize";
-import Pagination from "../../Components/Pagination/pagination";
+import { AddBtn } from "../../Components/AddBtn/addBtn";
+import { Search } from "../../Components/Search/search";
+import { PlayerCard } from "../../Components/PlayerCard/playerCard";
+import { PageSizeSelect } from "../../Components/SelectPageSize/selectPageSize";
+import { Pagination } from "../../Components/Pagination/pagination";
 import EmptyImg from "../../img/empty-player.svg";
-import EmptyBase from "../../Components/EmptyBase/emptyBase";
+import { EmptyBase } from "../../Components/EmptyBase/emptyBase";
 import { IFetchSuffix } from "../../Interfaces/interfaces";
-import SelectTeams from "../../Components/SelectTeams/selectTeams";
-import { setId } from "../../store/selectedIdSlise";
+import { SelectTeams } from "../../Components/SelectTeams/selectTeams";
+import { setId } from "../../store/selectedIdSlice";
 import { useHistory } from "react-router";
-import { setMenuId } from "../../store/sideMenuSlise";
+import { setMenuId } from "../../store/sideMenuSlice";
+import { Header } from "../../Components/Header/header";
+import { Sidebar } from "../../Components/Sidebar/sidebar";
 
-const PlayersCards: React.FC = () => {
+export const PlayersCards: React.FC = () => {
   const history = useHistory();
   const dispatch = useAppDispatch();
   const playersRedux = useAppSelector(selectPlayersData);
@@ -50,43 +51,45 @@ const PlayersCards: React.FC = () => {
   };
 
   return (
-    <>
-      <div className="page-content__top">
-        <Search setSearchText={setSearchText} />
-        <SelectTeams />
-        <AddBtn />
+    <div className="page">
+      <Header />
+      <Sidebar />
+      <div className="page-content">
+        <div className="page-content__top">
+          <Search setSearchText={setSearchText} />
+          <SelectTeams />
+          <AddBtn />
+        </div>
+        {players.length ? "" : <EmptyBase imageUrl={EmptyImg} />}
+        {players.length && (
+          <>
+            <div className="cards-wrapper">
+              {players.map(({ name, avatarUrl, id, number, team }: any) => {
+                return (
+                  <PlayerCard
+                    key={id}
+                    id={id}
+                    name={name}
+                    number={number}
+                    team={team}
+                    avatarUrl={avatarUrl}
+                    onClick={handleClick}
+                  />
+                );
+              })}
+            </div>
+            <div className="page-content__bottom">
+              <Pagination
+                loadedCardsNumber={loadedCardsNumber}
+                pageNumber={pageNumber}
+                pageSize={pageSize}
+                setPageNumber={setPageNumber}
+              />
+              <PageSizeSelect setPageSize={setPageSize} />
+            </div>
+          </>
+        )}
       </div>
-      {players.length ? "" : <EmptyBase imageUrl={EmptyImg} />}
-      {players.length && (
-        <>
-          <div className="cards-wrapper">
-            {players.map(({ name, avatarUrl, id, number, team }: any) => {
-              return (
-                <PlayerCard
-                  key={id}
-                  id={id}
-                  name={name}
-                  number={number}
-                  team={team}
-                  avatarUrl={avatarUrl}
-                  onClick={handleClick}
-                />
-              );
-            })}
-          </div>
-          <div className="page-content__bottom">
-            <Pagination
-              loadedCardsNumber={loadedCardsNumber}
-              pageNumber={pageNumber}
-              pageSize={pageSize}
-              setPageNumber={setPageNumber}
-            />
-            <SelectPageSize setPageSize={setPageSize} />
-          </div>
-        </>
-      )}
-    </>
+    </div>
   );
 };
-
-export default PlayersCards;

@@ -46,3 +46,11 @@
     border-color: var(--red);
     background: var(--red);
 }
+.error {
+    position: absolute;
+
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.71;
+    color: var(--red);
+}

@@ -5,25 +5,25 @@ import {
   IPlayerAddInputs,
   NewPlayerDto,
 } from "../../Interfaces/interfaces";
-import { fetchAddPlayer } from "../../store/addPlayerSlise";
+import { fetchAddPlayer } from "../../store/addPlayerSlice";
 import {
   fetchPlayerPositionsAsync,
   SelectPlayerPositionsData,
   SelectPlayerPositionsIsLoading,
 } from "../../store/getPlayerPositionsSlice";
-import { SelectSinglePlayerData } from "../../store/getPlayerSlise";
+import { SelectSinglePlayerData } from "../../store/getPlayerSlice";
 import {
   fetchTeamsAsync,
   selectTeamsData,
   selectTeamsIsLoading,
 } from "../../store/getTeamsSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { newSelectedId } from "../../store/selectedIdSlise";
+import { newSelectedId } from "../../store/selectedIdSlice";
 import { fetchUpdatePlayerById } from "../../store/updatePlayerById";
-import InputGroup from "../InputGroup/iInputGroup";
-import SelectGroup from "../SelectGroup/selectGroup";
+import { InputGroup } from "../InputGroup/iInputGroup";
+import { SelectGroup } from "../SelectGroup/selectGroup";
 
-const AddPlayer: React.FC = () => {
+export const AddPlayer: React.FC = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(
@@ -218,5 +218,3 @@ const AddPlayer: React.FC = () => {
     </form>
   );
 };
-
-export default AddPlayer;

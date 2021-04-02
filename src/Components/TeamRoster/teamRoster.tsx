@@ -4,13 +4,12 @@ import {
   fetchPlayersAsync,
   selectPlayersData,
 } from "../../store/getPlayersSlice";
-import { newSelectedId } from "../../store/selectedIdSlise";
-
+import { newSelectedId } from "../../store/selectedIdSlice";
 import s from "./style.module.css";
 import cn from "classnames";
 import { PlayerDto } from "../../Interfaces/interfaces";
 
-const TeamRoster: React.FC = () => {
+export const TeamRoster: React.FC = () => {
   const dispatch = useAppDispatch();
   const playersRedux = useAppSelector(selectPlayersData);
   const players = playersRedux.data;
@@ -61,5 +60,3 @@ const TeamRoster: React.FC = () => {
     </div>
   );
 };
-
-export default TeamRoster;

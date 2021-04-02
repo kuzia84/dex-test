@@ -1,11 +1,14 @@
 import { Link } from "react-router-dom";
 import Logo from "../../img/logo.png";
 import s from "./style.module.css";
-import User from "./User/user";
+import { User } from "./User/user";
 import userImg from "../../img/profile.svg";
-import BurgerBtn from "./BurgerBtn/burgerBtn";
+import { BurgerBtn } from "./BurgerBtn/burgerBtn";
 
-const Header: React.FC = () => {
+export const Header: React.FC = () => {
+  const userName: any = localStorage.getItem("userName")
+    ? localStorage.getItem("userName")
+    : "John Smith";
   return (
     <header className={s.header}>
       <BurgerBtn />
@@ -13,10 +16,8 @@ const Header: React.FC = () => {
         <img src={Logo} alt="" />
       </Link>
       <div className={s.user}>
-        <User userName="John Smith" userImg={userImg} />
+        <User userName={userName} userImg={userImg} />
       </div>
     </header>
   );
 };
-
-export default Header;

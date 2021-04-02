@@ -12,7 +12,7 @@ import { ITeamSelectOptions, TeamDto } from "../../Interfaces/interfaces";
 
 import s from "./style.module.css";
 
-const SelectTeams: React.FC = () => {
+export const SelectTeams: React.FC = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchTeamsAsync("http://dev.trainee.dex-it.ru/api/Team/GetTeams"));
@@ -113,5 +113,3 @@ const SelectTeams: React.FC = () => {
     </div>
   );
 };
-
-export default SelectTeams;

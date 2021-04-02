@@ -4,7 +4,7 @@ import { useAppDispatch } from "../../store/hooks";
 import { IPageSize, IPageSizeSelect } from "../../Interfaces/interfaces";
 import s from "./style.module.css";
 
-const PageSizeSelect: React.FC<IPageSizeSelect> = ({ setPageSize }) => {
+export const PageSizeSelect: React.FC<IPageSizeSelect> = ({ setPageSize }) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -38,5 +38,3 @@ const PageSizeSelect: React.FC<IPageSizeSelect> = ({ setPageSize }) => {
     />
   );
 };
-
-export default PageSizeSelect;

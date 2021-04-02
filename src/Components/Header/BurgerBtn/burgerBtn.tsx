@@ -2,10 +2,10 @@ import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import {
   selectSidebrSate,
   setSidebrSate,
-} from "../../../store/sidebarStateSlise";
+} from "../../../store/sidebarStateSlice";
 import s from "./style.module.css";
 
-const BurgerBtn: React.FC = () => {
+export const BurgerBtn: React.FC = () => {
   const dispatch = useAppDispatch();
   const sidebarState = useAppSelector(selectSidebrSate);
   const handleClick = () => {
@@ -17,5 +17,3 @@ const BurgerBtn: React.FC = () => {
     </div>
   );
 };
-
-export default BurgerBtn;

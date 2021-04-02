@@ -4,7 +4,7 @@ import { useAppDispatch } from "../../store/hooks";
 
 import s from "./style.module.css";
 
-const Search: React.FC<ISearch> = ({ setSearchText }) => {
+export const Search: React.FC<ISearch> = ({ setSearchText }) => {
   const dispatch = useAppDispatch();
   const [searchValue, setSearchValue] = useState("");
   return (
@@ -29,5 +29,3 @@ const Search: React.FC<ISearch> = ({ setSearchText }) => {
     </div>
   );
 };
-
-export default Search;
