@@ -51,7 +51,7 @@
     max-width: 336px;
     height: 261px;
     border-radius: 10px;
-    background: url("../../img/add_a_photo_24px_rounded.svg") center no-repeat var(--lightestgray);
+    background: url("../../shared/icons/add_a_photo_24px_rounded.svg") center no-repeat var(--lightestgray);
     margin: 0 auto;
 }
 .error {
@@ -63,7 +63,7 @@
     color: var(--red);
 }
 .showPassword {
-    background: url("../../img/close_eye.svg") 0 0 no-repeat;
+    background: url("../../shared/icons/close_eye.svg") 0 0 no-repeat;
     width: 16px;
     height: 16px;
     border: none;
@@ -74,7 +74,7 @@
     cursor: pointer;
 }
 .showPwd .showPassword {
-    background: url("../../img/eye.svg") 0 0 no-repeat;
+    background: url("../../shared/icons/eye.svg") 0 0 no-repeat;
 }
 @media (max-width: 414px) {
     .fileLabel {

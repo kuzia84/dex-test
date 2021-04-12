@@ -1,16 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IFetchSuffix } from "../Interfaces/interfaces";
-import { RootState } from "./store";
+import { IFetchSuffix } from "../api/dto/components.g";
+import { RootState } from "./redux/store";
 
 const initialState: IFetchSuffix = {
   searchText: "",
   pageNumber: 1,
   pageSize: 6,
-  teamIds: "",
 };
 
-const playersFetchSuffixSlise = createSlice({
-  name: "playersFetchSuffix",
+const teamsFetchSuffixSlise = createSlice({
+  name: "teamsFetchSuffix",
   initialState,
   reducers: {
     resetSuffix: (state) => initialState,
@@ -25,10 +24,6 @@ const playersFetchSuffixSlise = createSlice({
       state.pageNumber = 1;
       state.pageSize = action.payload;
     },
-    setTeamIds: (state, action: PayloadAction<string>) => {
-      state.pageNumber = 1;
-      state.teamIds = action.payload;
-    },
   },
 });
 
@@ -37,9 +32,8 @@ export const {
   setSearchText,
   setPageNumber,
   setPageSize,
-  setTeamIds,
-} = playersFetchSuffixSlise.actions;
-export const selectPlayersFetchSuffix = (state: RootState) =>
-  state.playersFetchSuffix;
+} = teamsFetchSuffixSlise.actions;
+export const selectTeamsFetchSuffix = (state: RootState) =>
+  state.teamsFetchSuffix;
 
-export const playersFetchSuffixReducer = playersFetchSuffixSlise.reducer;
+export const teamsFetchSuffixReducer = teamsFetchSuffixSlise.reducer;

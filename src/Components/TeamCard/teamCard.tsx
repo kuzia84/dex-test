@@ -1,4 +1,4 @@
-import { TeamDto } from "../../Interfaces/interfaces";
+import { TeamDto } from "../../api/dto/team.g";
 import s from "./style.module.css";
 
 export const TeamCard: React.FC<TeamDto> = ({

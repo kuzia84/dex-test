@@ -1,30 +1,40 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router";
 import {
   IPlayerAddData,
   IPlayerAddInputs,
   NewPlayerDto,
-} from "../../Interfaces/interfaces";
-import { fetchAddPlayer } from "../../store/addPlayerSlice";
+} from "../../api/dto/player.g";
 import {
-  fetchPlayerPositionsAsync,
+  selectAddPlayerError,
   SelectPlayerPositionsData,
   SelectPlayerPositionsIsLoading,
-} from "../../store/getPlayerPositionsSlice";
-import { SelectSinglePlayerData } from "../../store/getPlayerSlice";
+  SelectSinglePlayerData,
+  SelectSinglePlayerIsLoading,
+  SelectUpdatePlayerByIdError,
+} from "../../modules/player/playerSelector";
 import {
   fetchTeamsAsync,
   selectTeamsData,
   selectTeamsIsLoading,
-} from "../../store/getTeamsSlice";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { newSelectedId } from "../../store/selectedIdSlice";
-import { fetchUpdatePlayerById } from "../../store/updatePlayerById";
-import { InputGroup } from "../InputGroup/iInputGroup";
-import { SelectGroup } from "../SelectGroup/selectGroup";
+} from "../../core/getTeamsSlice";
+import { useAppDispatch, useAppSelector } from "../../core/redux/hooks";
+import { InputGroup } from "../inputGroup/iInputGroup";
+import { SelectGroup } from "../selectGroup/selectGroup";
+import {
+  fetchAddPlayer,
+  fetchPlayerPositionsAsync,
+  fetchUpdatePlayerById,
+} from "../../modules/player/playerThunk";
 
-export const AddPlayer: React.FC = () => {
+interface IPlayerAdd {
+  playerId: number;
+}
+
+export const AddPlayer: React.FC<IPlayerAdd> = ({ playerId }) => {
   const dispatch = useAppDispatch();
+  const history = useHistory();
   useEffect(() => {
     dispatch(
       fetchPlayerPositionsAsync(
@@ -33,7 +43,8 @@ export const AddPlayer: React.FC = () => {
     );
     dispatch(fetchTeamsAsync("http://dev.trainee.dex-it.ru/api/Team/GetTeams"));
   }, [dispatch]);
-  const selectedId = useAppSelector(newSelectedId);
+  const selectedId = playerId ? playerId : 0;
+  const singlePlayerIsLoading = useAppSelector(SelectSinglePlayerIsLoading);
   const singlePlayer = useAppSelector(SelectSinglePlayerData);
   const playerPositionIsLoading = useAppSelector(
     SelectPlayerPositionsIsLoading
@@ -56,6 +67,8 @@ export const AddPlayer: React.FC = () => {
       label: item.name,
     };
   });
+  const addPlayerError = useAppSelector(selectAddPlayerError);
+  const updatePlayerError = useAppSelector(SelectUpdatePlayerByIdError);
 
   const {
     control,
@@ -66,22 +79,22 @@ export const AddPlayer: React.FC = () => {
     setValue,
   } = useForm<IPlayerAddInputs>();
 
-  const setTeamDataValues = () => {
+  function setTeamDataValues() {
     setValue("playerName", singlePlayer.name);
     setValue("playerHeight", singlePlayer.height);
     setValue("playerWeight", singlePlayer.weight);
     setValue("playerBirthday", singlePlayer.birthday);
     setValue("playerNumber", singlePlayer.number);
-  };
+  }
 
   useEffect(() => {
-    if (selectedId !== 0) {
+    if (selectedId !== 0 && singlePlayerIsLoading === false) {
       setTeamDataValues();
     }
-  }, [selectedId]);
+  }, [singlePlayerIsLoading, selectedId]);
 
   const onSubmit = (data: IPlayerAddData) => {
-    if (selectedId !== 0) {
+    if (selectedId) {
       const updatePlayerData: NewPlayerDto = {
         name: data.playerName,
         number: data.playerNumber,
@@ -94,6 +107,11 @@ export const AddPlayer: React.FC = () => {
         id: selectedId,
       };
       dispatch(fetchUpdatePlayerById(updatePlayerData));
+      if (updatePlayerError) {
+        console.log("updatePlayerError: ", updatePlayerError);
+      } else {
+        history.push("/players");
+      }
     } else {
       const addPlayerData: NewPlayerDto = {
         name: data.playerName,
@@ -106,6 +124,11 @@ export const AddPlayer: React.FC = () => {
         avatarUrl: data.playerPhoto[0].name,
       };
       dispatch(fetchAddPlayer(addPlayerData));
+      if (addPlayerError) {
+        console.log("addPlayerError: ", addPlayerError);
+      } else {
+        history.push("/players");
+      }
     }
     reset();
   };
@@ -163,6 +186,7 @@ export const AddPlayer: React.FC = () => {
           <div className="form-row">
             <div className="form-col">
               <InputGroup
+                type="number"
                 label="Height (cm)"
                 inputName="playerHeight"
                 errorText="Enter player height"
@@ -173,6 +197,7 @@ export const AddPlayer: React.FC = () => {
             </div>
             <div className="form-col">
               <InputGroup
+                type="number"
                 label="Weight (kg)"
                 inputName="playerWeight"
                 errorText="Enter player weight"
@@ -196,6 +221,7 @@ export const AddPlayer: React.FC = () => {
             </div>
             <div className="form-col">
               <InputGroup
+                type="number"
                 label="Number"
                 inputName="playerNumber"
                 errorText="Enter player number"
@@ -207,7 +233,14 @@ export const AddPlayer: React.FC = () => {
           </div>
           <div className="form-row buttons">
             <div className="form-col">
-              <input type="reset" value="Cancel" className="btn-text" />
+              <input
+                type="reset"
+                value="Cancel"
+                className="btn-text"
+                onClick={() => {
+                  history.push("/players");
+                }}
+              />
             </div>
             <div className="form-col">
               <input type="submit" value="Save" className="btn" />

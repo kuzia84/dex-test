@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import Logo from "../../img/logo.png";
+import { User } from "./user/user";
+import { BurgerBtn } from "./burgerBtn/burgerBtn";
+import Logo from "../../shared/img/logo.png";
+import userImg from "../../shared/icons/profile.svg";
 import s from "./style.module.css";
-import { User } from "./User/user";
-import userImg from "../../img/profile.svg";
-import { BurgerBtn } from "./BurgerBtn/burgerBtn";
 
 export const Header: React.FC = () => {
   const userName: any = localStorage.getItem("userName")

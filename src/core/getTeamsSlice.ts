@@ -1,9 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import {
-  TeamDtoPageResult,
-  TeamDtoPageResultState,
-} from "../Interfaces/interfaces";
-import { RootState } from "./store";
+import { TeamDtoPageResult, TeamDtoPageResultState } from "../api/dto/team.g";
+import { RootState } from "./redux/store";
 
 const initialState: TeamDtoPageResultState = {
   isLoading: true,

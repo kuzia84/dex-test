@@ -4,12 +4,12 @@ import {
   ISignUpInputs,
   ISignUpRequest,
   ISignUpData,
-} from "../../Interfaces/interfaces";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { selectSignUpError } from "../../store/signUpSlice";
-import { fetchSignUp } from "../../store/signUpSlice";
-import { Checkbox } from "../Checkbox/checkbox";
-import { InputGroup } from "../InputGroup/iInputGroup";
+} from "../../api/dto/autorization.g";
+import { useAppDispatch, useAppSelector } from "../../core/redux/hooks";
+import { selectSignUpError } from "../../core/signUpSlice";
+import { fetchSignUp } from "../../core/signUpSlice";
+import { Checkbox } from "../checkbox/checkbox";
+import { InputGroup } from "../inputGroup/iInputGroup";
 import s from "./style.module.css";
 
 export const SignUpForm: React.FC = () => {

@@ -1,5 +1,5 @@
-import { SelectSingleTeamData } from "../../store/getTeamSlice";
-import { useAppSelector } from "../../store/hooks";
+import { SelectSingleTeamData } from "../../core/getTeamSlice";
+import { useAppSelector } from "../../core/redux/hooks";
 
 import s from "./style.module.css";
 

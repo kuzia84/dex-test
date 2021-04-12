@@ -1,12 +1,12 @@
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../core/redux/hooks";
 import {
   fetchTeamsAsync,
   reset,
   selectTeamsData,
   selectTeamsIsLoading,
-} from "../../store/getTeamsSlice";
-import { PlayerDto } from "../../Interfaces/interfaces";
+} from "../../core/getTeamsSlice";
+import { PlayerDto } from "../../api/dto/player.g";
 import s from "./style.module.css";
 
 export const PlayerCard: React.FC<PlayerDto> = ({

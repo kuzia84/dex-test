@@ -1,21 +1,31 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router";
+import { ITeamAddData, ITeamAddInputs, NewTeamDto } from "../../api/dto/team.g";
+import { fetchAddTeam, selectAddTeamError } from "../../core/addTeamSlice";
 import {
-  ITeamAddData,
-  ITeamAddInputs,
-  NewTeamDto,
-} from "../../Interfaces/interfaces";
-import { fetchAddTeam } from "../../store/addTeamSlice";
-import { SelectSingleTeamData } from "../../store/getTeamSlice";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { newSelectedId } from "../../store/selectedIdSlice";
-import { fetchUpdateTeamById } from "../../store/updateTeamById";
-import { InputGroup } from "../InputGroup/iInputGroup";
+  SelectSingleTeamData,
+  SelectSingleTeamIsLoading,
+} from "../../core/getTeamSlice";
+import { useAppDispatch, useAppSelector } from "../../core/redux/hooks";
+import {
+  fetchUpdateTeamById,
+  SelectUpdateTeamByIdError,
+} from "../../core/updateTeamById";
+import { InputGroup } from "../inputGroup/iInputGroup";
 
-export const AddTeam: React.FC = () => {
+interface ITeamAdd {
+  teamId: number;
+}
+
+export const AddTeam: React.FC<ITeamAdd> = ({ teamId }) => {
   const dispatch = useAppDispatch();
-  const selectedId = useAppSelector(newSelectedId);
+  const history = useHistory();
+  const selectedId = teamId ? teamId : 0;
   const singleTeam = useAppSelector(SelectSingleTeamData);
+  const singleTeamIsLoading = useAppSelector(SelectSingleTeamIsLoading);
+  const addTeamError = useAppSelector(selectAddTeamError);
+  const updateTeamError = useAppSelector(SelectUpdateTeamByIdError);
 
   const {
     register,
@@ -32,10 +42,10 @@ export const AddTeam: React.FC = () => {
   };
 
   useEffect(() => {
-    if (selectedId !== 0) {
+    if (selectedId !== 0 && singleTeamIsLoading === false) {
       setTeamDataValues();
     }
-  }, [selectedId]);
+  }, [selectedId, singleTeamIsLoading]);
 
   const onSubmit = (data: ITeamAddData) => {
     if (selectedId !== 0) {
@@ -48,6 +58,11 @@ export const AddTeam: React.FC = () => {
         id: selectedId,
       };
       dispatch(fetchUpdateTeamById(updateTeamData));
+      if (updateTeamError) {
+        console.log("updateTeamError: ", updateTeamError);
+      } else {
+        history.push("/teams");
+      }
     } else {
       const addTeamData: NewTeamDto = {
         name: data.teamName,
@@ -57,6 +72,11 @@ export const AddTeam: React.FC = () => {
         imageUrl: data.teamPhoto[0].name,
       };
       dispatch(fetchAddTeam(addTeamData));
+      if (addTeamError) {
+        console.log("addTeamError: ", addTeamError);
+      } else {
+        history.push("/teams");
+      }
     }
 
     reset();
@@ -102,6 +122,7 @@ export const AddTeam: React.FC = () => {
             errors={errors}
           />
           <InputGroup
+            type="number"
             label="Year of foundation"
             inputName="teamFoundation"
             errorText="Enter year of foundation"
@@ -111,7 +132,14 @@ export const AddTeam: React.FC = () => {
           />
           <div className="form-row buttons">
             <div className="form-col">
-              <input type="reset" value="Cancel" className="btn-text" />
+              <input
+                type="reset"
+                value="Cancel"
+                className="btn-text"
+                onClick={() => {
+                  history.push("/teams");
+                }}
+              />
             </div>
             <div className="form-col">
               <input type="submit" value="Save" className="btn" />

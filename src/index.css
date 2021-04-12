@@ -45,7 +45,11 @@ button:focus {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 120px 0 30px;
+}
+@media (min-width: 1360px) {
+  .login__form {
+    padding: 0 120px 0 30px;
+  }
 }
 @media (max-width: 1024px) {
   .login__form {
@@ -58,7 +62,8 @@ button:focus {
   }
 }
 .login__form form {
-  min-width: 366px;
+  width: 100%;
+  max-width: 366px;
   margin-left: auto;
 }
 @media (max-width: 1024px) {
@@ -207,7 +212,7 @@ button:focus {
 
 /* select teams */
 .select-teams__control {
-  height: 40px;
+  min-height: 40px;
 }
 
 /* item page */

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { InputProps } from "../../Interfaces/interfaces";
+import { InputProps } from "../../api/dto/components.g";
 
 import s from "./style.module.css";
 import cn from "classnames";

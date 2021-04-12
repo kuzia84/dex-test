@@ -3,8 +3,8 @@ import {
   ISignInState,
   ILoginRequest,
   ILoginResult,
-} from "../Interfaces/interfaces";
-import { RootState } from "./store";
+} from "../api/dto/autorization.g";
+import { RootState } from "./redux/store";
 
 const initialState: ISignInState = {
   isLoading: true,

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Select from "react-select";
-import { useAppDispatch } from "../../store/hooks";
-import { IPageSize, IPageSizeSelect } from "../../Interfaces/interfaces";
+import { useAppDispatch } from "../../core/redux/hooks";
+import { IPageSize, IPageSizeSelect } from "../../api/dto/components.g";
 import s from "./style.module.css";
 
 export const PageSizeSelect: React.FC<IPageSizeSelect> = ({ setPageSize }) => {
@@ -12,9 +12,9 @@ export const PageSizeSelect: React.FC<IPageSizeSelect> = ({ setPageSize }) => {
   }, [setPageSize, dispatch]);
 
   const pageSizeOptions: IPageSize[] = [
-    { value: "6", label: "6" },
-    { value: "12", label: "12" },
-    { value: "24", label: "24" },
+    { value: 6, label: 6 },
+    { value: 12, label: 12 },
+    { value: 24, label: 24 },
   ];
 
   const customTheme = (theme: any) => {
@@ -34,7 +34,9 @@ export const PageSizeSelect: React.FC<IPageSizeSelect> = ({ setPageSize }) => {
       theme={customTheme}
       options={pageSizeOptions}
       defaultValue={pageSizeOptions[0]}
-      onChange={(data: any) => dispatch(setPageSize(data.value))}
+      onChange={({ value }: any) => {
+        dispatch(setPageSize(value));
+      }}
     />
   );
 };

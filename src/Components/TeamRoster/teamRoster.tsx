@@ -1,13 +1,11 @@
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import {
-  fetchPlayersAsync,
-  selectPlayersData,
-} from "../../store/getPlayersSlice";
-import { newSelectedId } from "../../store/selectedIdSlice";
+import { useAppDispatch, useAppSelector } from "../../core/redux/hooks";
+import { newSelectedId } from "../../core/selectedIdSlice";
 import s from "./style.module.css";
 import cn from "classnames";
-import { PlayerDto } from "../../Interfaces/interfaces";
+import { PlayerDto } from "../../api/dto/player.g";
+import { selectPlayersData } from "../../modules/player/playerSelector";
+import { fetchPlayersAsync } from "../../modules/player/playerThunk";
 
 export const TeamRoster: React.FC = () => {
   const dispatch = useAppDispatch();

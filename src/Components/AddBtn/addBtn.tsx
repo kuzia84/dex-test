@@ -1,20 +1,17 @@
 import { useHistory } from "react-router";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { resetId } from "../../store/selectedIdSlice";
 
-import { silectSideMenuId } from "../../store/sideMenuSlice";
 import s from "./style.module.css";
 
-export const AddBtn: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const currentPageId = useAppSelector(silectSideMenuId);
+interface IAddBtnProps {
+  page: string;
+}
 
+export const AddBtn: React.FC<IAddBtnProps> = ({ page }) => {
   const history = useHistory();
   const handleClick = () => {
-    dispatch(resetId());
-    currentPageId === 1
-      ? history.push("/new-team")
-      : history.push("/new-player");
+    page === "teams"
+      ? history.push("/teams/new-team")
+      : history.push("/players/new-player");
   };
   return (
     <div className={s.addBtn}>

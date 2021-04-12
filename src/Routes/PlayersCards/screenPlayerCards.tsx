@@ -1,55 +1,75 @@
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../core/redux/hooks";
+import { AddBtn } from "../../components/addBtn/addBtn";
+import { Search } from "../../components/search/search";
+import { PlayerCard } from "../../components/playerCard/playerCard";
+import { PageSizeSelect } from "../../components/selectPageSize/selectPageSize";
+import { Pagination } from "../../components/pagination/pagination";
+import EmptyImg from "../../shared/img/empty-player.svg";
+import { EmptyBase } from "../../components/emptyBase/emptyBase";
+import { IFetchSuffix } from "../../api/dto/components.g";
+import { SelectTeams } from "../../components/selectTeams/selectTeams";
+import { useHistory } from "react-router";
+import { Header } from "../../components/header/header";
+import { Sidebar } from "../../components/sidebar/sidebar";
 import {
-  fetchPlayersAsync,
   selectPlayersData,
-} from "../../store/getPlayersSlice";
-import {
   selectPlayersFetchSuffix,
+  selectPlayersIsLoading,
+} from "../../modules/player/playerSelector";
+import { fetchPlayersAsync } from "../../modules/player/playerThunk";
+import {
   setPageNumber,
   setPageSize,
   setSearchText,
-} from "../../store/playersFetchSuffix";
-import { AddBtn } from "../../Components/AddBtn/addBtn";
-import { Search } from "../../Components/Search/search";
-import { PlayerCard } from "../../Components/PlayerCard/playerCard";
-import { PageSizeSelect } from "../../Components/SelectPageSize/selectPageSize";
-import { Pagination } from "../../Components/Pagination/pagination";
-import EmptyImg from "../../img/empty-player.svg";
-import { EmptyBase } from "../../Components/EmptyBase/emptyBase";
-import { IFetchSuffix } from "../../Interfaces/interfaces";
-import { SelectTeams } from "../../Components/SelectTeams/selectTeams";
-import { setId } from "../../store/selectedIdSlice";
-import { useHistory } from "react-router";
-import { setMenuId } from "../../store/sideMenuSlice";
-import { Header } from "../../Components/Header/header";
-import { Sidebar } from "../../Components/Sidebar/sidebar";
+} from "../../modules/player/playerSlice";
 
 export const PlayersCards: React.FC = () => {
-  const history = useHistory();
   const dispatch = useAppDispatch();
-  const playersRedux = useAppSelector(selectPlayersData);
-  const {
-    searchText,
-    pageNumber,
-    pageSize,
-    teamIds,
-  }: IFetchSuffix = useAppSelector(selectPlayersFetchSuffix);
+  const history = useHistory();
+  const { searchText, pageSize, teamIds }: IFetchSuffix = useAppSelector(
+    selectPlayersFetchSuffix
+  );
 
+  const playersRedux = useAppSelector(selectPlayersData);
+  const playersReduxIsLoading = useAppSelector(selectPlayersIsLoading);
   const players = playersRedux.data;
+  const getPageNumber =
+    new URLSearchParams(window.location.search).get("Page") || 1;
+  const loadedCardsNumber = playersRedux.count;
+  const pageCount = Math.ceil(loadedCardsNumber / pageSize);
+  const pageNumber = pageCount >= +getPageNumber ? +getPageNumber : 1;
 
   const request = `http://dev.trainee.dex-it.ru/api/Player/GetPlayers?Name=${searchText}${teamIds}&Page=${pageNumber}&PageSize=${pageSize}`;
 
   useEffect(() => {
     dispatch(fetchPlayersAsync(request));
-    dispatch(setMenuId(2));
   }, [request, dispatch]);
-  const loadedCardsNumber = playersRedux.count;
   const handleClick = (id: number) => {
-    dispatch(setId(id));
-    history.push("/player");
+    history.push(`/players/player?id=${id}`);
   };
 
+  if (playersReduxIsLoading === false) {
+    if (pageCount < +getPageNumber) {
+      history.push("/players?Page=1");
+    }
+  }
+
+  const playersList = players.map(
+    ({ name, avatarUrl, id, number, team }: any) => {
+      return (
+        <PlayerCard
+          key={id}
+          id={id}
+          name={name}
+          number={number}
+          team={team}
+          avatarUrl={avatarUrl}
+          onClick={handleClick}
+        />
+      );
+    }
+  );
   return (
     <div className="page">
       <Header />
@@ -58,28 +78,15 @@ export const PlayersCards: React.FC = () => {
         <div className="page-content__top">
           <Search setSearchText={setSearchText} />
           <SelectTeams />
-          <AddBtn />
+          <AddBtn page="players" />
         </div>
         {players.length ? "" : <EmptyBase imageUrl={EmptyImg} />}
-        {players.length && (
+        {players.length > 0 && (
           <>
-            <div className="cards-wrapper">
-              {players.map(({ name, avatarUrl, id, number, team }: any) => {
-                return (
-                  <PlayerCard
-                    key={id}
-                    id={id}
-                    name={name}
-                    number={number}
-                    team={team}
-                    avatarUrl={avatarUrl}
-                    onClick={handleClick}
-                  />
-                );
-              })}
-            </div>
+            <div className="cards-wrapper">{playersList}</div>
             <div className="page-content__bottom">
               <Pagination
+                page="players"
                 loadedCardsNumber={loadedCardsNumber}
                 pageNumber={pageNumber}
                 pageSize={pageSize}

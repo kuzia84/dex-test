@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { ISearch } from "../../Interfaces/interfaces";
-import { useAppDispatch } from "../../store/hooks";
+import { ISearch } from "../../api/dto/components.g";
+import { useAppDispatch } from "../../core/redux/hooks";
 
 import s from "./style.module.css";
 

@@ -1,42 +1,42 @@
-import { ReactComponent as Pen } from "../../img/create.svg";
-import { ReactComponent as Delete } from "../../img/delete.svg";
-import { fetchDeleteItemById } from "../../store/deleteItemById";
-import { silectSideMenuId } from "../../store/sideMenuSlice";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { ReactComponent as Pen } from "../../shared/icons/create.svg";
+import { ReactComponent as Delete } from "../../shared/icons/delete.svg";
+import { fetchDeleteItemById } from "../../core/deleteItemById";
+import { useAppDispatch } from "../../core/redux/hooks";
 import s from "./style.module.css";
 import { useHistory } from "react-router";
 
-interface IProps {
+interface IControlButtonsProps {
   itemId: number;
+  page: string;
 }
 
-export const ControlButtons: React.FC<IProps> = (props) => {
+export const ControlButtons: React.FC<IControlButtonsProps> = (props) => {
   const dispatch = useAppDispatch();
   const history = useHistory();
-  const currentPageId = useAppSelector(silectSideMenuId);
+  const currentPage = props.page;
   let deleteRequest = "";
-  if (currentPageId === 2) {
+  if (currentPage === "players") {
     deleteRequest = `http://dev.trainee.dex-it.ru/api/Player/Delete?id=${props.itemId}`;
-  } else if (currentPageId === 1) {
+  } else if (currentPage === "teams") {
     deleteRequest = `http://dev.trainee.dex-it.ru/api/Team/Delete?id=${props.itemId}`;
   }
 
   const handleDeleteButton = () => {
     if (window.confirm("Confirm Delete")) {
       dispatch(fetchDeleteItemById(deleteRequest));
-      if (currentPageId === 2) {
+      if (currentPage === "players") {
         history.push("/players");
-      } else if (currentPageId === 1) {
+      } else if (currentPage === "teams") {
         history.push("/teams");
       }
     } else alert("Canceled");
   };
 
   const handleUpdateButton = () => {
-    if (currentPageId === 2) {
-      history.push("/new-player");
-    } else if (currentPageId === 1) {
-      history.push("/new-team");
+    if (currentPage === "players") {
+      history.push(`/players/new-player?id=${props.itemId}`);
+    } else if (currentPage === "teams") {
+      history.push(`/teams/new-team?id=${props.itemId}`);
     }
   };
 

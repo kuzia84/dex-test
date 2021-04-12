@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { RootState } from "./store";
+import { RootState } from "./redux/store";
 
 interface IDeleteItemById {
   isLoading: boolean;
@@ -9,7 +9,7 @@ interface IDeleteItemById {
   errors: any;
 }
 const initialState: IDeleteItemById = {
-  isLoading: false,
+  isLoading: true,
   fetchResult: {
     name: "",
   },
@@ -60,4 +60,4 @@ export const SelectDeleteItemByIdIsloading = (state: RootState) =>
 export const SelectDeleteItemByIdError = (state: RootState) =>
   state.deleteItemById.errors;
 
-export const deleteItemByIdReducer= deleteItemByIdSlise.reducer;
+export const deleteItemByIdReducer = deleteItemByIdSlise.reducer;

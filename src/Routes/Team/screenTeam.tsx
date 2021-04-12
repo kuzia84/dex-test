@@ -1,33 +1,24 @@
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../core/redux/hooks";
 import {
   fetchSingleTeamAsync,
   SelectSingleTeamData,
-} from "../../store/getTeamSlice";
-import { BreadCrumbs } from "../../Components/BreadCrumbs/breadCrumbs";
-import { ControlButtons } from "../../Components/ControlButtons/controlButtons";
-import { newSelectedId } from "../../store/selectedIdSlice";
-import { setMenuId } from "../../store/sideMenuSlice";
-import { useHistory } from "react-router";
-import { TeamInfo } from "../../Components/TeamInfo/teamInfo";
-import { TeamRoster } from "../../Components/TeamRoster/teamRoster";
-import { Sidebar } from "../../Components/Sidebar/sidebar";
-import { Header } from "../../Components/Header/header";
+} from "../../core/getTeamSlice";
+import { BreadCrumbs } from "../../components/breadCrumbs/breadCrumbs";
+import { ControlButtons } from "../../components/controlButtons/controlButtons";
+import { TeamInfo } from "../../components/teamInfo/teamInfo";
+import { TeamRoster } from "../../components/teamRoster/teamRoster";
+import { Sidebar } from "../../components/sidebar/sidebar";
+import { Header } from "../../components/header/header";
 
 export const Team: React.FC = () => {
   const dispatch = useAppDispatch();
-  const history = useHistory();
-  const singleTeam = useAppSelector(SelectSingleTeamData);
-  const teamId = useAppSelector(newSelectedId);
-  if (teamId === 0) {
-    history.push("/teams");
-  }
-  const request = `http://dev.trainee.dex-it.ru/api/Team/Get?id=${teamId}`;
-
+  const id = new URLSearchParams(window.location.search).get("id");
+  const request = `http://dev.trainee.dex-it.ru/api/Team/Get?id=${id}`;
   useEffect(() => {
     dispatch(fetchSingleTeamAsync(request));
-    dispatch(setMenuId(1));
   }, [request, dispatch]);
+  const singleTeam = useAppSelector(SelectSingleTeamData);
 
   return (
     <div className="page">
@@ -38,7 +29,7 @@ export const Team: React.FC = () => {
           <div className="item__wrapper">
             <div className="item__top">
               <BreadCrumbs path="Teams" name={singleTeam.name} />
-              <ControlButtons itemId={singleTeam.id} />
+              <ControlButtons page="teams" itemId={singleTeam.id} />
             </div>
             <div className="item__content">
               <TeamInfo />

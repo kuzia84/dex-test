@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { NewTeamDto } from "../Interfaces/interfaces";
-import { RootState } from "./store";
+import { NewTeamDto } from "../api/dto/team.g";
+import { RootState } from "./redux/store";
 
 interface IUpdateTeamById {
   isLoading: boolean;
@@ -9,7 +9,7 @@ interface IUpdateTeamById {
 }
 
 const initialState: IUpdateTeamById = {
-  isLoading: false,
+  isLoading: true,
   fetchResult: {},
   errors: null,
 };

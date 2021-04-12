@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { SingleTeamPageResultState, TeamDto } from "../Interfaces/interfaces";
-import { RootState } from "./store";
+import { SingleTeamPageResultState, TeamDto } from "../api/dto/team.g";
+import { RootState } from "./redux/store";
 
 const initialState: SingleTeamPageResultState = {
-  isLoading: false,
+  isLoading: true,
   fetchResult: {
     name: "",
     foundationYear: 0,

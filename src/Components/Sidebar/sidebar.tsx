@@ -1,58 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import cn from "classnames";
 import s from "./style.module.css";
-import { ReactComponent as Logout } from "../../img/logout_rounded.svg";
-import { ReactComponent as TeamsImg } from "../../img/group_person_rounded.svg";
-import { ReactComponent as PlayersImg } from "../../img/person_rounded.svg";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { silectSideMenuId, setMenuId } from "../../store/sideMenuSlice";
-import { IMenu } from "../../Interfaces/interfaces";
-import { User } from "../Header/User/user";
-import userImg from "../../img/profile.svg";
-import { selectSidebrSate, setSidebrSate } from "../../store/sidebarStateSlice";
+import { ReactComponent as Logout } from "../../shared/icons/logout_rounded.svg";
+import { useAppSelector } from "../../core/redux/hooks";
+import { User } from "../header/user/user";
+import userImg from "../../shared/icons/profile.svg";
+import { selectSidebrSate } from "../../core/sidebarStateSlice";
+import { MENU } from "./menu";
+import { SidebarLink } from "./sidebarLink/sidebarLink";
 
 export const Sidebar: React.FC = () => {
-  const MENU: IMenu[] = [
-    {
-      id: 1,
-      name: "Teams",
-      img: TeamsImg,
-      active: false,
-      to: "/teams",
-    },
-    {
-      id: 2,
-      name: "Players",
-      img: PlayersImg,
-      active: false,
-      to: "/players",
-    },
-  ];
-
-  const [menu, setMenu] = useState(MENU);
-
-  const dispatch = useAppDispatch();
-  const menuId = useAppSelector(silectSideMenuId);
-  const newMenu = menu.map((item) => {
-    item.id === menuId ? (item.active = true) : (item.active = false);
-    return item;
-  });
   const sidebarState = useAppSelector(selectSidebrSate);
-
-  const handleClick = (linkId: number) => {
-    dispatch(setMenuId(linkId));
-    setMenu(newMenu);
-    dispatch(setSidebrSate(!sidebarState));
-  };
-
-  useEffect(() => {
-    setMenu(newMenu);
-  }, []);
 
   const userName: any = localStorage.getItem("userName")
     ? localStorage.getItem("userName")
     : "John Smith";
+
+  const menuList = MENU.map(({ id, to, img, name }) => (
+    <SidebarLink key={id} id={id} to={to} img={img} name={name} />
+  ));
 
   return (
     <aside className={cn(s.sidebar, { [s.active]: sidebarState })}>
@@ -60,23 +27,7 @@ export const Sidebar: React.FC = () => {
         <User userName={userName} userImg={userImg} />
       </div>
       <nav className={s.sidebarNav}>
-        <ul>
-          {menu &&
-            menu.map((item) => (
-              <li key={item.id}>
-                <Link
-                  to={item.to}
-                  className={cn(s.navLink, { [s.active]: item.active })}
-                  onClick={() => {
-                    handleClick(item.id);
-                  }}
-                >
-                  <item.img />
-                  <div>{item.name}</div>
-                </Link>
-              </li>
-            ))}
-        </ul>
+        <ul>{menuList}</ul>
       </nav>
       <Link
         className={s.logout}

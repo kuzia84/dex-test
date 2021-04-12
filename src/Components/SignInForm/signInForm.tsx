@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
 import { Link, useHistory } from "react-router-dom";
-import { ILoginRequest, ISignInInputs } from "../../Interfaces/interfaces";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { fetchSignIn, selectSignInError } from "../../store/signInSlice";
-import { InputGroup } from "../InputGroup/iInputGroup";
+import { ILoginRequest, ISignInInputs } from "../../api/dto/autorization.g";
+import { useAppDispatch, useAppSelector } from "../../core/redux/hooks";
+import { fetchSignIn, selectSignInError } from "../../core/signInSlice";
+import { InputGroup } from "../inputGroup/iInputGroup";
 import s from "./style.module.css";
 
 export const SignInForm: React.FC = () => {

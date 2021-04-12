@@ -1,16 +1,23 @@
 import React from "react";
 import ReactPaginate from "react-paginate";
-import { useAppDispatch } from "../../store/hooks";
-import { IPagination } from "../../Interfaces/interfaces";
+import { IPagination } from "../../api/dto/components.g";
 import s from "./style.module.css";
+import { useHistory } from "react-router";
 
 export const Pagination: React.FC<IPagination> = ({
+  page,
   loadedCardsNumber,
   pageSize,
   pageNumber,
-  setPageNumber,
 }) => {
-  const dispatch = useAppDispatch();
+  const history = useHistory();
+  let path = "";
+  if (page === "teams") {
+    path = `/teams?Page=`;
+  }
+  if (page === "players") {
+    path = `/players?Page=`;
+  }
 
   const pageCount = Math.ceil(loadedCardsNumber / pageSize);
   return (
@@ -22,9 +29,9 @@ export const Pagination: React.FC<IPagination> = ({
       pageCount={pageCount}
       marginPagesDisplayed={1}
       pageRangeDisplayed={3}
-      onPageChange={(selectedItem: { selected: number }) =>
-        dispatch(setPageNumber(selectedItem.selected + 1))
-      }
+      onPageChange={(selectedItem: { selected: number }) => {
+        history.push(path + (selectedItem.selected + 1));
+      }}
       containerClassName={s.pagination}
       // subContainerClassName={"pages pagination"}
       activeClassName={s.active}

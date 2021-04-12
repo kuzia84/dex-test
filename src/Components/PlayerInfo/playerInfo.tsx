@@ -1,5 +1,5 @@
-import { SelectSinglePlayerData } from "../../store/getPlayerSlice";
-import { useAppSelector } from "../../store/hooks";
+import { useAppSelector } from "../../core/redux/hooks";
+import { SelectSinglePlayerData } from "../../modules/player/playerSelector";
 
 import s from "./style.module.css";
 
@@ -36,9 +36,10 @@ export const PlayerInfo: React.FC = () => {
           <li>
             <p className={s.name}>Age</p>
             <span className={s.desc}>
-              {Math.floor(
-                (Date.now() - Date.parse(singlePlayer.birthday)) / 31536000000
-              )}
+              {singlePlayer.birthday &&
+                Math.floor(
+                  (Date.now() - Date.parse(singlePlayer.birthday)) / 31536000000
+                )}
             </span>
           </li>
         </ul>

@@ -1,4 +1,4 @@
-import { InputProps } from "../../Interfaces/interfaces";
+import { InputProps } from "../../api/dto/components.g";
 import s from "./style.module.css";
 
 export const Checkbox: React.FC<InputProps> = ({

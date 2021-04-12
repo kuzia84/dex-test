@@ -1,8 +1,8 @@
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../../core/redux/hooks";
 import {
   selectSidebrSate,
   setSidebrSate,
-} from "../../../store/sidebarStateSlice";
+} from "../../../core/sidebarStateSlice";
 import s from "./style.module.css";
 
 export const BurgerBtn: React.FC = () => {
