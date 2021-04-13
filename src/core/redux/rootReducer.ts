@@ -16,6 +16,7 @@ import { deleteItemByIdReducer } from "../deleteItemById";
 import { updateTeamByIdReducer } from "../updateTeamById";
 import { signInReducer } from "../signInSlice";
 import { signUpReducer } from "../signUpSlice";
+import { addImageReducer } from "../../modules/image/imageSlice";
 
 export const rootReducer = {
   reducer: {
@@ -35,5 +36,6 @@ export const rootReducer = {
     deleteItemById: deleteItemByIdReducer,
     updateTeamById: updateTeamByIdReducer,
     updatePlayerById: updatePlayerByIdReducer,
+    addImage: addImageReducer,
   },
 };

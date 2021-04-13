@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { AddNewTeamState, NewTeamDto } from "../api/dto/team.g";
+import { addTeamRequest } from "../api/requests/team";
 import { RootState } from "./redux/store";
 
 const initialState: AddNewTeamState = {
@@ -20,10 +21,7 @@ export const fetchAddTeam = createAsyncThunk<any, NewTeamDto>(
       headers: myHeaders,
       body: JSON.stringify(data),
     };
-    const response = await fetch(
-      "http://dev.trainee.dex-it.ru/api/Team/Add",
-      requestOptions
-    );
+    const response = await fetch(addTeamRequest, requestOptions);
     return await response.json();
   }
 );

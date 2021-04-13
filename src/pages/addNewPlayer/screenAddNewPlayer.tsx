@@ -7,12 +7,13 @@ import { Header } from "../../components/header/header";
 import { useEffect } from "react";
 import { fetchSinglePlayerAsync } from "../../modules/player/playerThunk";
 import { SelectSinglePlayerData } from "../../modules/player/playerSelector";
+import { getPlayerRequest } from "../../api/requests/player";
 
 export const AddNewPlayer: React.FC = () => {
   const dispatch = useAppDispatch();
   const id = new URLSearchParams(window.location.search).get("id");
   const playerId = id ? +id : 0;
-  const request = `http://dev.trainee.dex-it.ru/api/Player/Get?id=${id}`;
+  const request = getPlayerRequest + id;
   useEffect(() => {
     if (id) {
       dispatch(fetchSinglePlayerAsync(request));

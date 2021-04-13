@@ -6,13 +6,14 @@ import cn from "classnames";
 import { PlayerDto } from "../../api/dto/player.g";
 import { selectPlayersData } from "../../modules/player/playerSelector";
 import { fetchPlayersAsync } from "../../modules/player/playerThunk";
+import { getPlayersRequest } from "../../api/requests/player";
 
 export const TeamRoster: React.FC = () => {
   const dispatch = useAppDispatch();
   const playersRedux = useAppSelector(selectPlayersData);
   const players = playersRedux.data;
   const teamId = useAppSelector(newSelectedId);
-  const request = `http://dev.trainee.dex-it.ru/api/Player/GetPlayers?TeamIds=${teamId}`;
+  const request = `${getPlayersRequest}?TeamIds=${teamId}`;
   useEffect(() => {
     dispatch(fetchPlayersAsync(request));
   }, [dispatch, request]);

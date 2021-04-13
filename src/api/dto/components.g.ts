@@ -65,6 +65,8 @@ export type InputProps = React.DetailedHTMLProps<
   inputName: string;
   errorText: string;
   errors: any;
+  handleFileChange?: () => void;
+  imageUrl?: string;
   register: ({ required }: { required?: boolean }) => RefReturn;
 };
 

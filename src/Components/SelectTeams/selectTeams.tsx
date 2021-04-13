@@ -11,11 +11,12 @@ import { ITeamSelectOptions, TeamDto } from "../../api/dto/team.g";
 
 import s from "./style.module.css";
 import { setTeamIds } from "../../modules/player/playerSlice";
+import { getTeamsRequest } from "../../api/requests/team";
 
 export const SelectTeams: React.FC = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(fetchTeamsAsync("http://dev.trainee.dex-it.ru/api/Team/GetTeams"));
+    dispatch(fetchTeamsAsync(getTeamsRequest));
   }, [dispatch]);
   const teamsRedux = useAppSelector(selectTeamsData);
   const teamsIsLoading = useAppSelector(selectTeamsIsLoading);

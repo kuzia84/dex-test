@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { NewTeamDto } from "../api/dto/team.g";
+import { updateTeamRequest } from "../api/requests/team";
 import { RootState } from "./redux/store";
 
 interface IUpdateTeamById {
@@ -26,10 +27,7 @@ export const fetchUpdateTeamById = createAsyncThunk<string, NewTeamDto>(
       headers: myHeaders,
       body: JSON.stringify(data),
     };
-    const response = await fetch(
-      "http://dev.trainee.dex-it.ru/api/Team/Update",
-      requestOptions
-    );
+    const response = await fetch(updateTeamRequest, requestOptions);
     return await response.json();
   }
 );

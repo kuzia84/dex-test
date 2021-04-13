@@ -16,12 +16,13 @@ import { Search } from "../../components/search/search";
 import { TeamCard } from "../../components/teamCard/teamCard";
 import { PageSizeSelect } from "../../components/selectPageSize/selectPageSize";
 import { Pagination } from "../../components/pagination/pagination";
-import EmptyImg from "../../shared/img/empty-team.svg";
+import EmptyImg from "../../assets/img/empty-team.svg";
 import { EmptyBase } from "../../components/emptyBase/emptyBase";
 import { IFetchSuffix } from "../../api/dto/components.g";
 import { useHistory } from "react-router";
 import { Sidebar } from "../../components/sidebar/sidebar";
 import { Header } from "../../components/header/header";
+import { getTeamsRequest } from "../../api/requests/team";
 
 export const TeamCards: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -38,11 +39,11 @@ export const TeamCards: React.FC = () => {
   const pageCount = Math.ceil(loadedCardsNumber / pageSize);
   const pageNumber = pageCount >= +getPageNumber ? +getPageNumber : 1;
 
-  const request = `http://dev.trainee.dex-it.ru/api/Team/GetTeams?Name=${searchText}&Page=${pageNumber}&PageSize=${pageSize}`;
+  const request = `${getTeamsRequest}?Name=${searchText}&Page=${pageNumber}&PageSize=${pageSize}`;
 
   useEffect(() => {
     dispatch(fetchTeamsAsync(request));
-  }, [request, dispatch]);
+  }, [request, dispatch, teamsRedux]);
 
   if (teamsReduxIsLoading === false) {
     if (pageCount < +getPageNumber) {

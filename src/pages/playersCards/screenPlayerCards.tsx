@@ -5,7 +5,7 @@ import { Search } from "../../components/search/search";
 import { PlayerCard } from "../../components/playerCard/playerCard";
 import { PageSizeSelect } from "../../components/selectPageSize/selectPageSize";
 import { Pagination } from "../../components/pagination/pagination";
-import EmptyImg from "../../shared/img/empty-player.svg";
+import EmptyImg from "../../assets/img/empty-player.svg";
 import { EmptyBase } from "../../components/emptyBase/emptyBase";
 import { IFetchSuffix } from "../../api/dto/components.g";
 import { SelectTeams } from "../../components/selectTeams/selectTeams";
@@ -23,6 +23,7 @@ import {
   setPageSize,
   setSearchText,
 } from "../../modules/player/playerSlice";
+import { getPlayersRequest } from "../../api/requests/player";
 
 export const PlayersCards: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -40,7 +41,7 @@ export const PlayersCards: React.FC = () => {
   const pageCount = Math.ceil(loadedCardsNumber / pageSize);
   const pageNumber = pageCount >= +getPageNumber ? +getPageNumber : 1;
 
-  const request = `http://dev.trainee.dex-it.ru/api/Player/GetPlayers?Name=${searchText}${teamIds}&Page=${pageNumber}&PageSize=${pageSize}`;
+  const request = `${getPlayersRequest}?Name=${searchText}${teamIds}&Page=${pageNumber}&PageSize=${pageSize}`;
 
   useEffect(() => {
     dispatch(fetchPlayersAsync(request));

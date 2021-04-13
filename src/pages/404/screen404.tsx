@@ -1,4 +1,4 @@
-import { ReactComponent as Image404 } from "../../shared/img/404.svg";
+import { ReactComponent as Image404 } from "../../assets/img/404.svg";
 import s from "./style.module.css";
 
 export const PageNotFound: React.FC = () => {

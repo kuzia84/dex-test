@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { User } from "./user/user";
 import { BurgerBtn } from "./burgerBtn/burgerBtn";
-import Logo from "../../shared/img/logo.png";
-import userImg from "../../shared/icons/profile.svg";
+import Logo from "../../assets/img/logo.png";
+import userImg from "../../assets/icons/profile.svg";
 import s from "./style.module.css";
 
 export const Header: React.FC = () => {

@@ -1,9 +1,11 @@
-import { ReactComponent as Pen } from "../../shared/icons/create.svg";
-import { ReactComponent as Delete } from "../../shared/icons/delete.svg";
+import { ReactComponent as Pen } from "../../assets/icons/create.svg";
+import { ReactComponent as Delete } from "../../assets/icons/delete.svg";
 import { fetchDeleteItemById } from "../../core/deleteItemById";
 import { useAppDispatch } from "../../core/redux/hooks";
 import s from "./style.module.css";
 import { useHistory } from "react-router";
+import { deletePlayerRequest } from "../../api/requests/player";
+import { deleteTeamRequest } from "../../api/requests/team";
 
 interface IControlButtonsProps {
   itemId: number;
@@ -16,9 +18,9 @@ export const ControlButtons: React.FC<IControlButtonsProps> = (props) => {
   const currentPage = props.page;
   let deleteRequest = "";
   if (currentPage === "players") {
-    deleteRequest = `http://dev.trainee.dex-it.ru/api/Player/Delete?id=${props.itemId}`;
+    deleteRequest = deletePlayerRequest + props.itemId;
   } else if (currentPage === "teams") {
-    deleteRequest = `http://dev.trainee.dex-it.ru/api/Team/Delete?id=${props.itemId}`;
+    deleteRequest = deleteTeamRequest + props.itemId;
   }
 
   const handleDeleteButton = () => {

@@ -27,6 +27,8 @@ import {
   fetchPlayerPositionsAsync,
   fetchUpdatePlayerById,
 } from "../../modules/player/playerThunk";
+import { playerPostionsRequest } from "../../api/requests/player";
+import { getTeamsRequest } from "../../api/requests/team";
 
 interface IPlayerAdd {
   playerId: number;
@@ -36,12 +38,8 @@ export const AddPlayer: React.FC<IPlayerAdd> = ({ playerId }) => {
   const dispatch = useAppDispatch();
   const history = useHistory();
   useEffect(() => {
-    dispatch(
-      fetchPlayerPositionsAsync(
-        "http://dev.trainee.dex-it.ru/api/Player/GetPositions"
-      )
-    );
-    dispatch(fetchTeamsAsync("http://dev.trainee.dex-it.ru/api/Team/GetTeams"));
+    dispatch(fetchPlayerPositionsAsync(playerPostionsRequest));
+    dispatch(fetchTeamsAsync(getTeamsRequest));
   }, [dispatch]);
   const selectedId = playerId ? playerId : 0;
   const singlePlayerIsLoading = useAppSelector(SelectSinglePlayerIsLoading);

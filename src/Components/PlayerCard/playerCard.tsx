@@ -8,6 +8,7 @@ import {
 } from "../../core/getTeamsSlice";
 import { PlayerDto } from "../../api/dto/player.g";
 import s from "./style.module.css";
+import { getTeamsRequest } from "../../api/requests/team";
 
 export const PlayerCard: React.FC<PlayerDto> = ({
   name,
@@ -18,11 +19,10 @@ export const PlayerCard: React.FC<PlayerDto> = ({
   id,
 }) => {
   const dispatch = useAppDispatch();
-  const request = "http://dev.trainee.dex-it.ru/api/Team/GetTeams";
   useEffect(() => {
     dispatch(reset());
-    dispatch(fetchTeamsAsync(request));
-  }, [dispatch, request]);
+    dispatch(fetchTeamsAsync(getTeamsRequest));
+  }, [dispatch]);
   const teamsRedux = useAppSelector(selectTeamsData);
   const teamsIsLoading = useAppSelector(selectTeamsIsLoading);
   const teams = teamsRedux.data;

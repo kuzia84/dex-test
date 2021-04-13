@@ -12,7 +12,10 @@ export const InputGroup: React.FC<InputProps> = ({
   register,
   required,
   errors,
+  handleFileChange,
+  imageUrl,
 }) => {
+  console.log("imageUrl: ", imageUrl);
   const [showPwd, setShowPwd] = useState<boolean>(false);
   const [inputType, setInputType] = useState<string>(type);
   const handleClick = (event: any) => {
@@ -25,22 +28,38 @@ export const InputGroup: React.FC<InputProps> = ({
       setInputType("password");
     }
   };
+
   return (
     <div className={cn(s.inputGroup, { [s.showPwd]: showPwd })}>
       {type === "file" ? (
-        <label className={s.fileLabel} htmlFor={inputName}></label>
+        <label
+          className={s.fileLabel}
+          htmlFor={inputName}
+          style={{ backgroundImage: `url(${imageUrl})` }}
+        ></label>
       ) : (
         <label className={s.label} htmlFor={inputName}>
           {label}
         </label>
       )}
-      <input
-        className={s.input}
-        type={inputType}
-        name={inputName}
-        id={inputName}
-        ref={register({ required })}
-      />
+      {type === "file" ? (
+        <input
+          className={s.input}
+          type={inputType}
+          name={inputName}
+          id={inputName}
+          ref={register({ required })}
+          onChange={handleFileChange}
+        />
+      ) : (
+        <input
+          className={s.input}
+          type={inputType}
+          name={inputName}
+          id={inputName}
+          ref={register({ required })}
+        />
+      )}
       {inputName === "checkPassword" ? (
         <button className={s.showPassword} onClick={handleClick}></button>
       ) : inputName === "password" ? (

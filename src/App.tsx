@@ -1,13 +1,13 @@
 import { Redirect, Route, Switch } from "react-router-dom";
-import { TeamCards } from "./routes/teamCards/screenTeamCards";
-import { Team } from "./routes/team/screenTeam";
-import { PlayersCards } from "./routes/playersCards/screenPlayerCards";
-import { Player } from "./routes/player/screenPlayer";
-import { SignIn } from "./routes/signIn/screenSignIn";
-import { SignUp } from "./routes/signUp/screenSignUp";
-import { AddNewPlayer } from "./routes/addNewPlayer/screenAddNewPlayer";
-import { AddNewTeam } from "./routes/addNewTeam/screenAddNewTeam";
-import { PageNotFound } from "./routes/404/screen404";
+import { TeamCards } from "./pages/teamCards/screenTeamCards";
+import { Team } from "./pages/team/screenTeam";
+import { PlayersCards } from "./pages/playersCards/screenPlayerCards";
+import { Player } from "./pages/player/screenPlayer";
+import { SignIn } from "./pages/signIn/screenSignIn";
+import { SignUp } from "./pages/signUp/screenSignUp";
+import { AddNewPlayer } from "./pages/addNewPlayer/screenAddNewPlayer";
+import { AddNewTeam } from "./pages/addNewTeam/screenAddNewTeam";
+import { PageNotFound } from "./pages/404/screen404";
 import { PrivateRoute } from "./components/privateRoute/privateRoute";
 
 export function App() {

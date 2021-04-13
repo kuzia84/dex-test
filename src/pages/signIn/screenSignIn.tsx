@@ -1,5 +1,5 @@
 import { SignInForm } from "../../components/signInForm/signInForm";
-import signInBg from "../../shared/img/sign-in-bg.svg";
+import signInBg from "../../assets/img/sign-in-bg.svg";
 
 export const SignIn: React.FC = () => {
   return (

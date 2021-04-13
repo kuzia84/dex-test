@@ -1,5 +1,5 @@
 import { SignUpForm } from "../../components/signUpForm/signUpForm";
-import signUpBg from "../../shared/img/sign-up-bg.svg";
+import signUpBg from "../../assets/img/sign-up-bg.svg";
 
 export const SignUp: React.FC = () => {
   return (

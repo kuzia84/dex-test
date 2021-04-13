@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
 import { ITeamAddData, ITeamAddInputs, NewTeamDto } from "../../api/dto/team.g";
+import { addImageRequest } from "../../api/requests/images";
 import { fetchAddTeam, selectAddTeamError } from "../../core/addTeamSlice";
 import {
   SelectSingleTeamData,
@@ -13,6 +14,7 @@ import {
   SelectUpdateTeamByIdError,
 } from "../../core/updateTeamById";
 import { InputGroup } from "../inputGroup/iInputGroup";
+import cameraImg from "../../assets/icons/add_a_photo_24px_rounded.svg";
 
 interface ITeamAdd {
   teamId: number;
@@ -33,8 +35,10 @@ export const AddTeam: React.FC<ITeamAdd> = ({ teamId }) => {
     errors,
     reset,
     setValue,
+    watch,
   } = useForm<ITeamAddInputs>();
   const setTeamDataValues = () => {
+    // setValue("teamPhoto", singleTeam.imageUrl);
     setValue("teamName", singleTeam.name);
     setValue("teamDivision", singleTeam.division);
     setValue("teamConference", singleTeam.conference);
@@ -46,6 +50,43 @@ export const AddTeam: React.FC<ITeamAdd> = ({ teamId }) => {
       setTeamDataValues();
     }
   }, [selectedId, singleTeamIsLoading]);
+  const [bgImage, setBgImage] = useState(cameraImg);
+  const watchFile = watch("teamPhoto");
+  useEffect(() => {
+    if (selectedId !== 0) {
+      setBgImage(singleTeam.imageUrl);
+    }
+    if (watchFile && watchFile.length) {
+      setBgImage(URL.createObjectURL(watchFile[0]));
+    }
+  }, [selectedId, singleTeam.imageUrl, watchFile]);
+
+  const handleFileChange = () => {
+    const file = watchFile[0];
+    const dataForm = new FormData();
+    dataForm.append("file", file);
+    window
+      .fetch(addImageRequest, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        mode: "cors",
+        body: dataForm,
+      })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error(response.statusText);
+        }
+      })
+      .then((data) => makeUrl(data));
+  };
+  let imageUrl = "";
+  const makeUrl = (data: string) => {
+    return (imageUrl = `http://dev.trainee.dex-it.ru${data}`);
+  };
 
   const onSubmit = (data: ITeamAddData) => {
     if (selectedId !== 0) {
@@ -54,7 +95,7 @@ export const AddTeam: React.FC<ITeamAdd> = ({ teamId }) => {
         foundationYear: data.teamFoundation,
         division: data.teamDivision,
         conference: data.teamConference,
-        imageUrl: data.teamPhoto[0].name,
+        imageUrl: imageUrl,
         id: selectedId,
       };
       dispatch(fetchUpdateTeamById(updateTeamData));
@@ -69,7 +110,7 @@ export const AddTeam: React.FC<ITeamAdd> = ({ teamId }) => {
         foundationYear: data.teamFoundation,
         division: data.teamDivision,
         conference: data.teamConference,
-        imageUrl: data.teamPhoto[0].name,
+        imageUrl: imageUrl,
       };
       dispatch(fetchAddTeam(addTeamData));
       if (addTeamError) {
@@ -78,7 +119,6 @@ export const AddTeam: React.FC<ITeamAdd> = ({ teamId }) => {
         history.push("/teams");
       }
     }
-
     reset();
   };
   return (
@@ -92,6 +132,8 @@ export const AddTeam: React.FC<ITeamAdd> = ({ teamId }) => {
             register={register}
             required
             errors={errors}
+            handleFileChange={handleFileChange}
+            imageUrl={bgImage}
           />
         </div>
       </div>

@@ -38,7 +38,7 @@
     color: var(--red);
 }
 .customCheckboxInput:checked ~ .customCheckboxLabel::after {
-    background-image: url("../../shared/icons/check.svg");
+    background-image: url("../../assets/icons/check.svg");
     background-position: center;
     background-repeat: no-repeat;
 }

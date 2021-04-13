@@ -4,6 +4,7 @@ import {
   ISignUpRequest,
   ISignUpResult,
 } from "../api/dto/autorization.g";
+import { signUpRequest } from "../api/requests/autorization";
 import { RootState } from "./redux/store";
 
 const initialState: ISignUpState = {
@@ -26,10 +27,7 @@ export const fetchSignUp = createAsyncThunk<any, ISignUpRequest>(
       },
       body: JSON.stringify(data),
     };
-    const response = await fetch(
-      "http://dev.trainee.dex-it.ru/api/Auth/SignUp",
-      requestOptions
-    );
+    const response = await fetch(signUpRequest, requestOptions);
     const result = (await response.json()) as ISignUpResult;
     if (result.token) {
       localStorage.setItem("token", result.token);
