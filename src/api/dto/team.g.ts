@@ -1,3 +1,21 @@
+import { IFetchSuffix } from "./components.g";
+
+export interface ITeamState {
+  addIsLoading: boolean;
+  addFetchResult: {};
+  addErrors: any;
+  getOneTeamIsLoading: boolean;
+  getOneTeamFetchResult: TeamDto;
+  getOneTeamError: any;
+  getTeamsIsLoading: boolean;
+  getTeamsFetchResult: TeamDtoPageResult;
+  getTeamsError: any;
+  updateIsLoading: boolean;
+  updateFetchResult: {};
+  updateErrors: any;
+  teamsFetchSuffix: IFetchSuffix;
+}
+
 export interface TeamDto {
   name: string;
   foundationYear: number;
@@ -8,23 +26,11 @@ export interface TeamDto {
   onClick?: (id: number) => void;
 }
 
-export interface SingleTeamPageResultState {
-  isLoading: boolean;
-  fetchResult: TeamDto;
-  error: any;
-}
-
 export interface TeamDtoPageResult {
   data: TeamDto[];
   count: number;
   page: number;
   size: number;
-}
-
-export interface TeamDtoPageResultState {
-  isLoading: boolean;
-  fetchResult: TeamDtoPageResult;
-  error: any;
 }
 
 export interface ITeamSelectOptions {
@@ -39,12 +45,6 @@ export type ITeamAddInputs = {
   teamConference: string;
   teamFoundation: string;
 };
-
-export interface AddNewTeamState {
-  isLoading: boolean;
-  fetchResult: {};
-  errors: any;
-}
 
 export interface ITeamAddData {
   teamName: string;

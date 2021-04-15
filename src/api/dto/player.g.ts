@@ -1,3 +1,24 @@
+import { IFetchSuffix } from "./components.g";
+
+export interface IPlayersState {
+  addIsLoading: boolean;
+  addFetchResult: {};
+  addErrors: any;
+  getPositionsIsLoading: boolean;
+  getPositionsFetchResult: string[];
+  getPositionsError: any;
+  getOnePlayerIsLoading: boolean;
+  getOnePlayerFetchResult: PlayerTeamNameDto;
+  getOnePlayerError: any;
+  getPlayersIsLoading: boolean;
+  getPlayersFetchResult: PlayerDtoPageResult;
+  getPlayersError: any;
+  updateIsLoading: boolean;
+  updateFetchResult: {};
+  updateErrors: any;
+  playersFetchSuffix: IFetchSuffix;
+}
+
 export interface PlayerDto {
   name: string;
   number: number;
@@ -31,24 +52,6 @@ export interface PlayerDtoPageResult {
   size: number;
 }
 
-export interface PlayerDtoPageResultState {
-  isLoading: boolean;
-  fetchResult: PlayerDtoPageResult;
-  error: any;
-}
-
-export interface SinglePlayerPageResultState {
-  isLoading: boolean;
-  fetchResult: PlayerTeamNameDto;
-  error: any;
-}
-
-export interface PlayerPositionsState {
-  isLoading: boolean;
-  fetchResult: string[];
-  error: any;
-}
-
 export interface IPlayerAddData {
   playerBirthday: string;
   playerHeight: number;
@@ -58,12 +61,6 @@ export interface IPlayerAddData {
   playerPosition: { value: string; label: string };
   playerTeam: { value: number; label: string };
   playerWeight: number;
-}
-
-export interface AddNewPlayerState {
-  isLoading: boolean;
-  fetchResult: {};
-  errors: any;
 }
 
 export interface NewPlayerDto {
@@ -88,9 +85,3 @@ export type IPlayerAddInputs = {
   playerBirthday: string;
   playerNumber: number;
 };
-
-export interface IUpdatePlayerById {
-  isLoading: boolean;
-  fetchResult: {};
-  errors: any;
-}

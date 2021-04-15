@@ -1,41 +1,13 @@
-import { getTeamsReducer } from "../getTeamsSlice";
-import { teamsFetchSuffixReducer } from "../teamsFetchSuffix";
-import {
-  addPlayerReducer,
-  getPlayerPositionsReducer,
-  getSinglePlayerReducer,
-  getPlayersReducer,
-  updatePlayerByIdReducer,
-  playersFetchSuffixReducer,
-} from "../../modules/player/playerSlice";
-import { selectedIdReducer } from "../selectedIdSlice";
-import { addTeamReducer } from "../addTeamSlice";
-import { getSingleTeamReducer } from "../getTeamSlice";
-import { sidebarStateReducer } from "../sidebarStateSlice";
-import { deleteItemByIdReducer } from "../deleteItemById";
-import { updateTeamByIdReducer } from "../updateTeamById";
-import { signInReducer } from "../signInSlice";
-import { signUpReducer } from "../signUpSlice";
-import { addImageReducer } from "../../modules/image/imageSlice";
+import { playerReducer } from "../../modules/player/playerSlice";
+import { teamReducer } from "../../modules/team/teamSlice";
+import { authReducer } from "../../modules/autorization/authSlice";
+import { appReducer } from "../../modules/app/appSlice";
 
 export const rootReducer = {
   reducer: {
-    signIn: signInReducer,
-    signUp: signUpReducer,
-    getTeams: getTeamsReducer,
-    getPlayers: getPlayersReducer,
-    getSinglePlayer: getSinglePlayerReducer,
-    getSingleTeam: getSingleTeamReducer,
-    getPlayerPositions: getPlayerPositionsReducer,
-    teamsFetchSuffix: teamsFetchSuffixReducer,
-    playersFetchSuffix: playersFetchSuffixReducer,
-    addPlayer: addPlayerReducer,
-    addTeam: addTeamReducer,
-    selectedId: selectedIdReducer,
-    sidebarState: sidebarStateReducer,
-    deleteItemById: deleteItemByIdReducer,
-    updateTeamById: updateTeamByIdReducer,
-    updatePlayerById: updatePlayerByIdReducer,
-    addImage: addImageReducer,
+    app: appReducer,
+    auth: authReducer,
+    player: playerReducer,
+    team: teamReducer,
   },
 };

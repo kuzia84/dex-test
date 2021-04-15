@@ -1,5 +1,14 @@
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 
+export interface IAppState {
+  sidebarShow: boolean;
+  deleteIsLoading: boolean;
+  deleteFetchResult: {
+    name: string;
+  };
+  deleteErrors: any;
+}
+
 export interface IMenu {
   id: number;
   name: string;
@@ -65,7 +74,6 @@ export type InputProps = React.DetailedHTMLProps<
   inputName: string;
   errorText: string;
   errors: any;
-  handleFileChange?: () => void;
   imageUrl?: string;
   register: ({ required }: { required?: boolean }) => RefReturn;
 };
@@ -89,3 +97,8 @@ export type SelectProps = React.DetailedHTMLProps<
   register: ({ required }: { required?: boolean }) => RefReturnSelect;
   control: any;
 };
+
+export interface IControlButtonsProps {
+  itemId: number;
+  page: string;
+}

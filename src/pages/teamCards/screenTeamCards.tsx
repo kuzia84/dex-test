@@ -1,16 +1,5 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../core/redux/hooks";
-import {
-  fetchTeamsAsync,
-  selectTeamsData,
-  selectTeamsIsLoading,
-} from "../../core/getTeamsSlice";
-import {
-  selectTeamsFetchSuffix,
-  setPageNumber,
-  setPageSize,
-  setSearchText,
-} from "../../core/teamsFetchSuffix";
 import { AddBtn } from "../../components/addBtn/addBtn";
 import { Search } from "../../components/search/search";
 import { TeamCard } from "../../components/teamCard/teamCard";
@@ -23,6 +12,17 @@ import { useHistory } from "react-router";
 import { Sidebar } from "../../components/sidebar/sidebar";
 import { Header } from "../../components/header/header";
 import { getTeamsRequest } from "../../api/requests/team";
+import {
+  selectTeamsData,
+  selectTeamsFetchSuffix,
+  selectTeamsIsLoading,
+} from "../../modules/team/teamSelector";
+import { fetchTeamsAsync } from "../../modules/team/teamThunk";
+import {
+  setPageNumber,
+  setPageSize,
+  setSearchText,
+} from "../../modules/team/teamSlice";
 
 export const TeamCards: React.FC = () => {
   const dispatch = useAppDispatch();

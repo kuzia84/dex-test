@@ -15,7 +15,7 @@ export const TeamCard: React.FC<TeamDto> = ({
     <div className={s.team} onClick={handleTeamClick}>
       <div className={s.team__wrapper}>
         <div className={s.team__logo}>
-          <img src={imageUrl} alt={name} />
+          <img src={"http://dev.trainee.dex-it.ru" + imageUrl} alt={name} />
         </div>
         <div className={s.team__info}>
           <div className={s.team__name}>{name}</div>

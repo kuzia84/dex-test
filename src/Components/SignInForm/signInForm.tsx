@@ -2,7 +2,8 @@ import { useForm } from "react-hook-form";
 import { Link, useHistory } from "react-router-dom";
 import { ILoginRequest, ISignInInputs } from "../../api/dto/autorization.g";
 import { useAppDispatch, useAppSelector } from "../../core/redux/hooks";
-import { fetchSignIn, selectSignInError } from "../../core/signInSlice";
+import { selectSignInError } from "../../modules/autorization/athSelect";
+import { fetchSignIn } from "../../modules/autorization/authThunk";
 import { InputGroup } from "../inputGroup/iInputGroup";
 import s from "./style.module.css";
 

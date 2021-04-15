@@ -1,14 +1,13 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../core/redux/hooks";
-import {
-  fetchTeamsAsync,
-  reset,
-  selectTeamsData,
-  selectTeamsIsLoading,
-} from "../../core/getTeamsSlice";
 import { PlayerDto } from "../../api/dto/player.g";
 import s from "./style.module.css";
 import { getTeamsRequest } from "../../api/requests/team";
+import { fetchTeamsAsync } from "../../modules/team/teamThunk";
+import {
+  selectTeamsData,
+  selectTeamsIsLoading,
+} from "../../modules/team/teamSelector";
 
 export const PlayerCard: React.FC<PlayerDto> = ({
   name,
@@ -20,7 +19,6 @@ export const PlayerCard: React.FC<PlayerDto> = ({
 }) => {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(reset());
     dispatch(fetchTeamsAsync(getTeamsRequest));
   }, [dispatch]);
   const teamsRedux = useAppSelector(selectTeamsData);
@@ -35,7 +33,7 @@ export const PlayerCard: React.FC<PlayerDto> = ({
     <div className={s.player}>
       <div className={s.player__wrapper} onClick={handlePlayerClick}>
         <div className={s.player__logo}>
-          <img src={avatarUrl} alt={name} />
+          <img src={"http://dev.trainee.dex-it.ru" + avatarUrl} alt={name} />
         </div>
         <div className={s.player__info}>
           <div className={s.player__name}>

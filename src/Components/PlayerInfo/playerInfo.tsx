@@ -1,15 +1,18 @@
 import { useAppSelector } from "../../core/redux/hooks";
-import { SelectSinglePlayerData } from "../../modules/player/playerSelector";
+import { selectSinglePlayerData } from "../../modules/player/playerSelector";
 
 import s from "./style.module.css";
 
 export const PlayerInfo: React.FC = () => {
-  const singlePlayer = useAppSelector(SelectSinglePlayerData);
+  const singlePlayer = useAppSelector(selectSinglePlayerData);
 
   return (
     <>
       <div className={s.photo}>
-        <img src={singlePlayer.avatarUrl} alt={singlePlayer.name} />
+        <img
+          src={"http://dev.trainee.dex-it.ru" + singlePlayer.avatarUrl}
+          alt={singlePlayer.name}
+        />
       </div>
       <div className={s.info}>
         <div className={s.title}>

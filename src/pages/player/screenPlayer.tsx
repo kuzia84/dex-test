@@ -6,7 +6,7 @@ import { PlayerInfo } from "../../components/playerInfo/playerInfo";
 import { Sidebar } from "../../components/sidebar/sidebar";
 import { Header } from "../../components/header/header";
 import { fetchSinglePlayerAsync } from "../../modules/player/playerThunk";
-import { SelectSinglePlayerData } from "../../modules/player/playerSelector";
+import { selectSinglePlayerData } from "../../modules/player/playerSelector";
 import { getPlayerRequest } from "../../api/requests/player";
 
 export const Player: React.FC = () => {
@@ -17,7 +17,7 @@ export const Player: React.FC = () => {
   useEffect(() => {
     dispatch(fetchSinglePlayerAsync(request));
   }, [request, dispatch]);
-  const singlePlayer = useAppSelector(SelectSinglePlayerData);
+  const singlePlayer = useAppSelector(selectSinglePlayerData);
 
   return (
     <div className="page">

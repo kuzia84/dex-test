@@ -6,9 +6,9 @@ import { ReactComponent as Logout } from "../../assets/icons/logout_rounded.svg"
 import { useAppSelector } from "../../core/redux/hooks";
 import { User } from "../header/user/user";
 import userImg from "../../assets/icons/profile.svg";
-import { selectSidebrSate } from "../../core/sidebarStateSlice";
 import { MENU } from "./menu";
 import { SidebarLink } from "./sidebarLink/sidebarLink";
+import { selectSidebrSate } from "../../modules/app/appSelect";
 
 export const Sidebar: React.FC = () => {
   const sidebarState = useAppSelector(selectSidebrSate);

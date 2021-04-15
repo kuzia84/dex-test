@@ -1,16 +1,12 @@
 import { ReactComponent as Pen } from "../../assets/icons/create.svg";
 import { ReactComponent as Delete } from "../../assets/icons/delete.svg";
-import { fetchDeleteItemById } from "../../core/deleteItemById";
 import { useAppDispatch } from "../../core/redux/hooks";
 import s from "./style.module.css";
 import { useHistory } from "react-router";
 import { deletePlayerRequest } from "../../api/requests/player";
 import { deleteTeamRequest } from "../../api/requests/team";
-
-interface IControlButtonsProps {
-  itemId: number;
-  page: string;
-}
+import { fetchDeleteItemById } from "../../modules/app/appThunk";
+import { IControlButtonsProps } from "../../api/dto/components.g";
 
 export const ControlButtons: React.FC<IControlButtonsProps> = (props) => {
   const dispatch = useAppDispatch();
@@ -28,7 +24,8 @@ export const ControlButtons: React.FC<IControlButtonsProps> = (props) => {
       dispatch(fetchDeleteItemById(deleteRequest));
       if (currentPage === "players") {
         history.push("/players");
-      } else if (currentPage === "teams") {
+      }
+      if (currentPage === "teams") {
         history.push("/teams");
       }
     } else alert("Canceled");
@@ -37,7 +34,8 @@ export const ControlButtons: React.FC<IControlButtonsProps> = (props) => {
   const handleUpdateButton = () => {
     if (currentPage === "players") {
       history.push(`/players/new-player?id=${props.itemId}`);
-    } else if (currentPage === "teams") {
+    }
+    if (currentPage === "teams") {
       history.push(`/teams/new-team?id=${props.itemId}`);
     }
   };

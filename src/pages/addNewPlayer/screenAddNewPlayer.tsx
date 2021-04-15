@@ -6,7 +6,7 @@ import { Sidebar } from "../../components/sidebar/sidebar";
 import { Header } from "../../components/header/header";
 import { useEffect } from "react";
 import { fetchSinglePlayerAsync } from "../../modules/player/playerThunk";
-import { SelectSinglePlayerData } from "../../modules/player/playerSelector";
+import { selectSinglePlayerData } from "../../modules/player/playerSelector";
 import { getPlayerRequest } from "../../api/requests/player";
 
 export const AddNewPlayer: React.FC = () => {
@@ -21,7 +21,7 @@ export const AddNewPlayer: React.FC = () => {
   }, [dispatch, request, id]);
 
   const singlePlayer: PlayerTeamNameDto = useAppSelector(
-    SelectSinglePlayerData
+    selectSinglePlayerData
   );
 
   const breadcrumbsText = playerId

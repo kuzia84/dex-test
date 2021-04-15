@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
 import {
@@ -8,17 +8,12 @@ import {
 } from "../../api/dto/player.g";
 import {
   selectAddPlayerError,
-  SelectPlayerPositionsData,
-  SelectPlayerPositionsIsLoading,
-  SelectSinglePlayerData,
-  SelectSinglePlayerIsLoading,
-  SelectUpdatePlayerByIdError,
+  selectPlayerPositionsData,
+  selectPlayerPositionsIsLoading,
+  selectSinglePlayerData,
+  selectSinglePlayerIsLoading,
+  selectUpdatePlayerByIdError,
 } from "../../modules/player/playerSelector";
-import {
-  fetchTeamsAsync,
-  selectTeamsData,
-  selectTeamsIsLoading,
-} from "../../core/getTeamsSlice";
 import { useAppDispatch, useAppSelector } from "../../core/redux/hooks";
 import { InputGroup } from "../inputGroup/iInputGroup";
 import { SelectGroup } from "../selectGroup/selectGroup";
@@ -29,6 +24,13 @@ import {
 } from "../../modules/player/playerThunk";
 import { playerPostionsRequest } from "../../api/requests/player";
 import { getTeamsRequest } from "../../api/requests/team";
+import { fetchTeamsAsync } from "../../modules/team/teamThunk";
+import cameraImg from "../../assets/icons/add_a_photo_24px_rounded.svg";
+import {
+  selectTeamsData,
+  selectTeamsIsLoading,
+} from "../../modules/team/teamSelector";
+import { addImageRequest } from "../../api/requests/images";
 
 interface IPlayerAdd {
   playerId: number;
@@ -42,12 +44,12 @@ export const AddPlayer: React.FC<IPlayerAdd> = ({ playerId }) => {
     dispatch(fetchTeamsAsync(getTeamsRequest));
   }, [dispatch]);
   const selectedId = playerId ? playerId : 0;
-  const singlePlayerIsLoading = useAppSelector(SelectSinglePlayerIsLoading);
-  const singlePlayer = useAppSelector(SelectSinglePlayerData);
+  const singlePlayerIsLoading = useAppSelector(selectSinglePlayerIsLoading);
+  const singlePlayer = useAppSelector(selectSinglePlayerData);
   const playerPositionIsLoading = useAppSelector(
-    SelectPlayerPositionsIsLoading
+    selectPlayerPositionsIsLoading
   );
-  const playerPositions = useAppSelector(SelectPlayerPositionsData);
+  const playerPositions = useAppSelector(selectPlayerPositionsData);
   let playerPosition: any = [];
   if (playerPositions.length > 2) {
     playerPosition = playerPositions.map((item: string) => {
@@ -66,7 +68,7 @@ export const AddPlayer: React.FC<IPlayerAdd> = ({ playerId }) => {
     };
   });
   const addPlayerError = useAppSelector(selectAddPlayerError);
-  const updatePlayerError = useAppSelector(SelectUpdatePlayerByIdError);
+  const updatePlayerError = useAppSelector(selectUpdatePlayerByIdError);
 
   const {
     control,
@@ -75,6 +77,7 @@ export const AddPlayer: React.FC<IPlayerAdd> = ({ playerId }) => {
     errors,
     reset,
     setValue,
+    watch,
   } = useForm<IPlayerAddInputs>();
 
   function setTeamDataValues() {
@@ -91,43 +94,75 @@ export const AddPlayer: React.FC<IPlayerAdd> = ({ playerId }) => {
     }
   }, [singlePlayerIsLoading, selectedId]);
 
-  const onSubmit = (data: IPlayerAddData) => {
-    if (selectedId) {
-      const updatePlayerData: NewPlayerDto = {
-        name: data.playerName,
-        number: data.playerNumber,
-        position: data.playerPosition.value,
-        team: data.playerTeam.value,
-        birthday: data.playerBirthday,
-        height: data.playerHeight,
-        weight: data.playerWeight,
-        avatarUrl: data.playerPhoto[0].name,
-        id: selectedId,
-      };
-      dispatch(fetchUpdatePlayerById(updatePlayerData));
-      if (updatePlayerError) {
-        console.log("updatePlayerError: ", updatePlayerError);
-      } else {
-        history.push("/players");
-      }
-    } else {
-      const addPlayerData: NewPlayerDto = {
-        name: data.playerName,
-        number: data.playerNumber,
-        position: data.playerPosition.value,
-        team: data.playerTeam.value,
-        birthday: data.playerBirthday,
-        height: data.playerHeight,
-        weight: data.playerWeight,
-        avatarUrl: data.playerPhoto[0].name,
-      };
-      dispatch(fetchAddPlayer(addPlayerData));
-      if (addPlayerError) {
-        console.log("addPlayerError: ", addPlayerError);
-      } else {
-        history.push("/players");
-      }
+  const [bgImage, setBgImage] = useState(cameraImg);
+  const watchFile = watch("playerPhoto");
+  useEffect(() => {
+    if (selectedId !== 0) {
+      setBgImage(`http://dev.trainee.dex-it.ru${singlePlayer.avatarUrl}`);
     }
+    if (watchFile && watchFile.length) {
+      setBgImage(URL.createObjectURL(watchFile[0]));
+    }
+  }, [selectedId, singlePlayer.avatarUrl, watchFile]);
+
+  const onSubmit = (data: IPlayerAddData) => {
+    const file = data.playerPhoto[0];
+    const dataForm = new FormData();
+    dataForm.append("file", file);
+    window
+      .fetch(addImageRequest, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        mode: "cors",
+        body: dataForm,
+      })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error(response.statusText);
+        }
+      })
+      .then((url) => {
+        if (selectedId) {
+          const updatePlayerData: NewPlayerDto = {
+            name: data.playerName,
+            number: data.playerNumber,
+            position: data.playerPosition.value,
+            team: data.playerTeam.value,
+            birthday: data.playerBirthday,
+            height: data.playerHeight,
+            weight: data.playerWeight,
+            avatarUrl: url,
+            id: selectedId,
+          };
+          dispatch(fetchUpdatePlayerById(updatePlayerData));
+          if (updatePlayerError) {
+            console.log("updatePlayerError: ", updatePlayerError);
+          } else {
+            history.push("/players");
+          }
+        } else {
+          const addPlayerData: NewPlayerDto = {
+            name: data.playerName,
+            number: data.playerNumber,
+            position: data.playerPosition.value,
+            team: data.playerTeam.value,
+            birthday: data.playerBirthday,
+            height: data.playerHeight,
+            weight: data.playerWeight,
+            avatarUrl: url,
+          };
+          dispatch(fetchAddPlayer(addPlayerData));
+          if (addPlayerError) {
+            console.log("addPlayerError: ", addPlayerError);
+          } else {
+            history.push("/players");
+          }
+        }
+      });
     reset();
   };
 
@@ -142,6 +177,7 @@ export const AddPlayer: React.FC<IPlayerAdd> = ({ playerId }) => {
             register={register}
             required
             errors={errors}
+            imageUrl={bgImage}
           />
         </div>
       </div>

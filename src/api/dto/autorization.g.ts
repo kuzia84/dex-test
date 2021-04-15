@@ -1,3 +1,12 @@
+export interface IAuthState {
+  signInIsLoading: boolean;
+  signInFetchResult: ILoginResult;
+  signInErrors: any;
+  signUpIsLoading: boolean;
+  signUpFetchResult: ISignUpResult;
+  signUpErrors: any;
+}
+
 export interface ILoginRequest {
   login: string;
   password: string;
@@ -17,21 +26,12 @@ export interface IBadRequest {
 export interface IUnauthorizedResult {
   statusCode: number;
 }
-export interface ISignInState {
-  isLoading: boolean;
-  fetchResult: ILoginResult;
-  errors: any;
-}
+
 export interface ISignInInputs {
   login: string;
   password: string;
 }
 
-export interface ISignUpState {
-  isLoading: boolean;
-  fetchResult: ISignUpResult;
-  errors: any;
-}
 export interface ISignUpData {
   agreement: boolean;
   userName: string;

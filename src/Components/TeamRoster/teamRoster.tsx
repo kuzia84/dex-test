@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../core/redux/hooks";
-import { newSelectedId } from "../../core/selectedIdSlice";
 import s from "./style.module.css";
 import cn from "classnames";
 import { PlayerDto } from "../../api/dto/player.g";
@@ -8,11 +7,14 @@ import { selectPlayersData } from "../../modules/player/playerSelector";
 import { fetchPlayersAsync } from "../../modules/player/playerThunk";
 import { getPlayersRequest } from "../../api/requests/player";
 
-export const TeamRoster: React.FC = () => {
+interface ITeamRosterProps {
+  teamId: number;
+}
+
+export const TeamRoster: React.FC<ITeamRosterProps> = ({ teamId }) => {
   const dispatch = useAppDispatch();
   const playersRedux = useAppSelector(selectPlayersData);
   const players = playersRedux.data;
-  const teamId = useAppSelector(newSelectedId);
   const request = `${getPlayersRequest}?TeamIds=${teamId}`;
   useEffect(() => {
     dispatch(fetchPlayersAsync(request));

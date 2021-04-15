@@ -2,16 +2,16 @@ import React, { useEffect } from "react";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import { useAppDispatch, useAppSelector } from "../../core/redux/hooks";
-import {
-  fetchTeamsAsync,
-  selectTeamsData,
-  selectTeamsIsLoading,
-} from "../../core/getTeamsSlice";
 import { ITeamSelectOptions, TeamDto } from "../../api/dto/team.g";
 
 import s from "./style.module.css";
 import { setTeamIds } from "../../modules/player/playerSlice";
 import { getTeamsRequest } from "../../api/requests/team";
+import { fetchTeamsAsync } from "../../modules/team/teamThunk";
+import {
+  selectTeamsData,
+  selectTeamsIsLoading,
+} from "../../modules/team/teamSelector";
 
 export const SelectTeams: React.FC = () => {
   const dispatch = useAppDispatch();

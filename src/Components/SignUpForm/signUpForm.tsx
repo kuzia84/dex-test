@@ -6,8 +6,8 @@ import {
   ISignUpData,
 } from "../../api/dto/autorization.g";
 import { useAppDispatch, useAppSelector } from "../../core/redux/hooks";
-import { selectSignUpError } from "../../core/signUpSlice";
-import { fetchSignUp } from "../../core/signUpSlice";
+import { selectSignUpError } from "../../modules/autorization/athSelect";
+import { fetchSignUp } from "../../modules/autorization/authThunk";
 import { Checkbox } from "../checkbox/checkbox";
 import { InputGroup } from "../inputGroup/iInputGroup";
 import s from "./style.module.css";

@@ -1,14 +1,12 @@
 import { useAppDispatch, useAppSelector } from "../../core/redux/hooks";
 import { AddTeam } from "../../components/addNewTeam/addNewTeam";
 import { BreadCrumbs } from "../../components/breadCrumbs/breadCrumbs";
-import {
-  fetchSingleTeamAsync,
-  SelectSingleTeamData,
-} from "../../core/getTeamSlice";
 import { Sidebar } from "../../components/sidebar/sidebar";
 import { Header } from "../../components/header/header";
 import { useEffect } from "react";
 import { getTeamRequest } from "../../api/requests/team";
+import { fetchSingleTeamAsync } from "../../modules/team/teamThunk";
+import { selectSingleTeamData } from "../../modules/team/teamSelector";
 
 export const AddNewTeam: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -20,7 +18,7 @@ export const AddNewTeam: React.FC = () => {
       dispatch(fetchSingleTeamAsync(request));
     }
   }, [dispatch, request, id]);
-  const singleTeam = useAppSelector(SelectSingleTeamData);
+  const singleTeam = useAppSelector(selectSingleTeamData);
   const breadcrumbsText = teamId ? `Update ${singleTeam.name}` : "Add new team";
   return (
     <div className="page">

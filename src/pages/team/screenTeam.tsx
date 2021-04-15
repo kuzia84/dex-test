@@ -1,9 +1,5 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../core/redux/hooks";
-import {
-  fetchSingleTeamAsync,
-  SelectSingleTeamData,
-} from "../../core/getTeamSlice";
 import { BreadCrumbs } from "../../components/breadCrumbs/breadCrumbs";
 import { ControlButtons } from "../../components/controlButtons/controlButtons";
 import { TeamInfo } from "../../components/teamInfo/teamInfo";
@@ -11,6 +7,8 @@ import { TeamRoster } from "../../components/teamRoster/teamRoster";
 import { Sidebar } from "../../components/sidebar/sidebar";
 import { Header } from "../../components/header/header";
 import { getTeamRequest } from "../../api/requests/team";
+import { fetchSingleTeamAsync } from "../../modules/team/teamThunk";
+import { selectSingleTeamData } from "../../modules/team/teamSelector";
 
 export const Team: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -19,7 +17,7 @@ export const Team: React.FC = () => {
   useEffect(() => {
     dispatch(fetchSingleTeamAsync(request));
   }, [request, dispatch]);
-  const singleTeam = useAppSelector(SelectSingleTeamData);
+  const singleTeam = useAppSelector(selectSingleTeamData);
 
   return (
     <div className="page">
@@ -37,7 +35,7 @@ export const Team: React.FC = () => {
             </div>
           </div>
         </div>
-        <TeamRoster />
+        <TeamRoster teamId={singleTeam.id} />
       </div>
     </div>
   );

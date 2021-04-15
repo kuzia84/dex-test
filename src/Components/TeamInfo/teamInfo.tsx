@@ -1,15 +1,18 @@
-import { SelectSingleTeamData } from "../../core/getTeamSlice";
 import { useAppSelector } from "../../core/redux/hooks";
+import { selectSingleTeamData } from "../../modules/team/teamSelector";
 
 import s from "./style.module.css";
 
 export const TeamInfo: React.FC = () => {
-  const singleTeam = useAppSelector(SelectSingleTeamData);
+  const singleTeam = useAppSelector(selectSingleTeamData);
 
   return (
     <>
       <div className={s.photo}>
-        <img src={singleTeam.imageUrl} alt={singleTeam.name} />
+        <img
+          src={"http://dev.trainee.dex-it.ru" + singleTeam.imageUrl}
+          alt={singleTeam.name}
+        />
       </div>
       <div className={s.info}>
         <div className={s.title}>{singleTeam.name}</div>
