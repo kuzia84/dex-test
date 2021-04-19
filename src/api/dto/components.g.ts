@@ -96,6 +96,7 @@ export type SelectProps = React.DetailedHTMLProps<
   errors: any;
   register: ({ required }: { required?: boolean }) => RefReturnSelect;
   control: any;
+  defaultValueIndex?: number;
 };
 
 export interface IControlButtonsProps {

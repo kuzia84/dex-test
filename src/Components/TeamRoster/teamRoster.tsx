@@ -39,7 +39,10 @@ export const TeamRoster: React.FC<ITeamRosterProps> = ({ teamId }) => {
                 <div className={s.number}>{item.number}</div>
                 <div className={s.player}>
                   <div className={s.avatar}>
-                    <img src={item.avatarUrl} alt={item.name} />
+                    <img
+                      src={"http://dev.trainee.dex-it.ru" + item.avatarUrl}
+                      alt={item.name}
+                    />
                   </div>
                   <div className={s.information}>
                     <div className={s.name}>{item.name}</div>

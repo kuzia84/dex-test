@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IFetchSuffix } from "../../api/dto/components.g";
 import { IPlayersState } from "../../api/dto/player.g";
 import {
   fetchAddPlayer,

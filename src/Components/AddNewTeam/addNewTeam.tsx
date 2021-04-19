@@ -5,7 +5,6 @@ import { ITeamAddData, ITeamAddInputs, NewTeamDto } from "../../api/dto/team.g";
 import { addImageRequest } from "../../api/requests/images";
 import { useAppDispatch, useAppSelector } from "../../core/redux/hooks";
 import { InputGroup } from "../inputGroup/iInputGroup";
-import cameraImg from "../../assets/icons/add_a_photo_24px_rounded.svg";
 import {
   selectAddTeamError,
   selectSingleTeamData,
@@ -50,7 +49,7 @@ export const AddTeam: React.FC<ITeamAdd> = ({ teamId }) => {
       setTeamDataValues();
     }
   }, [selectedId, singleTeamIsLoading]);
-  const [bgImage, setBgImage] = useState(cameraImg);
+  const [bgImage, setBgImage] = useState("");
 
   const watchFile = watch("teamPhoto");
   useEffect(() => {
@@ -76,11 +75,7 @@ export const AddTeam: React.FC<ITeamAdd> = ({ teamId }) => {
         body: dataForm,
       })
       .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error(response.statusText);
-        }
+        return response.json();
       })
       .then((url) => {
         if (selectedId !== 0) {

@@ -10,6 +10,7 @@ export const SelectGroup: React.FC<SelectProps> = ({
   errors,
   control,
   options,
+  defaultValueIndex = -1,
 }) => {
   const customTheme = (theme: any) => {
     return {
@@ -26,14 +27,25 @@ export const SelectGroup: React.FC<SelectProps> = ({
       <label className={s.label} htmlFor={selectName}>
         {label}
       </label>
-      <Controller
-        theme={customTheme}
-        name={selectName}
-        control={control}
-        options={options}
-        defaultValue=""
-        as={Select}
-      />
+      {(defaultValueIndex === -1 && (
+        <Controller
+          theme={customTheme}
+          name={selectName}
+          control={control}
+          options={options}
+          as={Select}
+        />
+      )) || (
+        <Controller
+          theme={customTheme}
+          name={selectName}
+          control={control}
+          options={options}
+          defaultValue={options[defaultValueIndex]}
+          as={Select}
+        />
+      )}
+
       {errors[selectName] && <div className={s.error}>{errorText}</div>}
     </div>
   );

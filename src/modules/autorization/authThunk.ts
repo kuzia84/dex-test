@@ -7,7 +7,7 @@ import {
 } from "../../api/dto/autorization.g";
 import { signInRequest, signUpRequest } from "../../api/requests/autorization";
 
-export const fetchSignIn = createAsyncThunk<any, ILoginRequest>(
+export const fetchSignIn = createAsyncThunk<ILoginResult, ILoginRequest>(
   "app/signIn",
   async (data) => {
     const requestOptions = {
@@ -27,7 +27,7 @@ export const fetchSignIn = createAsyncThunk<any, ILoginRequest>(
   }
 );
 
-export const fetchSignUp = createAsyncThunk<any, ISignUpRequest>(
+export const fetchSignUp = createAsyncThunk<ISignUpResult, ISignUpRequest>(
   "app/signUp",
   async (data) => {
     const requestOptions = {

@@ -35,7 +35,6 @@ export const InputGroup: React.FC<InputProps> = ({
           htmlFor={inputName}
           style={{
             backgroundImage: `url(${imageUrl})`,
-            backgroundSize: "150px",
           }}
         ></label>
       ) : (

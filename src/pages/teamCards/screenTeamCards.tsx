@@ -40,10 +40,12 @@ export const TeamCards: React.FC = () => {
   const pageNumber = pageCount >= +getPageNumber ? +getPageNumber : 1;
 
   const request = `${getTeamsRequest}?Name=${searchText}&Page=${pageNumber}&PageSize=${pageSize}`;
-
   useEffect(() => {
     dispatch(fetchTeamsAsync(request));
-  }, [request, dispatch, teamsRedux]);
+  }, []);
+  useEffect(() => {
+    dispatch(fetchTeamsAsync(request));
+  }, [request, dispatch]);
 
   if (teamsReduxIsLoading === false) {
     if (pageCount < +getPageNumber) {

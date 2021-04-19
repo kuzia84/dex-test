@@ -23,7 +23,7 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    reset: (state) => initialState,
+    resetAuth: (state) => initialState,
   },
   extraReducers: (builder) => {
     builder.addCase(fetchSignIn.pending, (state) => {
@@ -50,5 +50,7 @@ const authSlice = createSlice({
     });
   },
 });
+
+export const { resetAuth } = authSlice.actions;
 
 export const authReducer = authSlice.reducer;

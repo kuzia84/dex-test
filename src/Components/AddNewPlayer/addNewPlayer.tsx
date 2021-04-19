@@ -25,7 +25,6 @@ import {
 import { playerPostionsRequest } from "../../api/requests/player";
 import { getTeamsRequest } from "../../api/requests/team";
 import { fetchTeamsAsync } from "../../modules/team/teamThunk";
-import cameraImg from "../../assets/icons/add_a_photo_24px_rounded.svg";
 import {
   selectTeamsData,
   selectTeamsIsLoading,
@@ -50,18 +49,16 @@ export const AddPlayer: React.FC<IPlayerAdd> = ({ playerId }) => {
     selectPlayerPositionsIsLoading
   );
   const playerPositions = useAppSelector(selectPlayerPositionsData);
-  let playerPosition: any = [];
-  if (playerPositions.length > 2) {
-    playerPosition = playerPositions.map((item: string) => {
-      return {
-        value: item,
-        label: item,
-      };
-    });
-  }
+  const playerPositionOptions = playerPositions.map((item) => {
+    return {
+      value: item,
+      label: item,
+    };
+  });
+
   const teamsRedux = useAppSelector(selectTeamsData);
   const teamsIsLoading = useAppSelector(selectTeamsIsLoading);
-  const teams = teamsRedux.data.map((item) => {
+  const teamsOptions = teamsRedux.data.map((item) => {
     return {
       value: item.id,
       label: item.name,
@@ -87,6 +84,23 @@ export const AddPlayer: React.FC<IPlayerAdd> = ({ playerId }) => {
     setValue("playerBirthday", singlePlayer.birthday);
     setValue("playerNumber", singlePlayer.number);
   }
+  const positionDefaultValue = selectedId !== 0 ? singlePlayer.position : "";
+  let positionDefaultValueIndex = -1;
+  playerPositionOptions.forEach((item, index) => {
+    if (item.label === positionDefaultValue) {
+      positionDefaultValueIndex = index;
+    }
+  });
+
+  const teamDefaultValue = selectedId !== 0 ? singlePlayer.teamName : "";
+  let teamDefaultValueIndex = -1;
+  teamsOptions.forEach((item, index) => {
+    if (item.label === teamDefaultValue) {
+      teamDefaultValueIndex = index;
+    }
+  });
+
+  const birthdayDefaultValue = selectedId !== 0 ? singlePlayer.birthday : "";
 
   useEffect(() => {
     if (selectedId !== 0 && singlePlayerIsLoading === false) {
@@ -94,7 +108,7 @@ export const AddPlayer: React.FC<IPlayerAdd> = ({ playerId }) => {
     }
   }, [singlePlayerIsLoading, selectedId]);
 
-  const [bgImage, setBgImage] = useState(cameraImg);
+  const [bgImage, setBgImage] = useState("");
   const watchFile = watch("playerPhoto");
   useEffect(() => {
     if (selectedId !== 0) {
@@ -119,11 +133,7 @@ export const AddPlayer: React.FC<IPlayerAdd> = ({ playerId }) => {
         body: dataForm,
       })
       .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error(response.statusText);
-        }
+        return response.json();
       })
       .then((url) => {
         if (selectedId) {
@@ -200,8 +210,9 @@ export const AddPlayer: React.FC<IPlayerAdd> = ({ playerId }) => {
               errorText="This field is required"
               errors={errors}
               register={register}
-              options={playerPosition}
+              options={playerPositionOptions}
               control={control}
+              defaultValueIndex={positionDefaultValueIndex}
             />
           )}
           {teamsIsLoading ? (
@@ -213,8 +224,9 @@ export const AddPlayer: React.FC<IPlayerAdd> = ({ playerId }) => {
               errorText="This field is required"
               errors={errors}
               register={register}
-              options={teams}
+              options={teamsOptions}
               control={control}
+              defaultValueIndex={teamDefaultValueIndex}
             />
           )}
           <div className="form-row">
@@ -245,12 +257,13 @@ export const AddPlayer: React.FC<IPlayerAdd> = ({ playerId }) => {
             <div className="form-col">
               <InputGroup
                 label="Birthday"
-                type="date"
+                type="datetime-local"
                 inputName="playerBirthday"
                 errorText="Enter player birthday"
                 register={register}
                 required
                 errors={errors}
+                defaultValue={birthdayDefaultValue}
               />
             </div>
             <div className="form-col">

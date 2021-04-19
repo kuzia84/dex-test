@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useHistory } from "react-router-dom";
 import {
@@ -6,7 +7,10 @@ import {
   ISignUpData,
 } from "../../api/dto/autorization.g";
 import { useAppDispatch, useAppSelector } from "../../core/redux/hooks";
-import { selectSignUpError } from "../../modules/autorization/athSelect";
+import {
+  selectSignUpIsLoading,
+  selectSignUpResult,
+} from "../../modules/autorization/athSelect";
 import { fetchSignUp } from "../../modules/autorization/authThunk";
 import { Checkbox } from "../checkbox/checkbox";
 import { InputGroup } from "../inputGroup/iInputGroup";
@@ -15,7 +19,8 @@ import s from "./style.module.css";
 export const SignUpForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const { register, handleSubmit, errors } = useForm<ISignUpInputs>();
-  const signUpError = useAppSelector(selectSignUpError);
+  const signUpIsLoading = useAppSelector(selectSignUpIsLoading);
+  const singUpResult = useAppSelector(selectSignUpResult);
   const history = useHistory();
 
   const onSubmit = (data: ISignUpData) => {
@@ -25,17 +30,20 @@ export const SignUpForm: React.FC = () => {
         login: data.login,
         password: data.password,
       };
-
       dispatch(fetchSignUp(signUpRequest));
-      if (!signUpError) {
-        history.push("/teams");
-      } else {
-        console.log("signUpError: ", signUpError);
-      }
     } else {
       alert("Пароли не совпадают");
     }
   };
+
+  useEffect(() => {
+    if (signUpIsLoading === false && singUpResult.token) {
+      console.log("signUp");
+      history.push("/teams");
+    } else {
+      console.log(singUpResult);
+    }
+  }, [signUpIsLoading, singUpResult.token]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

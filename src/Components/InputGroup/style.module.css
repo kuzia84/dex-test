@@ -45,14 +45,27 @@
     padding: 0;
 }
 .fileLabel {
+    position: relative;
     display: block;
     cursor: pointer;
     width: 100%;
     max-width: 336px;
     height: 261px;
     border-radius: 10px;
-    background: url("../../assets/icons/add_a_photo_24px_rounded.svg") center no-repeat var(--lightestgray);
+    background: var(--lightestgray);
+    background-position: center;
+    background-size: cover;
     margin: 0 auto;
+}
+.fileLabel::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 75px;
+    height: 75px;
+    background: url("../../assets/icons/add_a_photo_24px_rounded.svg") center no-repeat;
 }
 .error {
     position: absolute;
@@ -80,5 +93,10 @@
     .fileLabel {
         max-width: 185px;
         height: 144px;
+    }
+    .fileLabel::before {
+        width: 40px;
+        height: 40px;
+        background-size: 40px 40px;
     }
 }

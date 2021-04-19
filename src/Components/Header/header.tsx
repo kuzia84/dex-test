@@ -6,9 +6,9 @@ import userImg from "../../assets/icons/profile.svg";
 import s from "./style.module.css";
 
 export const Header: React.FC = () => {
-  const userName: any = localStorage.getItem("userName")
-    ? localStorage.getItem("userName")
-    : "John Smith";
+  const savedName = localStorage.getItem("userName");
+  const userName =
+    savedName && savedName !== "string" ? savedName : "John Smith";
   return (
     <header className={s.header}>
       <BurgerBtn />

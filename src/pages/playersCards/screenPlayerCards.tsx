@@ -42,7 +42,9 @@ export const PlayersCards: React.FC = () => {
   const pageNumber = pageCount >= +getPageNumber ? +getPageNumber : 1;
 
   const request = `${getPlayersRequest}?Name=${searchText}${teamIds}&Page=${pageNumber}&PageSize=${pageSize}`;
-
+  useEffect(() => {
+    dispatch(fetchPlayersAsync(request));
+  }, []);
   useEffect(() => {
     dispatch(fetchPlayersAsync(request));
   }, [request, dispatch]);
