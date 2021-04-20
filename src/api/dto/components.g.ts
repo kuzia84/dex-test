@@ -76,6 +76,7 @@ export type InputProps = React.DetailedHTMLProps<
   errors: any;
   imageUrl?: string;
   register: ({ required }: { required?: boolean }) => RefReturn;
+  isRequired?: boolean;
 };
 
 export type RefReturnSelect =

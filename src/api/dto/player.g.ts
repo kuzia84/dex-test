@@ -24,7 +24,7 @@ export interface PlayerDto {
   number: number;
   position?: string;
   team?: number;
-  birthday?: any;
+  birthday?: string;
   height?: number;
   weight?: number;
   avatarUrl: string;
@@ -37,7 +37,7 @@ export interface PlayerTeamNameDto {
   number: number;
   position?: string;
   teamId: number;
-  birthday?: any;
+  birthday?: string;
   height?: number;
   weight?: number;
   avatarUrl: string;

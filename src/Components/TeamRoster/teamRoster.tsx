@@ -52,9 +52,10 @@ export const TeamRoster: React.FC<ITeamRosterProps> = ({ teamId }) => {
                 <div className={s.height}>{item.height}</div>
                 <div className={s.weight}>{item.weight}</div>
                 <div className={s.age}>
-                  {Math.floor(
-                    (Date.now() - Date.parse(item.birthday)) / 31536000000
-                  )}
+                  {item.birthday &&
+                    Math.floor(
+                      (Date.now() - Date.parse(item.birthday)) / 31536000000
+                    )}
                 </div>
               </li>
             ))}

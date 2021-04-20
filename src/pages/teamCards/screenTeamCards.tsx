@@ -56,7 +56,7 @@ export const TeamCards: React.FC = () => {
   const handleClick = (id: number) => {
     history.push(`/teams/team?id=${id}`);
   };
-  const teamsList = teams.map(({ name, foundationYear, imageUrl, id }: any) => {
+  const teamsList = teams.map(({ name, foundationYear, imageUrl, id }) => {
     return (
       <TeamCard
         key={id}

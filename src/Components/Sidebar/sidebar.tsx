@@ -35,7 +35,7 @@ export const Sidebar: React.FC = () => {
         className={s.logout}
         to="/"
         onClick={() => {
-          dispach(resetAuth);
+          // dispach(resetAuth);
           localStorage.removeItem("token");
           localStorage.removeItem("userName");
         }}

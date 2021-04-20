@@ -52,7 +52,21 @@ const playerSlice = createSlice({
   name: "player",
   initialState,
   reducers: {
-    reset: (state) => initialState,
+    playerReset: (state) => initialState,
+    onePlayerReset: (state) => {
+      state.getOnePlayerFetchResult = {
+        name: "",
+        number: 0,
+        position: "",
+        teamId: 0,
+        birthday: "",
+        height: 0,
+        weight: 0,
+        avatarUrl: "",
+        id: 0,
+        teamName: "",
+      };
+    },
     setSearchText: (state, action: PayloadAction<string>) => {
       state.playersFetchSuffix.pageNumber = 1;
       state.playersFetchSuffix.searchText = action.payload;
@@ -131,9 +145,10 @@ const playerSlice = createSlice({
 export const playerReducer = playerSlice.reducer;
 
 export const {
-  reset,
+  playerReset,
   setSearchText,
   setPageNumber,
   setPageSize,
   setTeamIds,
+  onePlayerReset,
 } = playerSlice.actions;

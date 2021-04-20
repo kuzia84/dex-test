@@ -12,7 +12,7 @@ export const SelectGroup: React.FC<SelectProps> = ({
   options,
   defaultValueIndex = -1,
 }) => {
-  const customTheme = (theme: any) => {
+  const customTheme = (theme: { colors: {} }) => {
     return {
       ...theme,
       colors: {

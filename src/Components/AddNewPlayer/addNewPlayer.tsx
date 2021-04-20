@@ -119,60 +119,72 @@ export const AddPlayer: React.FC<IPlayerAdd> = ({ playerId }) => {
     }
   }, [selectedId, singlePlayer.avatarUrl, watchFile]);
 
+  const sendData = (url: string, data: IPlayerAddData) => {
+    if (selectedId) {
+      const updatePlayerData: NewPlayerDto = {
+        name: data.playerName,
+        number: data.playerNumber,
+        position: data.playerPosition.value,
+        team: data.playerTeam.value,
+        birthday: data.playerBirthday,
+        height: data.playerHeight,
+        weight: data.playerWeight,
+        avatarUrl: url,
+        id: selectedId,
+      };
+      dispatch(fetchUpdatePlayerById(updatePlayerData));
+      if (updatePlayerError) {
+        console.log("updatePlayerError: ", updatePlayerError);
+      } else {
+        history.push("/players");
+      }
+    } else {
+      const addPlayerData: NewPlayerDto = {
+        name: data.playerName,
+        number: data.playerNumber,
+        position: data.playerPosition.value,
+        team: data.playerTeam.value,
+        birthday: data.playerBirthday,
+        height: data.playerHeight,
+        weight: data.playerWeight,
+        avatarUrl: url,
+      };
+      dispatch(fetchAddPlayer(addPlayerData));
+      if (addPlayerError) {
+        console.log("addPlayerError: ", addPlayerError);
+      } else {
+        history.push("/players");
+      }
+    }
+  };
+
+  let isRequired = singlePlayer.avatarUrl ? false : true;
+
   const onSubmit = (data: IPlayerAddData) => {
-    const file = data.playerPhoto[0];
-    const dataForm = new FormData();
-    dataForm.append("file", file);
-    window
-      .fetch(addImageRequest, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        mode: "cors",
-        body: dataForm,
-      })
-      .then((response) => {
-        return response.json();
-      })
-      .then((url) => {
-        if (selectedId) {
-          const updatePlayerData: NewPlayerDto = {
-            name: data.playerName,
-            number: data.playerNumber,
-            position: data.playerPosition.value,
-            team: data.playerTeam.value,
-            birthday: data.playerBirthday,
-            height: data.playerHeight,
-            weight: data.playerWeight,
-            avatarUrl: url,
-            id: selectedId,
-          };
-          dispatch(fetchUpdatePlayerById(updatePlayerData));
-          if (updatePlayerError) {
-            console.log("updatePlayerError: ", updatePlayerError);
-          } else {
-            history.push("/players");
-          }
-        } else {
-          const addPlayerData: NewPlayerDto = {
-            name: data.playerName,
-            number: data.playerNumber,
-            position: data.playerPosition.value,
-            team: data.playerTeam.value,
-            birthday: data.playerBirthday,
-            height: data.playerHeight,
-            weight: data.playerWeight,
-            avatarUrl: url,
-          };
-          dispatch(fetchAddPlayer(addPlayerData));
-          if (addPlayerError) {
-            console.log("addPlayerError: ", addPlayerError);
-          } else {
-            history.push("/players");
-          }
-        }
-      });
+    if (data.playerPhoto[0] || isRequired) {
+      const file = data.playerPhoto[0];
+      const dataForm = new FormData();
+      dataForm.append("file", file);
+      window
+        .fetch(addImageRequest, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          mode: "cors",
+          body: dataForm,
+        })
+        .then((response) => {
+          return response.json();
+        })
+        .then((url) => {
+          sendData(url, data);
+        });
+    }
+    if (!isRequired) {
+      const url = singlePlayer.avatarUrl;
+      sendData(url, data);
+    }
     reset();
   };
 
@@ -186,6 +198,7 @@ export const AddPlayer: React.FC<IPlayerAdd> = ({ playerId }) => {
             errorText="Select player's image"
             register={register}
             required
+            isRequired={isRequired}
             errors={errors}
             imageUrl={bgImage}
           />

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { InputProps } from "../../api/dto/components.g";
 
 import s from "./style.module.css";
@@ -11,12 +11,13 @@ export const InputGroup: React.FC<InputProps> = ({
   errorText,
   register,
   required,
+  isRequired = true,
   errors,
   imageUrl,
 }) => {
   const [showPwd, setShowPwd] = useState<boolean>(false);
   const [inputType, setInputType] = useState<string>(type);
-  const handleClick = (event: any) => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     setShowPwd((prevState) => !prevState);
     if (inputType === "password") {
@@ -27,32 +28,46 @@ export const InputGroup: React.FC<InputProps> = ({
     }
   };
 
+  const reg = isRequired ? register({ required }) : register({});
+
   return (
     <div className={cn(s.inputGroup, { [s.showPwd]: showPwd })}>
       {type === "file" ? (
-        <label
-          className={s.fileLabel}
-          htmlFor={inputName}
-          style={{
-            backgroundImage: `url(${imageUrl})`,
-          }}
-        ></label>
+        <>
+          <label
+            className={s.fileLabel}
+            htmlFor={inputName}
+            style={{
+              backgroundImage: `url(${imageUrl})`,
+            }}
+          ></label>
+          <input
+            className={s.input}
+            type={inputType}
+            name={inputName}
+            id={inputName}
+            accept="image/*"
+            ref={reg}
+          />
+        </>
       ) : (
-        <label className={s.label} htmlFor={inputName}>
-          {label}
-        </label>
+        <>
+          <label className={s.label} htmlFor={inputName}>
+            {label}
+          </label>
+          <input
+            className={s.input}
+            type={inputType}
+            name={inputName}
+            id={inputName}
+            ref={register({ required })}
+          />
+        </>
       )}
-      <input
-        className={s.input}
-        type={inputType}
-        name={inputName}
-        id={inputName}
-        ref={register({ required })}
-      />
       {inputName === "checkPassword" ? (
-        <button className={s.showPassword} onClick={handleClick}></button>
+        <span className={s.showPassword} onClick={handleClick}></span>
       ) : inputName === "password" ? (
-        <button className={s.showPassword} onClick={handleClick}></button>
+        <span className={s.showPassword} onClick={handleClick}></span>
       ) : (
         ""
       )}

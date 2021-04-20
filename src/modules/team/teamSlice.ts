@@ -43,7 +43,17 @@ const teamSlise = createSlice({
   name: "team",
   initialState,
   reducers: {
-    reset: (state) => initialState,
+    teamReset: (state) => initialState,
+    oneTeamReset: (state) => {
+      state.getOneTeamFetchResult = {
+        name: "",
+        foundationYear: 0,
+        division: "",
+        conference: "",
+        imageUrl: "",
+        id: 0,
+      };
+    },
     setSearchText: (state, action: PayloadAction<string>) => {
       state.teamsFetchSuffix.pageNumber = 1;
       state.teamsFetchSuffix.searchText = action.payload;
@@ -105,10 +115,11 @@ const teamSlise = createSlice({
 });
 
 export const {
-  reset,
   setSearchText,
   setPageNumber,
   setPageSize,
+  oneTeamReset,
+  teamReset,
 } = teamSlise.actions;
 
 export const teamReducer = teamSlise.reducer;

@@ -3,10 +3,7 @@ import { useForm } from "react-hook-form";
 import { Link, useHistory } from "react-router-dom";
 import { ILoginRequest, ISignInInputs } from "../../api/dto/autorization.g";
 import { useAppDispatch, useAppSelector } from "../../core/redux/hooks";
-import {
-  selectSignInIsLoading,
-  selectSignInResult,
-} from "../../modules/autorization/athSelect";
+import { selectSignInResult } from "../../modules/autorization/athSelect";
 import { fetchSignIn } from "../../modules/autorization/authThunk";
 import { InputGroup } from "../inputGroup/iInputGroup";
 import s from "./style.module.css";
@@ -14,21 +11,20 @@ import s from "./style.module.css";
 export const SignInForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const { register, handleSubmit, errors } = useForm<ISignInInputs>();
-  const signInIsLoading = useAppSelector(selectSignInIsLoading);
   const singInResult = useAppSelector(selectSignInResult);
   const history = useHistory();
-
   const onSubmit = (data: ILoginRequest) => {
     dispatch(fetchSignIn(data));
   };
+  const token = localStorage.getItem("token");
   useEffect(() => {
-    if (signInIsLoading === false && singInResult.token) {
+    if (token) {
       console.log("signIn");
       history.push("/teams");
     } else {
       console.log(singInResult);
     }
-  }, [signInIsLoading, singInResult.token]);
+  }, [token, singInResult, history]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

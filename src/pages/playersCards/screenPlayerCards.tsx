@@ -31,7 +31,6 @@ export const PlayersCards: React.FC = () => {
   const { searchText, pageSize, teamIds }: IFetchSuffix = useAppSelector(
     selectPlayersFetchSuffix
   );
-
   const playersRedux = useAppSelector(selectPlayersData);
   const playersReduxIsLoading = useAppSelector(selectPlayersIsLoading);
   const players = playersRedux.data;
@@ -48,9 +47,6 @@ export const PlayersCards: React.FC = () => {
   useEffect(() => {
     dispatch(fetchPlayersAsync(request));
   }, [request, dispatch]);
-  const handleClick = (id: number) => {
-    history.push(`/players/player?id=${id}`);
-  };
 
   if (playersReduxIsLoading === false) {
     if (pageCount < +getPageNumber) {
@@ -58,21 +54,23 @@ export const PlayersCards: React.FC = () => {
     }
   }
 
-  const playersList = players.map(
-    ({ name, avatarUrl, id, number, team }: any) => {
-      return (
-        <PlayerCard
-          key={id}
-          id={id}
-          name={name}
-          number={number}
-          team={team}
-          avatarUrl={avatarUrl}
-          onClick={handleClick}
-        />
-      );
-    }
-  );
+  const handleClick = (id: number) => {
+    history.push(`/players/player?id=${id}`);
+  };
+
+  const playersList = players.map(({ name, avatarUrl, id, number, team }) => {
+    return (
+      <PlayerCard
+        key={id}
+        id={id}
+        name={name}
+        number={number}
+        team={team}
+        avatarUrl={avatarUrl}
+        onClick={handleClick}
+      />
+    );
+  });
   return (
     <div className="page">
       <Header />

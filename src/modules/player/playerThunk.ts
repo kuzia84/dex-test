@@ -9,7 +9,7 @@ import {
   updatePlayerByIdRequest,
 } from "../../api/requests/player";
 
-export const fetchAddPlayer = createAsyncThunk<any, NewPlayerDto>(
+export const fetchAddPlayer = createAsyncThunk<NewPlayerDto, NewPlayerDto>(
   "player/addPlayer",
   async (data) => {
     const myHeaders = new Headers({
@@ -26,7 +26,7 @@ export const fetchAddPlayer = createAsyncThunk<any, NewPlayerDto>(
   }
 );
 
-export const fetchPlayerPositionsAsync = createAsyncThunk<any, string>(
+export const fetchPlayerPositionsAsync = createAsyncThunk<string[], string>(
   "player/fetchPlayerPosition",
   async (request) => {
     const myHeaders = new Headers({
@@ -42,23 +42,23 @@ export const fetchPlayerPositionsAsync = createAsyncThunk<any, string>(
   }
 );
 
-export const fetchSinglePlayerAsync = createAsyncThunk<any, string>(
-  "player/fetchPlayerData",
-  async (request) => {
-    const myHeaders = new Headers({
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-    });
-    const requestOptions = {
-      method: "GET",
-      headers: myHeaders,
-    };
-    const response = await fetch(request, requestOptions);
-    return (await response.json()) as PlayerTeamNameDto;
-  }
-);
+export const fetchSinglePlayerAsync = createAsyncThunk<
+  PlayerTeamNameDto,
+  string
+>("player/fetchPlayerData", async (request) => {
+  const myHeaders = new Headers({
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  });
+  const requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+  };
+  const response = await fetch(request, requestOptions);
+  return (await response.json()) as PlayerTeamNameDto;
+});
 
-export const fetchPlayersAsync = createAsyncThunk<any, string>(
+export const fetchPlayersAsync = createAsyncThunk<PlayerDtoPageResult, string>(
   "players/fatchPlayersData",
   async (request) => {
     const myHeaders = new Headers({

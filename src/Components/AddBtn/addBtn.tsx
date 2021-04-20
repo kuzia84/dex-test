@@ -1,4 +1,7 @@
 import { useHistory } from "react-router";
+import { useAppDispatch } from "../../core/redux/hooks";
+import { onePlayerReset } from "../../modules/player/playerSlice";
+import { oneTeamReset } from "../../modules/team/teamSlice";
 
 import s from "./style.module.css";
 
@@ -7,11 +10,17 @@ interface IAddBtnProps {
 }
 
 export const AddBtn: React.FC<IAddBtnProps> = ({ page }) => {
+  const dispach = useAppDispatch();
   const history = useHistory();
   const handleClick = () => {
-    page === "teams"
-      ? history.push("/teams/new-team")
-      : history.push("/players/new-player");
+    if (page === "teams") {
+      dispach(oneTeamReset());
+      history.push("/teams/new-team");
+    }
+    if (page === "players") {
+      dispach(onePlayerReset());
+      history.push("/players/new-player");
+    }
   };
   return (
     <div className={s.addBtn}>

@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { NewTeamDto, TeamDto, TeamDtoPageResult } from "../../api/dto/team.g";
 import { addTeamRequest, updateTeamRequest } from "../../api/requests/team";
 
-export const fetchAddTeam = createAsyncThunk<any, NewTeamDto>(
+export const fetchAddTeam = createAsyncThunk<NewTeamDto, NewTeamDto>(
   "team/addTeam",
   async (data) => {
     const myHeaders = new Headers({
@@ -19,7 +19,7 @@ export const fetchAddTeam = createAsyncThunk<any, NewTeamDto>(
   }
 );
 
-export const fetchSingleTeamAsync = createAsyncThunk<any, string>(
+export const fetchSingleTeamAsync = createAsyncThunk<TeamDto, string>(
   "team/fetchTeamData",
   async (request) => {
     const myHeaders = new Headers({
@@ -35,8 +35,8 @@ export const fetchSingleTeamAsync = createAsyncThunk<any, string>(
   }
 );
 
-export const fetchTeamsAsync = createAsyncThunk<any, string>(
-  "teams/fatchTeamsData",
+export const fetchTeamsAsync = createAsyncThunk<TeamDtoPageResult, string>(
+  "teams/fetchTeamsData",
   async (request) => {
     const myHeaders = new Headers({
       "Content-Type": "application/json",

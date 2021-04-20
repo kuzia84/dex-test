@@ -7,10 +7,7 @@ import {
   ISignUpData,
 } from "../../api/dto/autorization.g";
 import { useAppDispatch, useAppSelector } from "../../core/redux/hooks";
-import {
-  selectSignUpIsLoading,
-  selectSignUpResult,
-} from "../../modules/autorization/athSelect";
+import { selectSignUpResult } from "../../modules/autorization/athSelect";
 import { fetchSignUp } from "../../modules/autorization/authThunk";
 import { Checkbox } from "../checkbox/checkbox";
 import { InputGroup } from "../inputGroup/iInputGroup";
@@ -19,7 +16,6 @@ import s from "./style.module.css";
 export const SignUpForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const { register, handleSubmit, errors } = useForm<ISignUpInputs>();
-  const signUpIsLoading = useAppSelector(selectSignUpIsLoading);
   const singUpResult = useAppSelector(selectSignUpResult);
   const history = useHistory();
 
@@ -35,15 +31,15 @@ export const SignUpForm: React.FC = () => {
       alert("Пароли не совпадают");
     }
   };
-
+  const token = localStorage.getItem("token");
   useEffect(() => {
-    if (signUpIsLoading === false && singUpResult.token) {
+    if (token) {
       console.log("signUp");
       history.push("/teams");
     } else {
       console.log(singUpResult);
     }
-  }, [signUpIsLoading, singUpResult.token]);
+  }, [token, singUpResult, history]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
