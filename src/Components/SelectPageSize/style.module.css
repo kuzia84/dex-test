@@ -1,8 +1,0 @@
-.reactSelectContainer {
-    width: 88px;
-}
-@media (max-width: 414px) {
-    .reactSelectContainer {
-        width: 60px;
-    }
-}
