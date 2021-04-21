@@ -1,0 +1,35 @@
+.navLink {
+    display: block;
+    text-align: center;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 150%;
+    color: var(--lightgray);
+    text-decoration: none;
+}
+.navLink:hover {
+    text-decoration: underline;
+}
+.navLink svg {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 7px;
+}
+.navLink.active svg g path {
+    fill: var(--red);
+}
+.navLink.active {
+    color: var(--red);
+}
+@media (max-width: 768px) {
+    .navLink {
+        display: flex;
+        text-align: left;
+        align-items: center;
+        padding: 0 20px;
+        font-size: 13px;
+    }
+    .navLink svg {
+        margin: 0 8px 0 0;
+    }
+}

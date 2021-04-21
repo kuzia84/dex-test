@@ -1,0 +1,15 @@
+.addBtn {
+    margin-left: auto;
+    margin-right: 12px;
+    width: 104px;
+}
+.addBtn .btn {
+    min-width: none;
+}
+@media (max-width: 414px) {
+    .addBtn {
+        flex: 0 0 100%;
+        margin: 0;
+        padding: 0 12px;
+    }
+}

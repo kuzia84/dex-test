@@ -1,0 +1,19 @@
+.search {
+    flex: 0 0 33.3333%;
+    padding: 0 12px;
+}
+.search input {
+    height: 40px;
+    width: 100%;
+    border: 1px solid hsl(0, 0%, 80%);
+    border-radius: 4px;
+    background: url("../../assets/icons/search.svg") calc(100% - 12px) 50% no-repeat #fff;
+    background-size: 16px 16px;
+    padding: 0 12px;
+}
+@media (max-width: 414px) {
+    .search {
+        flex: 0 0 100%;
+        margin-bottom: 16px;
+    }
+}

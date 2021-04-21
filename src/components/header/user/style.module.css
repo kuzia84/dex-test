@@ -1,0 +1,32 @@
+.user {
+    display: flex;
+    align-items: center;
+}
+.userName {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.7;
+}
+.userImg {
+    width: 30px;
+    height: 30px;
+    margin-left: 19px;
+}
+
+@media (max-width: 768px) {
+    .user {
+        padding: 20px;
+        border-bottom: 1px solid var(--lightgray);
+    }
+    .userName {
+        font-size: 15px;
+        order: 1;
+    }
+    .userImg {
+        width: 40px;
+        height: 40px;
+        order: 0;
+        margin-left: 0;
+        margin-right: 12px;
+    }
+}
