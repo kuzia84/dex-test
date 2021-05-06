@@ -23,6 +23,7 @@ import {
   setPageSize,
   setSearchText,
 } from "../../modules/team/teamSlice";
+import { teamLnk, teamsLnk } from "../routes";
 
 export const TeamCards: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -49,12 +50,12 @@ export const TeamCards: React.FC = () => {
 
   if (teamsReduxIsLoading === false) {
     if (pageCount < +getPageNumber) {
-      history.push("/teams?Page=1");
+      history.push(`${teamsLnk}?Page=1`);
     }
   }
 
   const handleClick = (id: number) => {
-    history.push(`/teams/team?id=${id}`);
+    history.push(`${teamLnk}?id=${id}`);
   };
   const teamsList = teams.map(({ name, foundationYear, imageUrl, id }) => {
     return (

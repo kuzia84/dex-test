@@ -9,10 +9,11 @@ import userImg from "../../assets/icons/profile.svg";
 import { MENU } from "./menu";
 import { SidebarLink } from "./sidebarLink/sidebarLink";
 import { selectSidebrSate } from "../../modules/app/appSelect";
-import { resetAuth } from "../../modules/autorization/authSlice";
+// import { resetAuth } from "../../modules/autorization/authSlice";
+import { homeLnk } from "../../pages/routes";
 
 export const Sidebar: React.FC = () => {
-  const dispach = useAppDispatch();
+  // const dispach = useAppDispatch();
   const sidebarState = useAppSelector(selectSidebrSate);
 
   const savedName = localStorage.getItem("userName");
@@ -33,7 +34,7 @@ export const Sidebar: React.FC = () => {
       </nav>
       <Link
         className={s.logout}
-        to="/"
+        to={homeLnk}
         onClick={() => {
           // dispach(resetAuth);
           localStorage.removeItem("token");

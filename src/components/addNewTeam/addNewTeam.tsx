@@ -16,6 +16,7 @@ import {
   fetchUpdateTeamById,
 } from "../../modules/team/teamThunk";
 import { oneTeamReset } from "../../modules/team/teamSlice";
+import { teamsLnk } from "../../pages/routes";
 
 interface ITeamAdd {
   teamId: number;
@@ -79,7 +80,7 @@ export const AddTeam: React.FC<ITeamAdd> = ({ teamId }) => {
       if (updateTeamError) {
         console.log("updateTeamError: ", updateTeamError);
       } else {
-        history.push("/teams");
+        history.push(teamsLnk);
       }
     } else {
       const addTeamData: NewTeamDto = {
@@ -93,7 +94,7 @@ export const AddTeam: React.FC<ITeamAdd> = ({ teamId }) => {
       if (addTeamError) {
         console.log("addTeamError: ", addTeamError);
       } else {
-        history.push("/teams");
+        history.push(teamsLnk);
       }
     }
   };

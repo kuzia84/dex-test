@@ -24,6 +24,7 @@ import {
   setSearchText,
 } from "../../modules/player/playerSlice";
 import { getPlayersRequest } from "../../api/requests/player";
+import { playerLnk, playersLnk } from "../routes";
 
 export const PlayersCards: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -50,12 +51,12 @@ export const PlayersCards: React.FC = () => {
 
   if (playersReduxIsLoading === false) {
     if (pageCount < +getPageNumber) {
-      history.push("/players?Page=1");
+      history.push(`${playersLnk}?Page=1`);
     }
   }
 
   const handleClick = (id: number) => {
-    history.push(`/players/player?id=${id}`);
+    history.push(`${playerLnk}?id=${id}`);
   };
 
   const playersList = players.map(({ name, avatarUrl, id, number, team }) => {

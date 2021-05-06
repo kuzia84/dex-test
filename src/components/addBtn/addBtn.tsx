@@ -2,6 +2,7 @@ import { useHistory } from "react-router";
 import { useAppDispatch } from "../../core/redux/hooks";
 import { onePlayerReset } from "../../modules/player/playerSlice";
 import { oneTeamReset } from "../../modules/team/teamSlice";
+import { newPlayerLnk, newTeamLnk } from "../../pages/routes";
 
 import s from "./style.module.css";
 
@@ -15,11 +16,11 @@ export const AddBtn: React.FC<IAddBtnProps> = ({ page }) => {
   const handleClick = () => {
     if (page === "teams") {
       dispach(oneTeamReset());
-      history.push("/teams/new-team");
+      history.push(newTeamLnk);
     }
     if (page === "players") {
       dispach(onePlayerReset());
-      history.push("/players/new-player");
+      history.push(newPlayerLnk);
     }
   };
   return (

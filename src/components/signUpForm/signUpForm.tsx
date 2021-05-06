@@ -9,6 +9,7 @@ import {
 import { useAppDispatch, useAppSelector } from "../../core/redux/hooks";
 import { selectSignUpResult } from "../../modules/autorization/athSelect";
 import { fetchSignUp } from "../../modules/autorization/authThunk";
+import { signInLnk, teamsLnk } from "../../pages/routes";
 import { Checkbox } from "../checkbox/checkbox";
 import { InputGroup } from "../inputGroup/iInputGroup";
 import s from "./style.module.css";
@@ -34,8 +35,8 @@ export const SignUpForm: React.FC = () => {
   const token = localStorage.getItem("token");
   useEffect(() => {
     if (token) {
-      console.log("signUp");
-      history.push("/teams");
+      // console.log("signUp");
+      history.push(teamsLnk);
     } else {
       console.log(singUpResult);
     }
@@ -88,7 +89,7 @@ export const SignUpForm: React.FC = () => {
       />
       <button className="btn">Sign Up</button>
       <div className={s.signUpLnk}>
-        Already a member? <Link to="/sign-in">Sign in</Link>
+        Already a member? <Link to={signInLnk}>Sign in</Link>
       </div>
     </form>
   );

@@ -1,0 +1,10 @@
+export const homeLnk = "/";
+export const notFoundLnk = "/404";
+export const signInLnk = "/sign-in";
+export const signUpLnk = "/sign-up";
+export const teamsLnk = "/teams";
+export const teamLnk = "/teams/team";
+export const newTeamLnk = "/teams/new-team";
+export const playersLnk = "/players";
+export const playerLnk = "/players/player";
+export const newPlayerLnk = "/players/new-player";

@@ -30,6 +30,7 @@ import {
   selectTeamsIsLoading,
 } from "../../modules/team/teamSelector";
 import { addImageRequest } from "../../api/requests/images";
+import { playersLnk } from "../../pages/routes";
 
 interface IPlayerAdd {
   playerId: number;
@@ -136,7 +137,7 @@ export const AddPlayer: React.FC<IPlayerAdd> = ({ playerId }) => {
       if (updatePlayerError) {
         console.log("updatePlayerError: ", updatePlayerError);
       } else {
-        history.push("/players");
+        history.push(playersLnk);
       }
     } else {
       const addPlayerData: NewPlayerDto = {
@@ -153,7 +154,7 @@ export const AddPlayer: React.FC<IPlayerAdd> = ({ playerId }) => {
       if (addPlayerError) {
         console.log("addPlayerError: ", addPlayerError);
       } else {
-        history.push("/players");
+        history.push(playersLnk);
       }
     }
   };

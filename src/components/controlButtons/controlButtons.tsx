@@ -7,6 +7,12 @@ import { deletePlayerRequest } from "../../api/requests/player";
 import { deleteTeamRequest } from "../../api/requests/team";
 import { fetchDeleteItemById } from "../../modules/app/appThunk";
 import { IControlButtonsProps } from "../../api/dto/components.g";
+import {
+  newPlayerLnk,
+  newTeamLnk,
+  playersLnk,
+  teamsLnk,
+} from "../../pages/routes";
 
 export const ControlButtons: React.FC<IControlButtonsProps> = (props) => {
   const dispatch = useAppDispatch();
@@ -23,20 +29,20 @@ export const ControlButtons: React.FC<IControlButtonsProps> = (props) => {
     if (window.confirm("Confirm Delete")) {
       dispatch(fetchDeleteItemById(deleteRequest));
       if (currentPage === "players") {
-        history.push("/players");
+        history.push(playersLnk);
       }
       if (currentPage === "teams") {
-        history.push("/teams");
+        history.push(teamsLnk);
       }
     } else alert("Canceled");
   };
 
   const handleUpdateButton = () => {
     if (currentPage === "players") {
-      history.push(`/players/new-player?id=${props.itemId}`);
+      history.push(`${newPlayerLnk}?id=${props.itemId}`);
     }
     if (currentPage === "teams") {
-      history.push(`/teams/new-team?id=${props.itemId}`);
+      history.push(`${newTeamLnk}?id=${props.itemId}`);
     }
   };
 

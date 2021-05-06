@@ -5,6 +5,7 @@ import { ILoginRequest, ISignInInputs } from "../../api/dto/autorization.g";
 import { useAppDispatch, useAppSelector } from "../../core/redux/hooks";
 import { selectSignInResult } from "../../modules/autorization/athSelect";
 import { fetchSignIn } from "../../modules/autorization/authThunk";
+import { signUpLnk, teamsLnk } from "../../pages/routes";
 import { InputGroup } from "../inputGroup/iInputGroup";
 import s from "./style.module.css";
 
@@ -19,8 +20,8 @@ export const SignInForm: React.FC = () => {
   const token = localStorage.getItem("token");
   useEffect(() => {
     if (token) {
-      console.log("signIn");
-      history.push("/teams");
+      // console.log("signIn");
+      history.push(teamsLnk);
     } else {
       console.log(singInResult);
     }
@@ -48,7 +49,7 @@ export const SignInForm: React.FC = () => {
       />
       <button className="btn">Sign In</button>
       <div className={s.signUpLnk}>
-        Not a member yet? <Link to="/sign-up">Sign up</Link>
+        Not a member yet? <Link to={signUpLnk}>Sign up</Link>
       </div>
     </form>
   );
