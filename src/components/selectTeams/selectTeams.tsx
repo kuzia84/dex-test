@@ -11,6 +11,7 @@ import {
   selectTeamsData,
   selectTeamsIsLoading,
 } from "../../modules/team/teamSelector";
+import { ISelectTheme } from "../../api/dto/components.g";
 
 export const SelectTeams: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -21,7 +22,7 @@ export const SelectTeams: React.FC = () => {
   const teamsIsLoading = useAppSelector(selectTeamsIsLoading);
   const teams = teamsRedux.data;
   let teamSelectOptions: ITeamSelectOptions[] = [];
-  const customTheme = (theme: any) => {
+  const customTheme = (theme: ISelectTheme) => {
     return {
       ...theme,
       colors: {
@@ -32,7 +33,14 @@ export const SelectTeams: React.FC = () => {
     };
   };
   const colourStyles = {
-    option: (styles: any, { isDisabled, isFocused, isSelected }: any) => {
+    option: (
+      styles: any,
+      {
+        isDisabled,
+        isFocused,
+        isSelected,
+      }: { isDisabled: boolean; isFocused: boolean; isSelected: boolean }
+    ) => {
       return {
         ...styles,
         fontSize: "14px",
@@ -108,6 +116,7 @@ export const SelectTeams: React.FC = () => {
         options={teamSelectOptions}
         styles={colourStyles}
         onChange={(data: any) => {
+          console.log("data: ", data);
           const newArr = data.map((item: ITeamSelectOptions) => item.value);
           const newRequest = newArr.length
             ? "&TeamIds=" + newArr.join("&TeamIds=")

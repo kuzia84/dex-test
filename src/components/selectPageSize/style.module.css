@@ -6,11 +6,7 @@
         width: 60px;
     }
 }
-/* select page size */
-.select-page-size__menu {
-    bottom: 100% !important;
-    top: auto !important;
-}
+
 @media (max-width: 414px) {
     .select-page-size__control {
         min-height: 28px !important;

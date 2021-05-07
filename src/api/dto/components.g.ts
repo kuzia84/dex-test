@@ -126,3 +126,30 @@ export interface IPageItemContentProps {
 export interface IAddFormProps {
   onSubmit: () => void;
 }
+
+export interface ISelectTheme {
+  borderRadius: number;
+  colors: {};
+  spacing: {
+    baseUnit: number;
+    controlHeight: number;
+    menuGutter: number;
+  };
+}
+
+export interface ISelectStyles {
+  ":active:": {
+    backgroundColor: string;
+  };
+  WebkitTapHighlightColor: string;
+  backgroundColor: string;
+  boxSizing: string;
+  color: string;
+  cursor: string;
+  display: string;
+  fontSize: string;
+  label: string;
+  padding: string;
+  userSelect: string;
+  width: string;
+}

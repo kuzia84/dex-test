@@ -1,7 +1,11 @@
 import React, { useEffect } from "react";
 import Select from "react-select";
 import { useAppDispatch } from "../../core/redux/hooks";
-import { IPageSize, IPageSizeSelect } from "../../api/dto/components.g";
+import {
+  IPageSize,
+  IPageSizeSelect,
+  ISelectTheme,
+} from "../../api/dto/components.g";
 import s from "./style.module.css";
 
 export const PageSizeSelect: React.FC<IPageSizeSelect> = ({ setPageSize }) => {
@@ -17,7 +21,7 @@ export const PageSizeSelect: React.FC<IPageSizeSelect> = ({ setPageSize }) => {
     { value: 24, label: 24 },
   ];
 
-  const customTheme = (theme: any) => {
+  const customTheme = (theme: ISelectTheme) => {
     return {
       ...theme,
       colors: {

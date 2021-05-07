@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import cn from "classnames";
 import s from "./style.module.css";
 import { ReactComponent as Logout } from "../../assets/icons/logout_rounded.svg";
-import { useAppDispatch, useAppSelector } from "../../core/redux/hooks";
+import { useAppSelector } from "../../core/redux/hooks";
 import { User } from "../header/user/user";
 import userImg from "../../assets/icons/profile.svg";
 import { MENU } from "./menu";
@@ -13,7 +13,6 @@ import { selectSidebrSate } from "../../modules/app/appSelect";
 import { homeLnk } from "../../pages/routes";
 
 export const Sidebar: React.FC = () => {
-  // const dispach = useAppDispatch();
   const sidebarState = useAppSelector(selectSidebrSate);
 
   const savedName = localStorage.getItem("userName");
