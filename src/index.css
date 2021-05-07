@@ -33,28 +33,3 @@ a {
 button:focus {
   outline: none;
 }
-/* select teams */
-.selectTeams__control {
-  min-height: 40px !important;
-}
-/* select page size */
-.select-page-size__menu {
-  bottom: 100% !important;
-  top: auto !important;
-}
-@media (max-width: 414px) {
-  .select-page-size__control {
-    min-height: 28px !important;
-  }
-  .select-page-size__control .select-page-size__value-container {
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-  .select-page-size__control .select-page-size__single-value {
-    margin: 0;
-    font-size: 12px;
-  }
-  .select-page-size__control .select-page-size__indicator {
-    padding: 0 2px;
-  }
-}

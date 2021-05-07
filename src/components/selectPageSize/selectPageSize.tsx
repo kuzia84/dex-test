@@ -27,11 +27,29 @@ export const PageSizeSelect: React.FC<IPageSizeSelect> = ({ setPageSize }) => {
       },
     };
   };
+
+  const customStyles = {
+    control: (styles: {}) => {
+      return {
+        ...styles,
+        minHeight: "40px",
+      };
+    },
+    menu: (styles: {}) => {
+      return {
+        ...styles,
+        top: "auto",
+        bottom: "100%",
+      };
+    },
+  };
+
   return (
     <Select
       className={s.reactSelectContainer}
-      classNamePrefix="select-page-size"
+      // classNamePrefix="select-page-size"
       theme={customTheme}
+      styles={customStyles}
       options={pageSizeOptions}
       defaultValue={pageSizeOptions[0]}
       onChange={({ value }: any) => {

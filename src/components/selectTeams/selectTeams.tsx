@@ -59,21 +59,27 @@ export const SelectTeams: React.FC = () => {
         },
       };
     },
-    multiValue: (styles: any) => {
+    control: (styles: {}) => {
+      return {
+        ...styles,
+        minHeight: "40px",
+      };
+    },
+    multiValue: (styles: {}) => {
       return {
         ...styles,
         backgroundColor: "#E4163A",
         borderRadius: "4px",
       };
     },
-    multiValueLabel: (styles: any) => ({
+    multiValueLabel: (styles: {}) => ({
       ...styles,
       color: "#fff",
       fontSize: "14px",
       lineHeight: "19px",
       paddingLeft: "4px",
     }),
-    multiValueRemove: (styles: any) => ({
+    multiValueRemove: (styles: {}) => ({
       ...styles,
       color: "#fff",
       ":hover": {
@@ -98,7 +104,6 @@ export const SelectTeams: React.FC = () => {
         closeMenuOnSelect={false}
         components={animatedComponents}
         isMulti
-        classNamePrefix="selectTeams"
         theme={customTheme}
         options={teamSelectOptions}
         styles={colourStyles}

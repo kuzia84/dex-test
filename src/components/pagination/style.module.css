@@ -27,7 +27,7 @@
     background-color: var(--red);
     color: #fff;
 }
-@media (max-width: 414px) {
+/* @media (max-width: 414px) {
     .pagination li:not(:first-child) {
         margin-left: 5px;
     }
@@ -37,4 +37,4 @@
         font-size: 12px;
         line-height: 28px;
     }
-}
+} */
