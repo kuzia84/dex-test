@@ -2,13 +2,15 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../core/redux/hooks";
 import { BreadCrumbs } from "../../components/breadCrumbs/breadCrumbs";
 import { ControlButtons } from "../../components/controlButtons/controlButtons";
-import { TeamInfo } from "../../components/teamInfo/teamInfo";
-import { TeamRoster } from "../../components/teamRoster/teamRoster";
-import { Sidebar } from "../../components/sidebar/sidebar";
-import { Header } from "../../components/header/header";
+import { TeamInfo } from "./components/teamInfo/teamInfo";
+import { TeamRoster } from "./components/teamRoster/teamRoster";
 import { getTeamRequest } from "../../api/requests/team";
 import { fetchSingleTeamAsync } from "../../modules/team/teamThunk";
 import { selectSingleTeamData } from "../../modules/team/teamSelector";
+import { Page } from "../../components/page/page";
+import { PageItem } from "../../components/page/pageItem/pageItem";
+import { PageItemTop } from "../../components/page/pageItem/pageItemTop/pageItemTop";
+import { PageItemContent } from "../../components/page/pageItem/pageItemContent/pageItemContent";
 
 export const Team: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -20,23 +22,17 @@ export const Team: React.FC = () => {
   const singleTeam = useAppSelector(selectSingleTeamData);
 
   return (
-    <div className="page">
-      <Header />
-      <Sidebar />
-      <div className="page-content">
-        <div className="item bg">
-          <div className="item__wrapper">
-            <div className="item__top">
-              <BreadCrumbs path="Teams" name={singleTeam.name} />
-              <ControlButtons page="teams" itemId={singleTeam.id} />
-            </div>
-            <div className="item__content">
-              <TeamInfo />
-            </div>
-          </div>
-        </div>
-        <TeamRoster teamId={singleTeam.id} />
-      </div>
-    </div>
+    <Page>
+      <PageItem>
+        <PageItemTop bg={true}>
+          <BreadCrumbs path="Teams" name={singleTeam.name} />
+          <ControlButtons page="teams" itemId={singleTeam.id} />
+        </PageItemTop>
+        <PageItemContent bg={true}>
+          <TeamInfo />
+        </PageItemContent>
+      </PageItem>
+      <TeamRoster teamId={singleTeam.id} />
+    </Page>
   );
 };

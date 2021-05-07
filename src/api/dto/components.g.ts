@@ -104,3 +104,25 @@ export interface IControlButtonsProps {
   itemId: number;
   page: string;
 }
+
+export interface IAuthContainerProps {
+  img: string;
+}
+
+export interface IButtonProps {
+  textBtn?: boolean;
+  type?: "button" | "submit" | "reset" | undefined;
+  handleClick?: () => void;
+}
+
+export interface IPageItemTopProps {
+  bg?: boolean;
+}
+
+export interface IPageItemContentProps {
+  bg?: boolean;
+}
+
+export interface IAddFormProps {
+  onSubmit: () => void;
+}

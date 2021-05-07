@@ -1,0 +1,5 @@
+.formRow {
+    display: flex;
+    flex: 1 1 100%;
+    margin: 0 -12px;
+}

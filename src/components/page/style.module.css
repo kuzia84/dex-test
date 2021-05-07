@@ -1,0 +1,21 @@
+.page {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+}
+.pageContent {
+    flex: 1 1 calc(100% - 140px);
+    min-height: calc(100vh - 83px);
+    padding: 32px 80px;
+    background-color: var(--lightestgray1);
+}
+@media (max-width: 1024px) {
+    .pageContent {
+        padding: 32px 12px;
+    }
+}
+@media (max-width: 414px) {
+    .pageContent {
+        padding: 16px 12px;
+    }
+}

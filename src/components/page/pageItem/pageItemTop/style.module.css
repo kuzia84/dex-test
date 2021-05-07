@@ -1,0 +1,23 @@
+.itemTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff;
+    border: 1px solid transparent;
+    border-radius: 10px 10px 0px 0px;
+    padding: 24px 32px;
+}
+@media (max-width: 768px) {
+    .itemTop {
+        padding: 12px 16px;
+    }
+}
+@media (max-width: 414px) {
+    .itemTop {
+        border-radius: 0;
+    }
+}
+.bg.itemTop {
+    border: 1px solid var(--lightgray);
+    border-bottom: none;
+}

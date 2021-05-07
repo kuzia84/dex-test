@@ -1,0 +1,10 @@
+.formAdd {
+    display: flex;
+    flex: 1 1 100%;
+    margin: 0 -12px 48px;
+}
+@media (max-width: 414px) {
+    .formAdd {
+        flex-wrap: wrap;
+    }
+}

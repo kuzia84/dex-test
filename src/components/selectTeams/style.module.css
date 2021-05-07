@@ -8,3 +8,6 @@
         margin-bottom: 16px;
     }
 }
+.selectTeams__control {
+    min-height: 40px;
+}

@@ -4,10 +4,7 @@ import {
   PlayerDtoPageResult,
   PlayerTeamNameDto,
 } from "../../api/dto/player.g";
-import {
-  addPlayerRequest,
-  updatePlayerByIdRequest,
-} from "../../api/requests/player";
+import { addPlayerRequest, updatePlayerByIdRequest } from "../../api/urls";
 
 export const fetchAddPlayer = createAsyncThunk<NewPlayerDto, NewPlayerDto>(
   "player/addPlayer",

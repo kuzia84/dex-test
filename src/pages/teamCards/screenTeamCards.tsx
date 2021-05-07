@@ -2,15 +2,13 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../core/redux/hooks";
 import { AddBtn } from "../../components/addBtn/addBtn";
 import { Search } from "../../components/search/search";
-import { TeamCard } from "../../components/teamCard/teamCard";
+import { TeamCard } from "./components/teamCard";
 import { PageSizeSelect } from "../../components/selectPageSize/selectPageSize";
 import { Pagination } from "../../components/pagination/pagination";
 import EmptyImg from "../../assets/img/empty-team.svg";
 import { EmptyBase } from "../../components/emptyBase/emptyBase";
 import { IFetchSuffix } from "../../api/dto/components.g";
 import { useHistory } from "react-router";
-import { Sidebar } from "../../components/sidebar/sidebar";
-import { Header } from "../../components/header/header";
 import { getTeamsRequest } from "../../api/requests/team";
 import {
   selectTeamsData,
@@ -24,6 +22,10 @@ import {
   setSearchText,
 } from "../../modules/team/teamSlice";
 import { teamLnk, teamsLnk } from "../routes";
+import { Page } from "../../components/page/page";
+import { PageTop } from "../../components/page/pageTop/pageTop";
+import { PageBottom } from "../../components/page/pageBottom/pageBottom";
+import { CardsWrapper } from "../../components/page/cardsWrapper/cardsWrapper";
 
 export const TeamCards: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -70,31 +72,27 @@ export const TeamCards: React.FC = () => {
     );
   });
   return (
-    <div className="page">
-      <Header />
-      <Sidebar />
-      <div className="page-content">
-        <div className="page-content__top">
-          <Search setSearchText={setSearchText} />
-          <AddBtn page="teams" />
-        </div>
-        {teams.length ? "" : <EmptyBase imageUrl={EmptyImg} />}
-        {teams.length > 0 && (
-          <>
-            <div className="cards-wrapper">{teamsList}</div>
-            <div className="page-content__bottom">
-              <Pagination
-                page="teams"
-                loadedCardsNumber={loadedCardsNumber}
-                pageNumber={pageNumber}
-                pageSize={pageSize}
-                setPageNumber={setPageNumber}
-              />
-              <PageSizeSelect setPageSize={setPageSize} />
-            </div>
-          </>
-        )}
-      </div>
-    </div>
+    <Page>
+      <PageTop>
+        <Search setSearchText={setSearchText} />
+        <AddBtn page="teams" />
+      </PageTop>
+      {teams.length ? "" : <EmptyBase imageUrl={EmptyImg} />}
+      {teams.length > 0 && (
+        <>
+          <CardsWrapper>{teamsList}</CardsWrapper>
+          <PageBottom>
+            <Pagination
+              page="teams"
+              loadedCardsNumber={loadedCardsNumber}
+              pageNumber={pageNumber}
+              pageSize={pageSize}
+              setPageNumber={setPageNumber}
+            />
+            <PageSizeSelect setPageSize={setPageSize} />
+          </PageBottom>
+        </>
+      )}
+    </Page>
   );
 };

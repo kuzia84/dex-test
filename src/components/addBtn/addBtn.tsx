@@ -3,6 +3,7 @@ import { useAppDispatch } from "../../core/redux/hooks";
 import { onePlayerReset } from "../../modules/player/playerSlice";
 import { oneTeamReset } from "../../modules/team/teamSlice";
 import { newPlayerLnk, newTeamLnk } from "../../pages/routes";
+import { Button } from "../button/button";
 
 import s from "./style.module.css";
 
@@ -25,9 +26,7 @@ export const AddBtn: React.FC<IAddBtnProps> = ({ page }) => {
   };
   return (
     <div className={s.addBtn}>
-      <button className="btn" onClick={handleClick}>
-        Add +
-      </button>
+      <Button handleClick={handleClick}>Add +</Button>
     </div>
   );
 };

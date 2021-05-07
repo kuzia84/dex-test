@@ -3,7 +3,6 @@ import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import { useAppDispatch, useAppSelector } from "../../core/redux/hooks";
 import { ITeamSelectOptions, TeamDto } from "../../api/dto/team.g";
-
 import s from "./style.module.css";
 import { setTeamIds } from "../../modules/player/playerSlice";
 import { getTeamsRequest } from "../../api/requests/team";
@@ -99,7 +98,7 @@ export const SelectTeams: React.FC = () => {
         closeMenuOnSelect={false}
         components={animatedComponents}
         isMulti
-        classNamePrefix="select-teams"
+        classNamePrefix="selectTeams"
         theme={customTheme}
         options={teamSelectOptions}
         styles={colourStyles}

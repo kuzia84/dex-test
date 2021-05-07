@@ -1,0 +1,10 @@
+.pageTop {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -12px 32px;
+}
+@media (max-width: 768px) {
+    .pageTop {
+        margin-bottom: 16px;
+    }
+}

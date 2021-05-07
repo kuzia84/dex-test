@@ -5,11 +5,13 @@ import {
   ISignUpRequest,
   ISignUpResult,
 } from "../../api/dto/autorization.g";
-import { signInRequest, signUpRequest } from "../../api/requests/autorization";
+// import { authFetch } from "../../api/requests/autorization";
+import { signInRequest, signUpRequest } from "../../api/urls";
 
 export const fetchSignIn = createAsyncThunk<ILoginResult, ILoginRequest>(
   "app/signIn",
   async (data) => {
+    // authFetch(data, signInRequest);
     const requestOptions = {
       method: "POST",
       headers: {

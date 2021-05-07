@@ -1,0 +1,55 @@
+.btn {
+    display: inline-flex;
+    height: 40px;
+    width: 100%;
+    border: none;
+    border-radius: 4px;
+    background: var(--red);
+    transition: all 0.3s ease-in-out;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 24px;
+    color: #fff;
+    cursor: pointer;
+}
+.btn:hover {
+    background: var(--lightred);
+}
+.btn:focus {
+    outline: none;
+    background: var(--darkred);
+}
+.btn:disabled {
+    color: var(--lightestgray);
+    background: var(--lightestgray1);
+}
+.btnText {
+    display: inline-flex;
+    height: 40px;
+    width: 100%;
+    border: 1px solid var(--lightgray);
+    border-radius: 4px;
+    background: none;
+    transition: all 0.3s ease-in-out;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 24px;
+    color: var(--lightgray);
+    cursor: pointer;
+}
+.btnText:hover {
+    background: var(--lightestgray);
+}
+.btnText:focus {
+    outline: none;
+    background: var(--lightgray);
+    color: var(--gray);
+    border-color: var(--gray);
+}
+.btnText:disabled {
+    color: var(--lightestgray);
+}

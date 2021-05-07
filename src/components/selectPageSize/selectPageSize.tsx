@@ -30,7 +30,7 @@ export const PageSizeSelect: React.FC<IPageSizeSelect> = ({ setPageSize }) => {
   return (
     <Select
       className={s.reactSelectContainer}
-      classNamePrefix="select-paze-size"
+      classNamePrefix="select-page-size"
       theme={customTheme}
       options={pageSizeOptions}
       defaultValue={pageSizeOptions[0]}

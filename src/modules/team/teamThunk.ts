@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { NewTeamDto, TeamDto, TeamDtoPageResult } from "../../api/dto/team.g";
-import { addTeamRequest, updateTeamRequest } from "../../api/requests/team";
+import { addTeamRequest, updateTeamRequest } from "../../api/urls";
 
 export const fetchAddTeam = createAsyncThunk<NewTeamDto, NewTeamDto>(
   "team/addTeam",

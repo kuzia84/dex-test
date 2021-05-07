@@ -2,12 +2,14 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../core/redux/hooks";
 import { BreadCrumbs } from "../../components/breadCrumbs/breadCrumbs";
 import { ControlButtons } from "../../components/controlButtons/controlButtons";
-import { PlayerInfo } from "../../components/playerInfo/playerInfo";
-import { Sidebar } from "../../components/sidebar/sidebar";
-import { Header } from "../../components/header/header";
+import { PlayerInfo } from "./components/playerInfo";
 import { fetchSinglePlayerAsync } from "../../modules/player/playerThunk";
 import { selectSinglePlayerData } from "../../modules/player/playerSelector";
 import { getPlayerRequest } from "../../api/requests/player";
+import { Page } from "../../components/page/page";
+import { PageItem } from "../../components/page/pageItem/pageItem";
+import { PageItemTop } from "../../components/page/pageItem/pageItemTop/pageItemTop";
+import { PageItemContent } from "../../components/page/pageItem/pageItemContent/pageItemContent";
 
 export const Player: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -20,22 +22,16 @@ export const Player: React.FC = () => {
   const singlePlayer = useAppSelector(selectSinglePlayerData);
 
   return (
-    <div className="page">
-      <Header />
-      <Sidebar />
-      <div className="page-content">
-        <div className="item bg">
-          <div className="item__wrapper">
-            <div className="item__top">
-              <BreadCrumbs path="Players" name={singlePlayer.name} />
-              <ControlButtons page="players" itemId={singlePlayer.id} />
-            </div>
-            <div className="item__content">
-              <PlayerInfo />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Page>
+      <PageItem>
+        <PageItemTop bg={true}>
+          <BreadCrumbs path="Players" name={singlePlayer.name} />
+          <ControlButtons page="players" itemId={singlePlayer.id} />
+        </PageItemTop>
+        <PageItemContent bg={true}>
+          <PlayerInfo />
+        </PageItemContent>
+      </PageItem>
+    </Page>
   );
 };

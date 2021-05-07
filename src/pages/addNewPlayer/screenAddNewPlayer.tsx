@@ -1,13 +1,15 @@
 import { useAppDispatch, useAppSelector } from "../../core/redux/hooks";
-import { AddPlayer } from "../../components/addNewPlayer/addNewPlayer";
+import { AddPlayer } from "./components/addNewPlayer";
 import { BreadCrumbs } from "../../components/breadCrumbs/breadCrumbs";
 import { PlayerTeamNameDto } from "../../api/dto/player.g";
-import { Sidebar } from "../../components/sidebar/sidebar";
-import { Header } from "../../components/header/header";
 import { useEffect } from "react";
 import { fetchSinglePlayerAsync } from "../../modules/player/playerThunk";
 import { selectSinglePlayerData } from "../../modules/player/playerSelector";
 import { getPlayerRequest } from "../../api/requests/player";
+import { Page } from "../../components/page/page";
+import { PageItem } from "../../components/page/pageItem/pageItem";
+import { PageItemTop } from "../../components/page/pageItem/pageItemTop/pageItemTop";
+import { PageItemContent } from "../../components/page/pageItem/pageItemContent/pageItemContent";
 
 export const AddNewPlayer: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -28,21 +30,15 @@ export const AddNewPlayer: React.FC = () => {
     ? `Update ${singlePlayer.name}`
     : "Add new player";
   return (
-    <div className="page">
-      <Header />
-      <Sidebar />
-      <div className="page-content">
-        <div className="item">
-          <div className="item__wrapper">
-            <div className="item__top">
-              <BreadCrumbs path="Players" name={breadcrumbsText} />
-            </div>
-            <div className="item__content">
-              <AddPlayer playerId={playerId} />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Page>
+      <PageItem>
+        <PageItemTop>
+          <BreadCrumbs path="Players" name={breadcrumbsText} />
+        </PageItemTop>
+        <PageItemContent>
+          <AddPlayer playerId={playerId} />
+        </PageItemContent>
+      </PageItem>
+    </Page>
   );
 };

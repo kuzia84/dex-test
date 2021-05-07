@@ -1,0 +1,21 @@
+.itemContent {
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 48px;
+    border-radius: 0px 0px 10px 10px;
+    background: #fff;
+}
+@media (max-width: 768px) {
+    .itemContent {
+        padding: 48px 12px 12px;
+    }
+}
+@media (max-width: 414px) {
+    .itemContent {
+        border-radius: 0;
+    }
+}
+.bg.itemContent {
+    background: linear-gradient(276.45deg, #393939 0%, #707070 100%);
+    padding-top: 65px;
+}
