@@ -4,6 +4,7 @@ import {
   PlayerDtoPageResult,
   PlayerTeamNameDto,
 } from "../../api/dto/player.g";
+import { baseFetch } from "../../api/requests/baseFetch";
 import { addPlayerRequest, updatePlayerByIdRequest } from "../../api/urls";
 
 export const fetchAddPlayer = createAsyncThunk<NewPlayerDto, NewPlayerDto>(
@@ -26,6 +27,7 @@ export const fetchAddPlayer = createAsyncThunk<NewPlayerDto, NewPlayerDto>(
 export const fetchPlayerPositionsAsync = createAsyncThunk<string[], string>(
   "player/fetchPlayerPosition",
   async (request) => {
+    // return await baseFetch({ url: request, method: "GET" });
     const myHeaders = new Headers({
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -34,8 +36,11 @@ export const fetchPlayerPositionsAsync = createAsyncThunk<string[], string>(
       method: "GET",
       headers: myHeaders,
     };
-    const response = await fetch(request, requestOptions);
-    return (await response.json()) as string[];
+    return fetch(request, requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        return data as string[];
+      });
   }
 );
 
