@@ -22,14 +22,14 @@ import {
   fetchPlayerPositionsAsync,
   fetchUpdatePlayerById,
 } from "../../../modules/player/playerThunk";
-import { playerPostionsRequest } from "../../../api/requests/player";
-import { getTeamsRequest } from "../../../api/requests/team";
+import { playerPostionsRequest } from "../../../api/urls";
+import { getTeamsRequest } from "../../../api/urls";
 import { fetchTeamsAsync } from "../../../modules/team/teamThunk";
 import {
   selectTeamsData,
   selectTeamsIsLoading,
 } from "../../../modules/team/teamSelector";
-import { addImageRequest } from "../../../api/requests/images";
+import { addImageRequest } from "../../../api/urls";
 import { playersLnk } from "../../routes";
 import { Button } from "../../../components/button/button";
 import { AddForm } from "../../../components/addForm/addForm";
@@ -75,15 +75,8 @@ export const AddPlayer: React.FC<IPlayerAdd> = ({ playerId }) => {
   const addPlayerError = useAppSelector(selectAddPlayerError);
   const updatePlayerError = useAppSelector(selectUpdatePlayerByIdError);
 
-  const {
-    control,
-    register,
-    handleSubmit,
-    errors,
-    reset,
-    setValue,
-    watch,
-  } = useForm<IPlayerAddInputs>();
+  const { control, register, handleSubmit, errors, reset, setValue, watch } =
+    useForm<IPlayerAddInputs>();
 
   function setTeamDataValues() {
     setValue("playerName", singlePlayer.name);

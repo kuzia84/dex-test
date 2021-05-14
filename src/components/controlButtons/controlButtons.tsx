@@ -3,8 +3,7 @@ import { ReactComponent as Delete } from "../../assets/icons/delete.svg";
 import { useAppDispatch } from "../../core/redux/hooks";
 import s from "./style.module.css";
 import { useHistory } from "react-router";
-import { deletePlayerRequest } from "../../api/requests/player";
-import { deleteTeamRequest } from "../../api/requests/team";
+import { deletePlayerRequest, deleteTeamRequest } from "../../api/urls";
 import { fetchDeleteItemById } from "../../modules/app/appThunk";
 import { IControlButtonsProps } from "../../api/dto/components.g";
 import {

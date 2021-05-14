@@ -4,7 +4,7 @@ import { BreadCrumbs } from "../../components/breadCrumbs/breadCrumbs";
 import { ControlButtons } from "../../components/controlButtons/controlButtons";
 import { TeamInfo } from "./components/teamInfo/teamInfo";
 import { TeamRoster } from "./components/teamRoster/teamRoster";
-import { getTeamRequest } from "../../api/requests/team";
+import { getTeamRequest } from "../../api/urls";
 import { fetchSingleTeamAsync } from "../../modules/team/teamThunk";
 import { selectSingleTeamData } from "../../modules/team/teamSelector";
 import { Page } from "../../components/page/page";
@@ -15,10 +15,10 @@ import { PageItemContent } from "../../components/page/pageItem/pageItemContent/
 export const Team: React.FC = () => {
   const dispatch = useAppDispatch();
   const id = new URLSearchParams(window.location.search).get("id");
-  const request = getTeamRequest + id;
+  const requestUrl = getTeamRequest + id;
   useEffect(() => {
-    dispatch(fetchSingleTeamAsync(request));
-  }, [request, dispatch]);
+    dispatch(fetchSingleTeamAsync(requestUrl));
+  }, [requestUrl, dispatch]);
   const singleTeam = useAppSelector(selectSingleTeamData);
 
   return (

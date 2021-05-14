@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../core/redux/hooks";
 import { PlayerDto } from "../../../api/dto/player.g";
 import s from "./style.module.css";
-import { getTeamsRequest } from "../../../api/requests/team";
+import { getTeamsRequest } from "../../../api/urls";
 import { fetchTeamsAsync } from "../../../modules/team/teamThunk";
 import {
   selectTeamsData,

@@ -5,22 +5,13 @@ import {
   ISignUpRequest,
   ISignUpResult,
 } from "../../api/dto/autorization.g";
-// import { authFetch } from "../../api/requests/autorization";
-import { signInRequest, signUpRequest } from "../../api/urls";
+import { signIn, signUp } from "../../api/requests/autorization";
 
 export const fetchSignIn = createAsyncThunk<ILoginResult, ILoginRequest>(
   "app/signIn",
   async (data) => {
-    // authFetch(data, signInRequest);
-    const requestOptions = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    };
-    const response = await fetch(signInRequest, requestOptions);
-    const result = (await response.json()) as ILoginResult;
+    const response = await signIn(data);
+    const result = (await response) as ILoginResult;
     if (result.token) {
       localStorage.setItem("token", result.token);
       localStorage.setItem("userName", result.name);
@@ -32,15 +23,8 @@ export const fetchSignIn = createAsyncThunk<ILoginResult, ILoginRequest>(
 export const fetchSignUp = createAsyncThunk<ISignUpResult, ISignUpRequest>(
   "app/signUp",
   async (data) => {
-    const requestOptions = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    };
-    const response = await fetch(signUpRequest, requestOptions);
-    const result = (await response.json()) as ISignUpResult;
+    const response = await signUp(data);
+    const result = (await response) as ISignUpResult;
     if (result.token) {
       localStorage.setItem("token", result.token);
       localStorage.setItem("userName", result.name);

@@ -1,22 +1,16 @@
-export const signUpRequest = "http://dev.trainee.dex-it.ru/api/Auth/SignUp";
-export const signInRequest = "http://dev.trainee.dex-it.ru/api/Auth/SignIn";
-export const getTeamsRequest = "http://dev.trainee.dex-it.ru/api/Team/GetTeams";
-export const getTeamRequest = "http://dev.trainee.dex-it.ru/api/Team/Get?id=";
-export const addTeamRequest = "http://dev.trainee.dex-it.ru/api/Team/Add";
-export const updateTeamRequest = "http://dev.trainee.dex-it.ru/api/Team/Update";
-export const deleteTeamRequest =
-  "http://dev.trainee.dex-it.ru/api/Team/Delete?id=";
-export const updatePlayerByIdRequest =
-  "http://dev.trainee.dex-it.ru/api/Player/Update";
-export const addPlayerRequest = "http://dev.trainee.dex-it.ru/api/Player/Add";
-export const deletePlayerRequest =
-  "http://dev.trainee.dex-it.ru/api/Player/Delete?id=";
-export const playerPostionsRequest =
-  "http://dev.trainee.dex-it.ru/api/Player/GetPositions";
-export const getPlayerRequest =
-  "http://dev.trainee.dex-it.ru/api/Player/Get?id=";
-export const getPlayersRequest =
-  "http://dev.trainee.dex-it.ru/api/Player/GetPlayers";
+export const signUpRequest = "/api/Auth/SignUp";
+export const signInRequest = "/api/Auth/SignIn";
+export const getTeamsRequest = "/api/Team/GetTeams";
+export const getTeamRequest = "/api/Team/Get?id=";
+export const addTeamRequest = "/api/Team/Add";
+export const updateTeamRequest = "/api/Team/Update";
+export const deleteTeamRequest = "/api/Team/Delete?id=";
+export const updatePlayerRequest = "/api/Player/Update";
+export const addPlayerRequest = "/api/Player/Add";
+export const deletePlayerRequest = "/api/Player/Delete?id=";
+export const playerPostionsRequest = "/api/Player/GetPositions";
+export const getPlayerRequest = "/api/Player/Get?id=";
+export const getPlayersRequest = "/api/Player/GetPlayers";
 export const addImageRequest =
   "http://dev.trainee.dex-it.ru/api/Image/SaveImage";
 export const deleteImageRequest =

@@ -9,7 +9,7 @@ import EmptyImg from "../../assets/img/empty-team.svg";
 import { EmptyBase } from "../../components/emptyBase/emptyBase";
 import { IFetchSuffix } from "../../api/dto/components.g";
 import { useHistory } from "react-router";
-import { getTeamsRequest } from "../../api/requests/team";
+import { getTeamsRequest } from "../../api/urls";
 import {
   selectTeamsData,
   selectTeamsFetchSuffix,
@@ -42,13 +42,13 @@ export const TeamCards: React.FC = () => {
   const pageCount = Math.ceil(loadedCardsNumber / pageSize);
   const pageNumber = pageCount >= +getPageNumber ? +getPageNumber : 1;
 
-  const request = `${getTeamsRequest}?Name=${searchText}&Page=${pageNumber}&PageSize=${pageSize}`;
+  const requestUrl = `${getTeamsRequest}?Name=${searchText}&Page=${pageNumber}&PageSize=${pageSize}`;
   useEffect(() => {
-    dispatch(fetchTeamsAsync(request));
+    dispatch(fetchTeamsAsync(requestUrl));
   }, []);
   useEffect(() => {
-    dispatch(fetchTeamsAsync(request));
-  }, [request, dispatch]);
+    dispatch(fetchTeamsAsync(requestUrl));
+  }, [requestUrl, dispatch]);
 
   if (teamsReduxIsLoading === false) {
     if (pageCount < +getPageNumber) {

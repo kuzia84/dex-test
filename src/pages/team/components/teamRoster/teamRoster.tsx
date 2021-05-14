@@ -5,7 +5,7 @@ import cn from "classnames";
 import { PlayerDto } from "../../../../api/dto/player.g";
 import { selectPlayersData } from "../../../../modules/player/playerSelector";
 import { fetchPlayersAsync } from "../../../../modules/player/playerThunk";
-import { getPlayersRequest } from "../../../../api/requests/player";
+import { getPlayersRequest } from "../../../../api/urls";
 
 interface ITeamRosterProps {
   teamId: number;

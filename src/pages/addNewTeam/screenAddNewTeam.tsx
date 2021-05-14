@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from "../../core/redux/hooks";
 import { AddTeam } from "./components/addNewTeam";
 import { BreadCrumbs } from "../../components/breadCrumbs/breadCrumbs";
 import { useEffect } from "react";
-import { getTeamRequest } from "../../api/requests/team";
+import { getTeamRequest } from "../../api/urls";
 import { fetchSingleTeamAsync } from "../../modules/team/teamThunk";
 import { selectSingleTeamData } from "../../modules/team/teamSelector";
 import { Page } from "../../components/page/page";

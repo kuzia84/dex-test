@@ -21,7 +21,7 @@ import {
   setPageSize,
   setSearchText,
 } from "../../modules/player/playerSlice";
-import { getPlayersRequest } from "../../api/requests/player";
+import { getPlayersRequest } from "../../api/urls";
 import { playerLnk, playersLnk } from "../routes";
 import { Page } from "../../components/page/page";
 import { PageTop } from "../../components/page/pageTop/pageTop";

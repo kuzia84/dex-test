@@ -6,7 +6,7 @@ import {
   ITeamAddInputs,
   NewTeamDto,
 } from "../../../api/dto/team.g";
-import { addImageRequest } from "../../../api/requests/images";
+import { addImageRequest } from "../../../api/urls";
 import { useAppDispatch, useAppSelector } from "../../../core/redux/hooks";
 import { InputGroup } from "../../../components/inputGroup/iInputGroup";
 import {
@@ -42,14 +42,8 @@ export const AddTeam: React.FC<ITeamAdd> = ({ teamId }) => {
   const addTeamError = useAppSelector(selectAddTeamError);
   const updateTeamError = useAppSelector(selectUpdateTeamByIdError);
 
-  const {
-    register,
-    handleSubmit,
-    errors,
-    reset,
-    setValue,
-    watch,
-  } = useForm<ITeamAddInputs>();
+  const { register, handleSubmit, errors, reset, setValue, watch } =
+    useForm<ITeamAddInputs>();
 
   const setTeamDataValues = () => {
     setValue("teamName", singleTeam.name);

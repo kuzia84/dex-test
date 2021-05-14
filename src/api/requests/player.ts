@@ -1,11 +1,50 @@
-export const updatePlayerByIdRequest =
-  "http://dev.trainee.dex-it.ru/api/Player/Update";
-export const addPlayerRequest = "http://dev.trainee.dex-it.ru/api/Player/Add";
-export const deletePlayerRequest =
-  "http://dev.trainee.dex-it.ru/api/Player/Delete?id=";
-export const playerPostionsRequest =
-  "http://dev.trainee.dex-it.ru/api/Player/GetPositions";
-export const getPlayerRequest =
-  "http://dev.trainee.dex-it.ru/api/Player/Get?id=";
-export const getPlayersRequest =
-  "http://dev.trainee.dex-it.ru/api/Player/GetPlayers";
+import { NewPlayerDto } from "../dto/player.g";
+import { addPlayerRequest, updatePlayerRequest } from "../urls";
+import { baseRequest } from "./baseRequest";
+
+export const addPlayer = (
+  requestData: NewPlayerDto,
+  config?: Object
+): Promise<any> => {
+  return baseRequest(
+    addPlayerRequest,
+    Object.assign({ method: "POST", body: JSON.stringify(requestData) }, config)
+  ).then((response) => response.json());
+};
+
+export const getPlayersList = (
+  requestUrl: string,
+  config?: Object
+): Promise<any> => {
+  return baseRequest(requestUrl, Object.assign({ method: "GET" }, config)).then(
+    (response) => response.json()
+  );
+};
+
+export const getOnePlayer = (
+  requestUrl: string,
+  config?: Object
+): Promise<any> => {
+  return baseRequest(requestUrl, Object.assign({ method: "GET" }, config)).then(
+    (response) => response.json()
+  );
+};
+
+export const getPlayerPositions = (
+  requestUrl: string,
+  config?: Object
+): Promise<any> => {
+  return baseRequest(requestUrl, Object.assign({ method: "GET" }, config)).then(
+    (response) => response.json()
+  );
+};
+
+export const updatePlayer = (
+  requestData: NewPlayerDto,
+  config?: Object
+): Promise<any> => {
+  return baseRequest(
+    updatePlayerRequest,
+    Object.assign({ method: "PUT", body: JSON.stringify(requestData) }, config)
+  ).then((response) => response.json());
+};

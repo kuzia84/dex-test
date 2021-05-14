@@ -1,6 +1,41 @@
-export const getTeamsRequest = "http://dev.trainee.dex-it.ru/api/Team/GetTeams";
-export const getTeamRequest = "http://dev.trainee.dex-it.ru/api/Team/Get?id=";
-export const addTeamRequest = "http://dev.trainee.dex-it.ru/api/Team/Add";
-export const updateTeamRequest = "http://dev.trainee.dex-it.ru/api/Team/Update";
-export const deleteTeamRequest =
-  "http://dev.trainee.dex-it.ru/api/Team/Delete?id=";
+import { NewTeamDto } from "../dto/team.g";
+import { addTeamRequest, updateTeamRequest } from "../urls";
+import { baseRequest } from "./baseRequest";
+
+export const addTeam = (
+  requestData: NewTeamDto,
+  config?: Object
+): Promise<any> => {
+  return baseRequest(
+    addTeamRequest,
+    Object.assign({ method: "POST", body: JSON.stringify(requestData) }, config)
+  ).then((response) => response.json());
+};
+
+export const getTeamsList = (
+  requestUrl: string,
+  config?: Object
+): Promise<any> => {
+  return baseRequest(requestUrl, Object.assign({ method: "GET" }, config)).then(
+    (response) => response.json()
+  );
+};
+
+export const getOneTeam = (
+  requestUrl: string,
+  config?: Object
+): Promise<any> => {
+  return baseRequest(requestUrl, Object.assign({ method: "GET" }, config)).then(
+    (response) => response.json()
+  );
+};
+
+export const updateTeam = (
+  requestData: NewTeamDto,
+  config?: Object
+): Promise<any> => {
+  return baseRequest(
+    updateTeamRequest,
+    Object.assign({ method: "PUT", body: JSON.stringify(requestData) }, config)
+  ).then((response) => response.json());
+};

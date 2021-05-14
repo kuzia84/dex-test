@@ -5,7 +5,7 @@ import { PlayerTeamNameDto } from "../../api/dto/player.g";
 import { useEffect } from "react";
 import { fetchSinglePlayerAsync } from "../../modules/player/playerThunk";
 import { selectSinglePlayerData } from "../../modules/player/playerSelector";
-import { getPlayerRequest } from "../../api/requests/player";
+import { getPlayerRequest } from "../../api/urls";
 import { Page } from "../../components/page/page";
 import { PageItem } from "../../components/page/pageItem/pageItem";
 import { PageItemTop } from "../../components/page/pageItem/pageItemTop/pageItemTop";

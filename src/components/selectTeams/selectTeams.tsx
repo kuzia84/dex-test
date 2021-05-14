@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../core/redux/hooks";
 import { ITeamSelectOptions, TeamDto } from "../../api/dto/team.g";
 import s from "./style.module.css";
 import { setTeamIds } from "../../modules/player/playerSlice";
-import { getTeamsRequest } from "../../api/requests/team";
+import { getTeamsRequest } from "../../api/urls";
 import { fetchTeamsAsync } from "../../modules/team/teamThunk";
 import {
   selectTeamsData,
@@ -116,7 +116,6 @@ export const SelectTeams: React.FC = () => {
         options={teamSelectOptions}
         styles={colourStyles}
         onChange={(data: any) => {
-          console.log("data: ", data);
           const newArr = data.map((item: ITeamSelectOptions) => item.value);
           const newRequest = newArr.length
             ? "&TeamIds=" + newArr.join("&TeamIds=")

@@ -1,69 +1,40 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { NewTeamDto, TeamDto, TeamDtoPageResult } from "../../api/dto/team.g";
-import { addTeamRequest, updateTeamRequest } from "../../api/urls";
+import {
+  addTeam,
+  getOneTeam,
+  getTeamsList,
+  updateTeam,
+} from "../../api/requests/team";
 
 export const fetchAddTeam = createAsyncThunk<NewTeamDto, NewTeamDto>(
   "team/addTeam",
-  async (data) => {
-    const myHeaders = new Headers({
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-    });
-    const requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: JSON.stringify(data),
-    };
-    const response = await fetch(addTeamRequest, requestOptions);
-    return await response.json();
+  async (request) => {
+    const response = await addTeam(request);
+    return await response;
   }
 );
 
 export const fetchSingleTeamAsync = createAsyncThunk<TeamDto, string>(
   "team/fetchTeamData",
   async (request) => {
-    const myHeaders = new Headers({
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-    });
-    const requestOptions = {
-      method: "GET",
-      headers: myHeaders,
-    };
-    const response = await fetch(request, requestOptions);
-    return (await response.json()) as TeamDto;
+    const response = await getOneTeam(request);
+    return (await response) as TeamDto;
   }
 );
 
 export const fetchTeamsAsync = createAsyncThunk<TeamDtoPageResult, string>(
   "teams/fetchTeamsData",
   async (request) => {
-    const myHeaders = new Headers({
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-    });
-    const requestOptions = {
-      method: "GET",
-      headers: myHeaders,
-    };
-    const response = await fetch(request, requestOptions);
-    return (await response.json()) as TeamDtoPageResult;
+    const response = await getTeamsList(request);
+    return (await response) as TeamDtoPageResult;
   }
 );
 
 export const fetchUpdateTeamById = createAsyncThunk<string, NewTeamDto>(
   "team/updateTeamById",
   async (data) => {
-    const myHeaders = new Headers({
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-    });
-    const requestOptions = {
-      method: "PUT",
-      headers: myHeaders,
-      body: JSON.stringify(data),
-    };
-    const response = await fetch(updateTeamRequest, requestOptions);
-    return await response.json();
+    const response = await updateTeam(data);
+    return await response;
   }
 );
