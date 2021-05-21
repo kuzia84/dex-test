@@ -34,13 +34,13 @@ export const SelectTeams: React.FC = () => {
   };
   const colourStyles = {
     option: (
-      styles: any,
+      styles: {},
       {
         isDisabled,
         isFocused,
         isSelected,
       }: { isDisabled: boolean; isFocused: boolean; isSelected: boolean }
-    ) => {
+    ): {} => {
       return {
         ...styles,
         fontSize: "14px",
@@ -115,12 +115,14 @@ export const SelectTeams: React.FC = () => {
         theme={customTheme}
         options={teamSelectOptions}
         styles={colourStyles}
-        onChange={(data: any) => {
-          const newArr = data.map((item: ITeamSelectOptions) => item.value);
-          const newRequest = newArr.length
-            ? "&TeamIds=" + newArr.join("&TeamIds=")
-            : "";
-          dispatch(setTeamIds(newRequest));
+        onChange={(data) => {
+          if (data) {
+            const newArr = data.map((item: ITeamSelectOptions) => item.value);
+            const newRequest = newArr.length
+              ? "&TeamIds=" + newArr.join("&TeamIds=")
+              : "";
+            dispatch(setTeamIds(newRequest));
+          }
         }}
       />
     </div>

@@ -75,8 +75,15 @@ export const AddPlayer: React.FC<IPlayerAdd> = ({ playerId }) => {
   const addPlayerError = useAppSelector(selectAddPlayerError);
   const updatePlayerError = useAppSelector(selectUpdatePlayerByIdError);
 
-  const { control, register, handleSubmit, errors, reset, setValue, watch } =
-    useForm<IPlayerAddInputs>();
+  const {
+    control,
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+    setValue,
+    watch,
+  } = useForm<IPlayerAddInputs>();
 
   function setTeamDataValues() {
     setValue("playerName", singlePlayer.name);

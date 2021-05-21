@@ -17,7 +17,11 @@ import { Button } from "../../../components/button/button";
 
 export const SignUpForm: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { register, handleSubmit, errors } = useForm<ISignUpInputs>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ISignUpInputs>();
   const singUpResult = useAppSelector(selectSignUpResult);
   const history = useHistory();
 

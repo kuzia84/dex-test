@@ -1,5 +1,6 @@
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { FunctionComponent } from "react";
+import { Control, FieldErrors } from "react-hook-form";
 
 export interface IAppState {
   sidebarShow: boolean;
@@ -59,7 +60,7 @@ export type InputProps = React.DetailedHTMLProps<
   type?: string;
   inputName: string;
   errorText: string;
-  errors: any;
+  errors: FieldErrors;
   imageUrl?: string;
   register: ({ required }: { required?: boolean }) => RefReturn;
   isRequired?: boolean;
@@ -80,9 +81,9 @@ export type SelectProps = React.DetailedHTMLProps<
   label?: string;
   selectName: string;
   errorText: string;
-  errors: any;
+  errors: FieldErrors;
   register: ({ required }: { required?: boolean }) => RefReturnSelect;
-  control: any;
+  control: Control;
   defaultValueIndex?: number;
 };
 

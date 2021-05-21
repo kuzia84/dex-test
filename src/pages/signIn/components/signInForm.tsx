@@ -12,7 +12,11 @@ import { Button } from "../../../components/button/button";
 
 export const SignInForm: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { register, handleSubmit, errors } = useForm<ISignInInputs>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ISignInInputs>();
   const singInResult = useAppSelector(selectSignInResult);
   const history = useHistory();
   const onSubmit = (data: ILoginRequest) => {

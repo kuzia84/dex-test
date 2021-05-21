@@ -1,18 +1,10 @@
-import { Route, Redirect } from "react-router-dom";
+import { Redirect, Route, RouteProps } from "react-router";
 import { homeLnk } from "../../pages/routes";
 
-export const PrivateRoute = ({ component: Component, ...rest }: any) => {
-  return (
-    <Route
-      {...rest}
-      render={(props: any) =>
-        localStorage.getItem("token") ? (
-          <Component {...props} />
-        ) : (
-          <Redirect to={homeLnk} />
-        )
-      }
-    />
-  );
-};
-//
+export function PrivateRoute({ ...routeProps }: RouteProps) {
+  if (localStorage.getItem("token")) {
+    return <Route {...routeProps} />;
+  } else {
+    return <Redirect to={{ pathname: homeLnk }} />;
+  }
+}
