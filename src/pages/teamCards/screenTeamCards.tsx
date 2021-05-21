@@ -43,9 +43,7 @@ export const TeamCards: React.FC = () => {
   const pageNumber = pageCount >= +getPageNumber ? +getPageNumber : 1;
 
   const requestUrl = `${getTeamsRequest}?Name=${searchText}&Page=${pageNumber}&PageSize=${pageSize}`;
-  useEffect(() => {
-    dispatch(fetchTeamsAsync(requestUrl));
-  }, []);
+
   useEffect(() => {
     dispatch(fetchTeamsAsync(requestUrl));
   }, [requestUrl, dispatch]);
@@ -59,6 +57,7 @@ export const TeamCards: React.FC = () => {
   const handleClick = (id: number) => {
     history.push(`${teamLnk}?id=${id}`);
   };
+
   const teamsList = teams.map(({ name, foundationYear, imageUrl, id }) => {
     return (
       <TeamCard
@@ -77,8 +76,7 @@ export const TeamCards: React.FC = () => {
         <Search setSearchText={setSearchText} />
         <AddBtn page="teams" />
       </PageTop>
-      {teams.length ? "" : <EmptyBase imageUrl={EmptyImg} />}
-      {teams.length > 0 && (
+      {teams.length > 0 && teamsReduxIsLoading === false ? (
         <>
           <CardsWrapper>{teamsList}</CardsWrapper>
           <PageBottom>
@@ -92,6 +90,8 @@ export const TeamCards: React.FC = () => {
             <PageSizeSelect setPageSize={setPageSize} />
           </PageBottom>
         </>
+      ) : (
+        <EmptyBase imageUrl={EmptyImg} />
       )}
     </Page>
   );

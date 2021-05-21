@@ -3,16 +3,19 @@ import { IFetchSuffix } from "./components.g";
 export interface ITeamState {
   addIsLoading: boolean;
   addFetchResult: {};
-  addErrors: any;
+  addErrors: null | Object;
   getOneTeamIsLoading: boolean;
   getOneTeamFetchResult: TeamDto;
-  getOneTeamError: any;
+  getOneTeamError: null | Object;
   getTeamsIsLoading: boolean;
   getTeamsFetchResult: TeamDtoPageResult;
-  getTeamsError: any;
+  getTeamsError: null | Object;
   updateIsLoading: boolean;
   updateFetchResult: {};
-  updateErrors: any;
+  updateErrors: null | Object;
+  deleteIsLoading: boolean;
+  deleteFetchResult: TeamDto;
+  deleteErrors: null | Object;
   teamsFetchSuffix: IFetchSuffix;
 }
 
@@ -51,7 +54,7 @@ export interface ITeamAddData {
   teamFoundation: number;
   teamDivision: string;
   teamConference: string;
-  teamPhoto: any;
+  teamPhoto: Blob[];
 }
 
 export interface NewTeamDto {

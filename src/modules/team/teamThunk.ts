@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { NewTeamDto, TeamDto, TeamDtoPageResult } from "../../api/dto/team.g";
 import {
   addTeam,
+  deleteTeam,
   getOneTeam,
   getTeamsList,
   updateTeam,
@@ -35,6 +36,14 @@ export const fetchUpdateTeamById = createAsyncThunk<string, NewTeamDto>(
   "team/updateTeamById",
   async (data) => {
     const response = await updateTeam(data);
+    return await response;
+  }
+);
+
+export const fetchDeleteTeamById = createAsyncThunk<TeamDto, string>(
+  "app/deleteItemById",
+  async (request) => {
+    const response = await deleteTeam(request);
     return await response;
   }
 );

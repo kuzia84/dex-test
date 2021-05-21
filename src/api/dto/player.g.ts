@@ -3,19 +3,22 @@ import { IFetchSuffix } from "./components.g";
 export interface IPlayersState {
   addIsLoading: boolean;
   addFetchResult: {};
-  addErrors: any;
+  addErrors: null | Object;
   getPositionsIsLoading: boolean;
   getPositionsFetchResult: string[];
-  getPositionsError: any;
+  getPositionsError: null | Object;
   getOnePlayerIsLoading: boolean;
   getOnePlayerFetchResult: PlayerTeamNameDto;
-  getOnePlayerError: any;
+  getOnePlayerError: null | Object;
   getPlayersIsLoading: boolean;
   getPlayersFetchResult: PlayerDtoPageResult;
-  getPlayersError: any;
+  getPlayersError: null | Object;
   updateIsLoading: boolean;
   updateFetchResult: {};
-  updateErrors: any;
+  updateErrors: null | Object;
+  deleteIsLoading: boolean;
+  deleteFetchResult: PlayerDto;
+  deleteErrors: null | Object;
   playersFetchSuffix: IFetchSuffix;
 }
 
@@ -42,7 +45,7 @@ export interface PlayerTeamNameDto {
   weight?: number;
   avatarUrl: string;
   id: number;
-  teamName: string;
+  teamName?: string;
 }
 
 export interface PlayerDtoPageResult {
@@ -57,7 +60,7 @@ export interface IPlayerAddData {
   playerHeight: number;
   playerName: string;
   playerNumber: number;
-  playerPhoto: any;
+  playerPhoto: Blob[];
   playerPosition: { value: string; label: string };
   playerTeam: { value: number; label: string };
   playerWeight: number;

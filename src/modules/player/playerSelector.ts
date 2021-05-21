@@ -30,5 +30,11 @@ export const selectUpdatePlayerByIdIsLoading = (state: RootState) =>
   state.player.updateIsLoading;
 export const selectUpdatePlayerByIdError = (state: RootState) =>
   state.player.updateErrors;
+export const selectDeletePlayerByIdResult = (state: RootState) =>
+  state.player.deleteFetchResult;
+export const selectDeletePlayerByIdIsloading = (state: RootState) =>
+  state.player.deleteIsLoading;
+export const selectDeletePlayerByIdError = (state: RootState) =>
+  state.player.deleteErrors;
 export const selectPlayersFetchSuffix = (state: RootState) =>
   state.player.playersFetchSuffix;

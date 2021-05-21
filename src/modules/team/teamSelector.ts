@@ -22,5 +22,11 @@ export const selectUpdateTeamByIdIsLoading = (state: RootState) =>
   state.team.updateIsLoading;
 export const selectUpdateTeamByIdError = (state: RootState) =>
   state.team.updateErrors;
+export const selectDeleteTeamByIdResult = (state: RootState) =>
+  state.team.deleteFetchResult;
+export const selectDeleteTeamByIdIsloading = (state: RootState) =>
+  state.team.deleteIsLoading;
+export const selectDeleteTeamByIdError = (state: RootState) =>
+  state.team.deleteErrors;
 export const selectTeamsFetchSuffix = (state: RootState) =>
   state.team.teamsFetchSuffix;

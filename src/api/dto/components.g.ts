@@ -1,18 +1,14 @@
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+import { FunctionComponent } from "react";
 
 export interface IAppState {
   sidebarShow: boolean;
-  deleteIsLoading: boolean;
-  deleteFetchResult: {
-    name: string;
-  };
-  deleteErrors: any;
 }
 
 export interface IMenu {
   id: number;
   name: string;
-  img: any;
+  img: FunctionComponent;
   to: string;
 }
 
@@ -46,16 +42,6 @@ export interface IPageSizeSelect {
 
 export interface ISearch {
   setSearchText: ActionCreatorWithPayload<string, string>;
-}
-
-export interface IInputGroupProps {
-  label: string;
-  type?: string;
-  inputName: string;
-  errorText: string;
-  register: any;
-  required?: boolean;
-  errors?: any;
 }
 
 export type RefReturn =
@@ -101,8 +87,8 @@ export type SelectProps = React.DetailedHTMLProps<
 };
 
 export interface IControlButtonsProps {
-  itemId: number;
-  page: string;
+  delete: () => void;
+  update: () => void;
 }
 
 export interface IAuthContainerProps {

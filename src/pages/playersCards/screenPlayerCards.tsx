@@ -44,9 +44,9 @@ export const PlayersCards: React.FC = () => {
   const pageNumber = pageCount >= +getPageNumber ? +getPageNumber : 1;
 
   const request = `${getPlayersRequest}?Name=${searchText}${teamIds}&Page=${pageNumber}&PageSize=${pageSize}`;
-  useEffect(() => {
-    dispatch(fetchPlayersAsync(request));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchPlayersAsync(request));
+  // }, []);
   useEffect(() => {
     dispatch(fetchPlayersAsync(request));
   }, [request, dispatch]);
@@ -61,19 +61,23 @@ export const PlayersCards: React.FC = () => {
     history.push(`${playerLnk}?id=${id}`);
   };
 
-  const playersList = players.map(({ name, avatarUrl, id, number, team }) => {
-    return (
-      <PlayerCard
-        key={id}
-        id={id}
-        name={name}
-        number={number}
-        team={team}
-        avatarUrl={avatarUrl}
-        onClick={handleClick}
-      />
-    );
-  });
+  const playersList =
+    players.length > 0 && playersReduxIsLoading === false
+      ? players.map(({ name, avatarUrl, id, number, team }) => {
+          return (
+            <PlayerCard
+              key={id}
+              id={id}
+              name={name}
+              number={number}
+              team={team}
+              avatarUrl={avatarUrl}
+              onClick={handleClick}
+            />
+          );
+        })
+      : "Empty";
+
   return (
     <Page>
       <PageTop>
@@ -81,8 +85,7 @@ export const PlayersCards: React.FC = () => {
         <SelectTeams />
         <AddBtn page="players" />
       </PageTop>
-      {players.length ? "" : <EmptyBase imageUrl={EmptyImg} />}
-      {players.length > 0 && (
+      {players.length > 0 && playersReduxIsLoading === false ? (
         <>
           <CardsWrapper>{playersList}</CardsWrapper>
           <PageBottom>
@@ -96,6 +99,8 @@ export const PlayersCards: React.FC = () => {
             <PageSizeSelect setPageSize={setPageSize} />
           </PageBottom>
         </>
+      ) : (
+        <EmptyBase imageUrl={EmptyImg} />
       )}
     </Page>
   );

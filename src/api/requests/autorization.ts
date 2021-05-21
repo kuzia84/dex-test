@@ -1,11 +1,16 @@
-import { ILoginRequest, ISignUpRequest } from "../dto/autorization.g";
+import {
+  ILoginRequest,
+  ILoginResult,
+  ISignUpRequest,
+  ISignUpResult,
+} from "../dto/autorization.g";
 import { signInRequest, signUpRequest } from "../urls";
 import { baseRequest } from "./baseRequest";
 
 export const signIn = (
   requestData: ILoginRequest,
   config?: Object
-): Promise<any> => {
+): Promise<ILoginResult> => {
   return baseRequest(
     signInRequest,
     Object.assign({ method: "POST", body: JSON.stringify(requestData) }, config)
@@ -15,7 +20,7 @@ export const signIn = (
 export const signUp = (
   requestData: ISignUpRequest,
   config?: Object
-): Promise<any> => {
+): Promise<ISignUpResult> => {
   return baseRequest(
     signUpRequest,
     Object.assign({ method: "POST", body: JSON.stringify(requestData) }, config)

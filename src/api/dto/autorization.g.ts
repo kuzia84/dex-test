@@ -1,10 +1,10 @@
 export interface IAuthState {
   signInIsLoading: boolean;
   signInFetchResult: ILoginResult;
-  signInErrors: any;
+  signInErrors: null | Object;
   signUpIsLoading: boolean;
   signUpFetchResult: ISignUpResult;
-  signUpErrors: any;
+  signUpErrors: null | Object;
 }
 
 export interface ILoginRequest {

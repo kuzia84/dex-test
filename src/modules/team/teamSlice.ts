@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ITeamState } from "../../api/dto/team.g";
 import {
   fetchAddTeam,
+  fetchDeleteTeamById,
   fetchSingleTeamAsync,
   fetchTeamsAsync,
   fetchUpdateTeamById,
@@ -32,6 +33,16 @@ const initialState: ITeamState = {
   updateIsLoading: true,
   updateFetchResult: {},
   updateErrors: null,
+  deleteIsLoading: true,
+  deleteFetchResult: {
+    name: "",
+    foundationYear: 0,
+    division: "",
+    conference: "",
+    imageUrl: "",
+    id: 0,
+  },
+  deleteErrors: null,
   teamsFetchSuffix: {
     searchText: "",
     pageNumber: 1,
@@ -110,6 +121,17 @@ const teamSlise = createSlice({
     builder.addCase(fetchUpdateTeamById.rejected, (state, action) => {
       state.updateIsLoading = false;
       state.updateErrors = action.error;
+    });
+    builder.addCase(fetchDeleteTeamById.pending, (state) => {
+      state.deleteIsLoading = true;
+    });
+    builder.addCase(fetchDeleteTeamById.fulfilled, (state, action) => {
+      state.deleteIsLoading = false;
+      state.deleteFetchResult = action.payload;
+    });
+    builder.addCase(fetchDeleteTeamById.rejected, (state, action) => {
+      state.deleteIsLoading = false;
+      state.deleteErrors = action.error;
     });
   },
 });

@@ -15,7 +15,7 @@ export const PageSizeSelect: React.FC<IPageSizeSelect> = ({ setPageSize }) => {
     dispatch(setPageSize(6));
   }, [setPageSize, dispatch]);
 
-  const pageSizeOptions: IPageSize[] = [
+  const pageSizeOptions: Array<IPageSize> = [
     { value: 6, label: 6 },
     { value: 12, label: 12 },
     { value: 24, label: 24 },
@@ -56,8 +56,10 @@ export const PageSizeSelect: React.FC<IPageSizeSelect> = ({ setPageSize }) => {
       styles={customStyles}
       options={pageSizeOptions}
       defaultValue={pageSizeOptions[0]}
-      onChange={({ value }: any) => {
-        dispatch(setPageSize(value));
+      onChange={(data) => {
+        if (data) {
+          dispatch(setPageSize(data.value));
+        }
       }}
     />
   );

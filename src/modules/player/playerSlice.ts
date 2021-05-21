@@ -6,6 +6,7 @@ import {
   fetchSinglePlayerAsync,
   fetchUpdatePlayerById,
   fetchPlayerPositionsAsync,
+  fetchDeletePlayerById,
 } from "./playerThunk";
 
 const initialState: IPlayersState = {
@@ -40,6 +41,19 @@ const initialState: IPlayersState = {
   updateIsLoading: true,
   updateFetchResult: {},
   updateErrors: null,
+  deleteIsLoading: true,
+  deleteFetchResult: {
+    name: "",
+    number: 0,
+    position: "",
+    team: 0,
+    birthday: "",
+    height: 0,
+    weight: 0,
+    avatarUrl: "",
+    id: 0,
+  },
+  deleteErrors: null,
   playersFetchSuffix: {
     searchText: "",
     pageNumber: 1,
@@ -138,6 +152,17 @@ const playerSlice = createSlice({
     builder.addCase(fetchUpdatePlayerById.rejected, (state, action) => {
       state.updateIsLoading = false;
       state.updateErrors = action.error;
+    });
+    builder.addCase(fetchDeletePlayerById.pending, (state) => {
+      state.deleteIsLoading = true;
+    });
+    builder.addCase(fetchDeletePlayerById.fulfilled, (state, action) => {
+      state.deleteIsLoading = false;
+      state.deleteFetchResult = action.payload;
+    });
+    builder.addCase(fetchDeletePlayerById.rejected, (state, action) => {
+      state.deleteIsLoading = false;
+      state.deleteErrors = action.error;
     });
   },
 });

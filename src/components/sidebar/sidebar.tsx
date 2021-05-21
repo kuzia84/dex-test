@@ -9,7 +9,6 @@ import userImg from "../../assets/icons/profile.svg";
 import { MENU } from "./menu";
 import { SidebarLink } from "./sidebarLink/sidebarLink";
 import { selectSidebrSate } from "../../modules/app/appSelect";
-// import { resetAuth } from "../../modules/autorization/authSlice";
 import { homeLnk } from "../../pages/routes";
 
 export const Sidebar: React.FC = () => {
@@ -35,7 +34,6 @@ export const Sidebar: React.FC = () => {
         className={s.logout}
         to={homeLnk}
         onClick={() => {
-          // dispach(resetAuth);
           localStorage.removeItem("token");
           localStorage.removeItem("userName");
         }}

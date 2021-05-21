@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   NewPlayerDto,
+  PlayerDto,
   PlayerDtoPageResult,
   PlayerTeamNameDto,
 } from "../../api/dto/player.g";
@@ -10,6 +11,7 @@ import {
   getOnePlayer,
   getPlayersList,
   updatePlayer,
+  deletePlayer,
 } from "../../api/requests/player";
 
 export const fetchAddPlayer = createAsyncThunk<NewPlayerDto, NewPlayerDto>(
@@ -37,7 +39,7 @@ export const fetchSinglePlayerAsync = createAsyncThunk<
 });
 
 export const fetchPlayersAsync = createAsyncThunk<PlayerDtoPageResult, string>(
-  "players/fatchPlayersData",
+  "players/fetchPlayersData",
   async (request) => {
     const response = await getPlayersList(request);
     return (await response) as PlayerDtoPageResult;
@@ -48,6 +50,14 @@ export const fetchUpdatePlayerById = createAsyncThunk<string, NewPlayerDto>(
   "player/updatePlayerById",
   async (data) => {
     const response = await updatePlayer(data);
+    return await response;
+  }
+);
+
+export const fetchDeletePlayerById = createAsyncThunk<PlayerDto, string>(
+  "app/deleteItemById",
+  async (request) => {
+    const response = await deletePlayer(request);
     return await response;
   }
 );
