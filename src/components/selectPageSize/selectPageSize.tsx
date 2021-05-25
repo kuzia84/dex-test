@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Select from "react-select";
-import { useAppDispatch } from "../../core/redux/hooks";
 import {
   IPageSize,
   IPageSizeSelect,
@@ -8,13 +7,10 @@ import {
 } from "../../api/dto/components.g";
 import s from "./style.module.css";
 
-export const PageSizeSelect: React.FC<IPageSizeSelect> = ({ setPageSize }) => {
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(setPageSize(6));
-  }, [setPageSize, dispatch]);
-
+export const PageSizeSelect: React.FC<IPageSizeSelect> = ({
+  setPageSize,
+  selctedPageSize,
+}) => {
   const pageSizeOptions: Array<IPageSize> = [
     { value: 6, label: 6 },
     { value: 12, label: 12 },
@@ -48,6 +44,19 @@ export const PageSizeSelect: React.FC<IPageSizeSelect> = ({ setPageSize }) => {
     },
   };
 
+  const handleClick = (data: number) => {
+    setPageSize && setPageSize(data);
+  };
+
+  const i =
+    selctedPageSize === 6
+      ? 0
+      : selctedPageSize === 12
+      ? 1
+      : selctedPageSize === 24
+      ? 2
+      : 0;
+
   return (
     <Select
       className={s.reactSelectContainer}
@@ -55,11 +64,9 @@ export const PageSizeSelect: React.FC<IPageSizeSelect> = ({ setPageSize }) => {
       theme={customTheme}
       styles={customStyles}
       options={pageSizeOptions}
-      defaultValue={pageSizeOptions[0]}
+      defaultValue={pageSizeOptions[i]}
       onChange={(data) => {
-        if (data) {
-          dispatch(setPageSize(data.value));
-        }
+        data && handleClick(data.value);
       }}
     />
   );

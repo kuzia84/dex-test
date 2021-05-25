@@ -2,22 +2,16 @@ import React from "react";
 import ReactPaginate from "react-paginate";
 import { IPagination } from "../../api/dto/components.g";
 import s from "./style.module.css";
-import { useHistory } from "react-router";
 
 export const Pagination: React.FC<IPagination> = ({
-  page,
   loadedCardsNumber,
   pageSize,
-  pageNumber,
+  onPageChange,
+  pageNumber = 1,
 }) => {
-  const history = useHistory();
-  let path = "";
-  if (page === "teams") {
-    path = `/teams?Page=`;
-  }
-  if (page === "players") {
-    path = `/players?Page=`;
-  }
+  const handleClick = (data: { selected: number }) => {
+    onPageChange && onPageChange(data.selected + 1);
+  };
 
   const pageCount = Math.ceil(loadedCardsNumber / pageSize);
   return (
@@ -29,9 +23,10 @@ export const Pagination: React.FC<IPagination> = ({
       pageCount={pageCount}
       marginPagesDisplayed={1}
       pageRangeDisplayed={3}
-      onPageChange={(selectedItem: { selected: number }) => {
-        history.push(path + (selectedItem.selected + 1));
-      }}
+      // onPageChange={(selectedItem: { selected: number }) => {
+      //   history.push(path + (selectedItem.selected + 1));
+      // }}
+      onPageChange={handleClick}
       containerClassName={s.pagination}
       // subContainerClassName={"pages pagination"}
       activeClassName={s.active}

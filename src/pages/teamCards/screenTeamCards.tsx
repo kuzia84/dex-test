@@ -81,13 +81,14 @@ export const TeamCards: React.FC = () => {
           <CardsWrapper>{teamsList}</CardsWrapper>
           <PageBottom>
             <Pagination
-              page="teams"
+              // page="teams"
+              // pageNumber={pageNumber}
+              // setPageNumber={setPageNumber}
               loadedCardsNumber={loadedCardsNumber}
-              pageNumber={pageNumber}
               pageSize={pageSize}
-              setPageNumber={setPageNumber}
+              // onPageChange={fetchTeamsAsync}
             />
-            <PageSizeSelect setPageSize={setPageSize} />
+            {/* <PageSizeSelect setPageSize={setPageSize} /> */}
           </PageBottom>
         </>
       ) : (

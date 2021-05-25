@@ -3,6 +3,7 @@ import {
   NewPlayerDto,
   PlayerDto,
   PlayerDtoPageResult,
+  playersRequestType,
   PlayerTeamNameDto,
 } from "../../api/dto/player.g";
 import {
@@ -38,9 +39,13 @@ export const fetchSinglePlayerAsync = createAsyncThunk<
   return (await response) as PlayerTeamNameDto;
 });
 
-export const fetchPlayersAsync = createAsyncThunk<PlayerDtoPageResult, string>(
+export const fetchPlayersAsync = createAsyncThunk<
+  PlayerDtoPageResult,
+  playersRequestType
+>(
   "players/fetchPlayersData",
-  async (request) => {
+  async ({ requesrUrl, searchText, teamIds, pageNumber, pageSize }) => {
+    const request = `${requesrUrl}?Name=${searchText}${teamIds}&Page=${pageNumber}&PageSize=${pageSize}`;
     const response = await getPlayersList(request);
     return (await response) as PlayerDtoPageResult;
   }

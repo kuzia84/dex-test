@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../core/redux/hooks";
 import s from "./style.module.css";
 import cn from "classnames";
-import { PlayerDto } from "../../../../api/dto/player.g";
+import { PlayerDto, playersRequestType } from "../../../../api/dto/player.g";
 import { selectPlayersData } from "../../../../modules/player/playerSelector";
 import { fetchPlayersAsync } from "../../../../modules/player/playerThunk";
 import { getPlayersRequest } from "../../../../api/urls";
@@ -15,10 +15,15 @@ export const TeamRoster: React.FC<ITeamRosterProps> = ({ teamId }) => {
   const dispatch = useAppDispatch();
   const playersRedux = useAppSelector(selectPlayersData);
   const players = playersRedux.data;
-  const request = `${getPlayersRequest}?TeamIds=${teamId}`;
+  // const request = `${getPlayersRequest}?TeamIds=${teamId}`;
+
   useEffect(() => {
-    dispatch(fetchPlayersAsync(request));
-  }, [dispatch, request]);
+    const playersRequest: playersRequestType = {
+      requesrUrl: getPlayersRequest,
+      teamIds: String(teamId),
+    };
+    dispatch(fetchPlayersAsync(playersRequest));
+  }, [dispatch, teamId]);
   return (
     <div className={s.roster}>
       {players.length === 0 ? (

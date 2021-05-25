@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../core/redux/hooks";
 import { AddBtn } from "../../components/addBtn/addBtn";
 import { Search } from "../../components/search/search";
@@ -7,59 +7,136 @@ import { PageSizeSelect } from "../../components/selectPageSize/selectPageSize";
 import { Pagination } from "../../components/pagination/pagination";
 import EmptyImg from "../../assets/img/empty-player.svg";
 import { EmptyBase } from "../../components/emptyBase/emptyBase";
-import { IFetchSuffix } from "../../api/dto/components.g";
+import { playersRequestType, playersQueryType } from "../../api/dto/player.g";
 import { SelectTeams } from "../../components/selectTeams/selectTeams";
 import { useHistory } from "react-router";
 import {
   selectPlayersData,
-  selectPlayersFetchSuffix,
   selectPlayersIsLoading,
 } from "../../modules/player/playerSelector";
 import { fetchPlayersAsync } from "../../modules/player/playerThunk";
-import {
-  setPageNumber,
-  setPageSize,
-  setSearchText,
-} from "../../modules/player/playerSlice";
 import { getPlayersRequest } from "../../api/urls";
-import { playerLnk, playersLnk } from "../routes";
+import { playerLnk } from "../routes";
 import { Page } from "../../components/page/page";
 import { PageTop } from "../../components/page/pageTop/pageTop";
 import { PageBottom } from "../../components/page/pageBottom/pageBottom";
 import { CardsWrapper } from "../../components/page/cardsWrapper/cardsWrapper";
+import queryString from "querystring";
 
 export const PlayersCards: React.FC = () => {
   const dispatch = useAppDispatch();
   const history = useHistory();
-  const { searchText, pageSize, teamIds }: IFetchSuffix = useAppSelector(
-    selectPlayersFetchSuffix
-  );
   const playersRedux = useAppSelector(selectPlayersData);
   const playersReduxIsLoading = useAppSelector(selectPlayersIsLoading);
   const players = playersRedux.data;
-  const getPageNumber =
-    new URLSearchParams(window.location.search).get("Page") || 1;
   const loadedCardsNumber = playersRedux.count;
-  const pageCount = Math.ceil(loadedCardsNumber / pageSize);
-  const pageNumber = pageCount >= +getPageNumber ? +getPageNumber : 1;
 
-  const request = `${getPlayersRequest}?Name=${searchText}${teamIds}&Page=${pageNumber}&PageSize=${pageSize}`;
-  // useEffect(() => {
-  //   dispatch(fetchPlayersAsync(request));
-  // }, []);
+  const playersRequest: playersRequestType = {
+    requesrUrl: getPlayersRequest,
+    searchText: "",
+    teamIds: "",
+    pageNumber: 1,
+    pageSize: 6,
+  };
+  const [playersRequestParams, setPlayersRequestParams] =
+    useState(playersRequest);
+
+  console.log("playersRequestParams: ", playersRequestParams);
+  const setPageNumber = (pageNumber: number) => {
+    setPlayersRequestParams((prevState) => ({
+      ...prevState,
+      pageNumber: pageNumber,
+    }));
+  };
+  const setPageSize = (pageSize: number) => {
+    setPlayersRequestParams((prevState) => ({
+      ...prevState,
+      pageSize: pageSize,
+      pageNumber: 1,
+    }));
+  };
+  const setSearchText = (searchText: string) => {
+    setPlayersRequestParams((prevState) => ({
+      ...prevState,
+      searchText: searchText,
+      pageNumber: 1,
+    }));
+  };
+  const setTeamIds = (teamIds: string) => {
+    setPlayersRequestParams((prevState) => ({
+      ...prevState,
+      teamIds: teamIds,
+      pageNumber: 1,
+    }));
+  };
+
   useEffect(() => {
-    dispatch(fetchPlayersAsync(request));
-  }, [request, dispatch]);
+    const parsed: playersQueryType = queryString.parse(
+      history.location.search.substr(1)
+    );
 
-  if (playersReduxIsLoading === false) {
-    if (pageCount < +getPageNumber) {
-      history.push(`${playersLnk}?Page=1`);
+    if (parsed.page)
+      setPlayersRequestParams((prevState) => ({
+        ...prevState,
+        pageNumber: Number(parsed.page),
+      }));
+
+    if (parsed.pageSize)
+      setPlayersRequestParams((prevState) => ({
+        ...prevState,
+        pageSize: Number(parsed.pageSize),
+      }));
+
+    if (parsed.name)
+      setPlayersRequestParams((prevState) => ({
+        ...prevState,
+        searchText: parsed.name,
+      }));
+
+    if (parsed.teamIds) {
+      const newArr = parsed.teamIds.map((item) => item);
+      const newTeamIds = newArr.length
+        ? "&TeamIds=" + newArr.join("&TeamIds=")
+        : "";
+      setPlayersRequestParams((prevState) => ({
+        ...prevState,
+        teamIds: newTeamIds,
+      }));
     }
-  }
+  }, []);
+
+  useEffect(() => {
+    dispatch(fetchPlayersAsync(playersRequestParams));
+  }, [dispatch, playersRequestParams]); //
 
   const handleClick = (id: number) => {
     history.push(`${playerLnk}?id=${id}`);
   };
+
+  useEffect(() => {
+    const path = history.location.pathname;
+    const playersQuery: playersQueryType = {};
+
+    if (playersRedux.page > 1) playersQuery.page = String(playersRedux.page);
+    if (playersRedux.size !== 6)
+      playersQuery.pageSize = String(playersRedux.size);
+    if (playersRequestParams.searchText)
+      playersQuery.name = String(playersRequestParams.searchText);
+    if (playersRequestParams.teamIds)
+      playersQuery.teamIds = playersRequestParams.teamIds
+        .substr(9)
+        .split("&TeamIds=");
+
+    history.push({
+      pathname: path,
+      search: queryString.stringify(playersQuery),
+    });
+  }, [
+    playersRedux,
+    history,
+    playersRequestParams.searchText,
+    playersRequestParams.teamIds,
+  ]);
 
   const playersList =
     players.length > 0 && playersReduxIsLoading === false
@@ -82,7 +159,7 @@ export const PlayersCards: React.FC = () => {
     <Page>
       <PageTop>
         <Search setSearchText={setSearchText} />
-        <SelectTeams />
+        <SelectTeams setTeamIds={setTeamIds} />
         <AddBtn page="players" />
       </PageTop>
       {players.length > 0 && playersReduxIsLoading === false ? (
@@ -90,13 +167,15 @@ export const PlayersCards: React.FC = () => {
           <CardsWrapper>{playersList}</CardsWrapper>
           <PageBottom>
             <Pagination
-              page="players"
               loadedCardsNumber={loadedCardsNumber}
-              pageNumber={pageNumber}
-              pageSize={pageSize}
-              setPageNumber={setPageNumber}
+              pageSize={playersRedux.size}
+              pageNumber={playersRedux.page}
+              onPageChange={setPageNumber}
             />
-            <PageSizeSelect setPageSize={setPageSize} />
+            <PageSizeSelect
+              setPageSize={setPageSize}
+              selctedPageSize={playersRedux.size}
+            />
           </PageBottom>
         </>
       ) : (

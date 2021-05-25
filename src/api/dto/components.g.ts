@@ -1,6 +1,7 @@
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
-import { FunctionComponent } from "react";
+import { Dispatch, FunctionComponent, SetStateAction } from "react";
 import { Control, FieldErrors } from "react-hook-form";
+import { playersRequestType } from "./player.g";
 
 export interface IAppState {
   sidebarShow: boolean;
@@ -29,20 +30,24 @@ export interface IEmpty {
   imageUrl: string;
 }
 
-export interface IPagination {
-  page: string;
-  loadedCardsNumber: number;
-  pageSize: number;
-  pageNumber: number;
-  setPageNumber: ActionCreatorWithPayload<number, string>;
-}
+export type IPagination = {
+  loadedCardsNumber: number; // кол-во загруженных элементов
+  pageSize: number; //размер страницы
+  pageNumber?: number;
+  onPageChange?: (pageNumber: number) => void;
+};
 
-export interface IPageSizeSelect {
-  setPageSize: ActionCreatorWithPayload<number, string>;
-}
+export type IPageSizeSelect = {
+  selctedPageSize?: number;
+  setPageSize: (pageSize: number) => void;
+};
+
+export type SelectTeamsPropsType = {
+  setTeamIds: (teamsIds: string) => void;
+};
 
 export interface ISearch {
-  setSearchText: ActionCreatorWithPayload<string, string>;
+  setSearchText: (searchText: string) => void;
 }
 
 export type RefReturn =

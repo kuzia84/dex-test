@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { ISearch } from "../../api/dto/components.g";
-import { useAppDispatch } from "../../core/redux/hooks";
 import s from "./style.module.css";
 
 export const Search: React.FC<ISearch> = ({ setSearchText }) => {
-  const dispatch = useAppDispatch();
   const [searchValue, setSearchValue] = useState("");
 
   return (
@@ -12,7 +10,7 @@ export const Search: React.FC<ISearch> = ({ setSearchText }) => {
       <form
         onSubmit={(event: React.FormEvent) => {
           event.preventDefault();
-          dispatch(setSearchText(searchValue));
+          setSearchText && setSearchText(searchValue);
         }}
       >
         <input

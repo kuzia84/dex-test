@@ -88,3 +88,18 @@ export type IPlayerAddInputs = {
   playerBirthday: string;
   playerNumber: number;
 };
+
+export type playersRequestType = {
+  requesrUrl: string;
+  searchText?: string | undefined;
+  teamIds?: string | undefined;
+  pageNumber?: number;
+  pageSize?: number;
+};
+
+export type playersQueryType = {
+  name?: string | undefined;
+  teamIds?: string[];
+  page?: string;
+  pageSize?: string;
+};

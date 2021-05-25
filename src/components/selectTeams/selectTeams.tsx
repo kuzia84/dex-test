@@ -4,16 +4,15 @@ import makeAnimated from "react-select/animated";
 import { useAppDispatch, useAppSelector } from "../../core/redux/hooks";
 import { ITeamSelectOptions, TeamDto } from "../../api/dto/team.g";
 import s from "./style.module.css";
-import { setTeamIds } from "../../modules/player/playerSlice";
 import { getTeamsRequest } from "../../api/urls";
 import { fetchTeamsAsync } from "../../modules/team/teamThunk";
 import {
   selectTeamsData,
   selectTeamsIsLoading,
 } from "../../modules/team/teamSelector";
-import { ISelectTheme } from "../../api/dto/components.g";
+import { ISelectTheme, SelectTeamsPropsType } from "../../api/dto/components.g";
 
-export const SelectTeams: React.FC = () => {
+export const SelectTeams: React.FC<SelectTeamsPropsType> = ({ setTeamIds }) => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchTeamsAsync(getTeamsRequest));
@@ -106,6 +105,10 @@ export const SelectTeams: React.FC = () => {
     }));
   }
 
+  const handleClick = (data: string) => {
+    setTeamIds && setTeamIds(data);
+  };
+
   return (
     <div className={s.reactSelectContainer}>
       <Select
@@ -121,7 +124,7 @@ export const SelectTeams: React.FC = () => {
             const newRequest = newArr.length
               ? "&TeamIds=" + newArr.join("&TeamIds=")
               : "";
-            dispatch(setTeamIds(newRequest));
+            handleClick(newRequest);
           }
         }}
       />
