@@ -38,6 +38,7 @@ import { AddFormImage } from "../../../components/addForm/addFormImage/addFormIm
 import { AddFormInfo } from "../../../components/addForm/addFormInfo/addFormInfo";
 import { AddFormRow } from "../../../components/addForm/addFormRow/addFormRow";
 import { AddFormRowCol } from "../../../components/addForm/addFormRowCol/addFormRowCol";
+import { teamsRequestType } from "../../../api/dto/team.g";
 
 interface IPlayerAdd {
   playerId: number;
@@ -48,7 +49,13 @@ export const AddPlayer: React.FC<IPlayerAdd> = ({ playerId }) => {
   const history = useHistory();
   useEffect(() => {
     dispatch(fetchPlayerPositionsAsync(playerPostionsRequest));
-    dispatch(fetchTeamsAsync(getTeamsRequest));
+    const teamsRequest: teamsRequestType = {
+      requesrUrl: getTeamsRequest,
+      searchText: "",
+      pageNumber: 1,
+      pageSize: 6,
+    };
+    dispatch(fetchTeamsAsync(teamsRequest));
   }, [dispatch]);
   const selectedId = playerId ? playerId : 0;
   const singlePlayerIsLoading = useAppSelector(selectSinglePlayerIsLoading);

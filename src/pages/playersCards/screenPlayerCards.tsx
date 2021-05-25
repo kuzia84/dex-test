@@ -41,7 +41,6 @@ export const PlayersCards: React.FC = () => {
   const [playersRequestParams, setPlayersRequestParams] =
     useState(playersRequest);
 
-  console.log("playersRequestParams: ", playersRequestParams);
   const setPageNumber = (pageNumber: number) => {
     setPlayersRequestParams((prevState) => ({
       ...prevState,
@@ -107,7 +106,7 @@ export const PlayersCards: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchPlayersAsync(playersRequestParams));
-  }, [dispatch, playersRequestParams]); //
+  }, [dispatch, playersRequestParams]);
 
   const handleClick = (id: number) => {
     history.push(`${playerLnk}?id=${id}`);

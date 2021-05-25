@@ -15,12 +15,14 @@ export const TeamRoster: React.FC<ITeamRosterProps> = ({ teamId }) => {
   const dispatch = useAppDispatch();
   const playersRedux = useAppSelector(selectPlayersData);
   const players = playersRedux.data;
-  // const request = `${getPlayersRequest}?TeamIds=${teamId}`;
 
   useEffect(() => {
     const playersRequest: playersRequestType = {
       requesrUrl: getPlayersRequest,
-      teamIds: String(teamId),
+      searchText: "",
+      teamIds: `&TeamIds=${String(teamId)}`,
+      pageNumber: 1,
+      pageSize: 6,
     };
     dispatch(fetchPlayersAsync(playersRequest));
   }, [dispatch, teamId]);

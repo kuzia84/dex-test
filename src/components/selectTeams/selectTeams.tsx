@@ -2,7 +2,11 @@ import React, { useEffect } from "react";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import { useAppDispatch, useAppSelector } from "../../core/redux/hooks";
-import { ITeamSelectOptions, TeamDto } from "../../api/dto/team.g";
+import {
+  ITeamSelectOptions,
+  TeamDto,
+  teamsRequestType,
+} from "../../api/dto/team.g";
 import s from "./style.module.css";
 import { getTeamsRequest } from "../../api/urls";
 import { fetchTeamsAsync } from "../../modules/team/teamThunk";
@@ -15,7 +19,13 @@ import { ISelectTheme, SelectTeamsPropsType } from "../../api/dto/components.g";
 export const SelectTeams: React.FC<SelectTeamsPropsType> = ({ setTeamIds }) => {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(fetchTeamsAsync(getTeamsRequest));
+    const teamsRequest: teamsRequestType = {
+      requesrUrl: getTeamsRequest,
+      searchText: "",
+      pageNumber: 1,
+      pageSize: 6,
+    };
+    dispatch(fetchTeamsAsync(teamsRequest));
   }, [dispatch]);
   const teamsRedux = useAppSelector(selectTeamsData);
   const teamsIsLoading = useAppSelector(selectTeamsIsLoading);

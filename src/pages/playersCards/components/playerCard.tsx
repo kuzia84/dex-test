@@ -8,6 +8,7 @@ import {
   selectTeamsData,
   selectTeamsIsLoading,
 } from "../../../modules/team/teamSelector";
+import { teamsRequestType } from "../../../api/dto/team.g";
 
 export const PlayerCard: React.FC<PlayerDto> = ({
   name,
@@ -19,7 +20,13 @@ export const PlayerCard: React.FC<PlayerDto> = ({
 }) => {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(fetchTeamsAsync(getTeamsRequest));
+    const teamsRequest: teamsRequestType = {
+      requesrUrl: getTeamsRequest,
+      searchText: "",
+      pageNumber: 1,
+      pageSize: 6,
+    };
+    dispatch(fetchTeamsAsync(teamsRequest));
   }, [dispatch]);
   const teamsRedux = useAppSelector(selectTeamsData);
   const teamsIsLoading = useAppSelector(selectTeamsIsLoading);

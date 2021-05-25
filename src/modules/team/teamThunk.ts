@@ -1,5 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { NewTeamDto, TeamDto, TeamDtoPageResult } from "../../api/dto/team.g";
+import {
+  NewTeamDto,
+  TeamDto,
+  TeamDtoPageResult,
+  teamsRequestType,
+} from "../../api/dto/team.g";
 import {
   addTeam,
   deleteTeam,
@@ -24,9 +29,13 @@ export const fetchSingleTeamAsync = createAsyncThunk<TeamDto, string>(
   }
 );
 
-export const fetchTeamsAsync = createAsyncThunk<TeamDtoPageResult, string>(
+export const fetchTeamsAsync = createAsyncThunk<
+  TeamDtoPageResult,
+  teamsRequestType
+>(
   "teams/fetchTeamsData",
-  async (request) => {
+  async ({ requesrUrl, searchText, pageNumber, pageSize }) => {
+    const request = `${requesrUrl}?Name=${searchText}&Page=${pageNumber}&PageSize=${pageSize}`;
     const response = await getTeamsList(request);
     return (await response) as TeamDtoPageResult;
   }

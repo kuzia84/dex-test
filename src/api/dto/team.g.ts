@@ -65,3 +65,16 @@ export interface NewTeamDto {
   imageUrl: string;
   id?: number;
 }
+
+export type teamsRequestType = {
+  requesrUrl: string;
+  searchText?: string | undefined;
+  pageNumber?: number;
+  pageSize?: number;
+};
+
+export type teamsQueryType = {
+  name?: string | undefined;
+  page?: string;
+  pageSize?: string;
+};
