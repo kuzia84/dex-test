@@ -9,6 +9,7 @@ import {
   selectTeamsIsLoading,
 } from "../../../modules/team/teamSelector";
 import { teamsRequestType } from "../../../api/dto/team.g";
+import { baseUrl } from "../../../api/requests/baseRequest";
 
 export const PlayerCard: React.FC<PlayerDto> = ({
   name,
@@ -40,7 +41,7 @@ export const PlayerCard: React.FC<PlayerDto> = ({
     <div className={s.player}>
       <div className={s.player__wrapper} onClick={handlePlayerClick}>
         <div className={s.player__logo}>
-          <img src={"http://dev.trainee.dex-it.ru" + avatarUrl} alt={name} />
+          <img src={baseUrl + avatarUrl} alt={name} />
         </div>
         <div className={s.player__info}>
           <div className={s.player__name}>

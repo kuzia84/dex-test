@@ -1,4 +1,5 @@
 import { TeamDto } from "../../../api/dto/team.g";
+import { baseUrl } from "../../../api/requests/baseRequest";
 import s from "./style.module.css";
 
 export const TeamCard: React.FC<TeamDto> = ({
@@ -15,7 +16,7 @@ export const TeamCard: React.FC<TeamDto> = ({
     <div className={s.team} onClick={handleTeamClick}>
       <div className={s.team__wrapper}>
         <div className={s.team__logo}>
-          <img src={"http://dev.trainee.dex-it.ru" + imageUrl} alt={name} />
+          <img src={baseUrl + imageUrl} alt={name} />
         </div>
         <div className={s.team__info}>
           <div className={s.team__name}>{name}</div>

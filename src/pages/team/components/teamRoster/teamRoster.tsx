@@ -6,6 +6,7 @@ import { PlayerDto, playersRequestType } from "../../../../api/dto/player.g";
 import { selectPlayersData } from "../../../../modules/player/playerSelector";
 import { fetchPlayersAsync } from "../../../../modules/player/playerThunk";
 import { getPlayersRequest } from "../../../../api/urls";
+import { baseUrl } from "../../../../api/requests/baseRequest";
 
 interface ITeamRosterProps {
   teamId: number;
@@ -46,10 +47,7 @@ export const TeamRoster: React.FC<ITeamRosterProps> = ({ teamId }) => {
                 <div className={s.number}>{item.number}</div>
                 <div className={s.player}>
                   <div className={s.avatar}>
-                    <img
-                      src={"http://dev.trainee.dex-it.ru" + item.avatarUrl}
-                      alt={item.name}
-                    />
+                    <img src={baseUrl + item.avatarUrl} alt={item.name} />
                   </div>
                   <div className={s.information}>
                     <div className={s.name}>{item.name}</div>

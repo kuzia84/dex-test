@@ -1,3 +1,4 @@
+import { baseUrl } from "../../../api/requests/baseRequest";
 import { useAppSelector } from "../../../core/redux/hooks";
 import { selectSinglePlayerData } from "../../../modules/player/playerSelector";
 
@@ -9,10 +10,7 @@ export const PlayerInfo: React.FC = () => {
   return (
     <>
       <div className={s.photo}>
-        <img
-          src={"http://dev.trainee.dex-it.ru" + singlePlayer.avatarUrl}
-          alt={singlePlayer.name}
-        />
+        <img src={baseUrl + singlePlayer.avatarUrl} alt={singlePlayer.name} />
       </div>
       <div className={s.info}>
         <div className={s.title}>

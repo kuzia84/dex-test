@@ -29,6 +29,7 @@ import { AddFormInfo } from "../../../components/addForm/addFormInfo/addFormInfo
 import { AddFormRow } from "../../../components/addForm/addFormRow/addFormRow";
 import { AddFormRowCol } from "../../../components/addForm/addFormRowCol/addFormRowCol";
 import { sendTeamImgAndData } from "../../../modules/team/sendImage";
+import { baseUrl } from "../../../api/requests/baseRequest";
 
 interface ITeamAdd {
   teamId: number;
@@ -71,7 +72,7 @@ export const AddTeam: React.FC<ITeamAdd> = ({ teamId }) => {
   const watchFile = watch("teamPhoto");
   useEffect(() => {
     if (selectedId !== 0) {
-      setBgImage(`http://dev.trainee.dex-it.ru${singleTeam.imageUrl}`);
+      setBgImage(baseUrl + singleTeam.imageUrl);
     }
     if (watchFile && watchFile.length) {
       setBgImage(URL.createObjectURL(watchFile[0]));

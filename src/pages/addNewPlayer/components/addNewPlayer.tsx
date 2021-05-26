@@ -39,6 +39,7 @@ import { AddFormRow } from "../../../components/addForm/addFormRow/addFormRow";
 import { AddFormRowCol } from "../../../components/addForm/addFormRowCol/addFormRowCol";
 import { teamsRequestType } from "../../../api/dto/team.g";
 import { sendPlayerImgAndData } from "../../../modules/player/sendImage";
+import { baseUrl } from "../../../api/requests/baseRequest";
 
 interface IPlayerAdd {
   playerId: number;
@@ -127,7 +128,7 @@ export const AddPlayer: React.FC<IPlayerAdd> = ({ playerId }) => {
   const watchFile = watch("playerPhoto");
   useEffect(() => {
     if (selectedId !== 0) {
-      setBgImage(`http://dev.trainee.dex-it.ru${singlePlayer.avatarUrl}`);
+      setBgImage(baseUrl + singlePlayer.avatarUrl);
     }
     if (watchFile && watchFile.length) {
       setBgImage(URL.createObjectURL(watchFile[0]));
