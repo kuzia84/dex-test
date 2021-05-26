@@ -31,15 +31,14 @@ export const PlayersCards: React.FC = () => {
   const players = playersRedux.data;
   const loadedCardsNumber = playersRedux.count;
 
-  const playersRequest: playersRequestType = {
-    requesrUrl: getPlayersRequest,
-    searchText: "",
-    teamIds: "",
-    pageNumber: 1,
-    pageSize: 6,
-  };
   const [playersRequestParams, setPlayersRequestParams] =
-    useState(playersRequest);
+    useState<playersRequestType>({
+      requesrUrl: getPlayersRequest,
+      searchText: "",
+      teamIds: "",
+      pageNumber: 1,
+      pageSize: 6,
+    });
 
   const setPageNumber = (pageNumber: number) => {
     setPlayersRequestParams((prevState) => ({
@@ -74,23 +73,12 @@ export const PlayersCards: React.FC = () => {
       history.location.search.substr(1)
     );
 
-    if (parsed.page)
-      setPlayersRequestParams((prevState) => ({
-        ...prevState,
-        pageNumber: Number(parsed.page),
-      }));
-
-    if (parsed.pageSize)
-      setPlayersRequestParams((prevState) => ({
-        ...prevState,
-        pageSize: Number(parsed.pageSize),
-      }));
-
-    if (parsed.name)
-      setPlayersRequestParams((prevState) => ({
-        ...prevState,
-        searchText: parsed.name,
-      }));
+    setPlayersRequestParams((prevState) => ({
+      ...prevState,
+      pageNumber: parsed.page ? Number(parsed.page) : prevState.pageNumber,
+      pageSize: parsed.pageSize ? Number(parsed.pageSize) : prevState.pageSize,
+      searchText: parsed.name ? parsed.name : prevState.searchText,
+    }));
 
     if (parsed.teamIds) {
       const newArr = parsed.teamIds.map((item) => item);

@@ -55,7 +55,7 @@ export interface PlayerDtoPageResult {
   size: number;
 }
 
-export interface IPlayerAddData {
+export type IPlayerAddData = {
   playerBirthday: string;
   playerHeight: number;
   playerName: string;
@@ -64,7 +64,7 @@ export interface IPlayerAddData {
   playerPosition: { value: string; label: string };
   playerTeam: { value: number; label: string };
   playerWeight: number;
-}
+};
 
 export interface NewPlayerDto {
   name: string;

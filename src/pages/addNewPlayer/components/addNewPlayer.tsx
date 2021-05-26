@@ -29,7 +29,6 @@ import {
   selectTeamsData,
   selectTeamsIsLoading,
 } from "../../../modules/team/teamSelector";
-import { addImageRequest } from "../../../api/urls";
 import { playersLnk } from "../../routes";
 import { Button } from "../../../components/button/button";
 import { AddForm } from "../../../components/addForm/addForm";
@@ -39,6 +38,7 @@ import { AddFormInfo } from "../../../components/addForm/addFormInfo/addFormInfo
 import { AddFormRow } from "../../../components/addForm/addFormRow/addFormRow";
 import { AddFormRowCol } from "../../../components/addForm/addFormRowCol/addFormRowCol";
 import { teamsRequestType } from "../../../api/dto/team.g";
+import { sendPlayerImgAndData } from "../../../modules/player/sendImage";
 
 interface IPlayerAdd {
   playerId: number;
@@ -178,23 +178,7 @@ export const AddPlayer: React.FC<IPlayerAdd> = ({ playerId }) => {
   const onSubmit = (data: IPlayerAddData) => {
     if (data.playerPhoto[0] || isRequired) {
       const file = data.playerPhoto[0];
-      const dataForm = new FormData();
-      dataForm.append("file", file);
-      window
-        .fetch(addImageRequest, {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          mode: "cors",
-          body: dataForm,
-        })
-        .then((response) => {
-          return response.json();
-        })
-        .then((url) => {
-          sendData(url, data);
-        });
+      sendPlayerImgAndData(file, data, sendData);
     }
     if (!isRequired) {
       const url = singlePlayer.avatarUrl;

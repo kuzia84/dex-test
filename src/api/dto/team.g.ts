@@ -49,13 +49,13 @@ export type ITeamAddInputs = {
   teamFoundation: string;
 };
 
-export interface ITeamAddData {
+export type ITeamAddData = {
   teamName: string;
   teamFoundation: number;
   teamDivision: string;
   teamConference: string;
   teamPhoto: Blob[];
-}
+};
 
 export interface NewTeamDto {
   name: string;

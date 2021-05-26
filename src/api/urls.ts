@@ -11,7 +11,5 @@ export const deletePlayerRequest = "/api/Player/Delete?id=";
 export const playerPostionsRequest = "/api/Player/GetPositions";
 export const getPlayerRequest = "/api/Player/Get?id=";
 export const getPlayersRequest = "/api/Player/GetPlayers";
-export const addImageRequest =
-  "http://dev.trainee.dex-it.ru/api/Image/SaveImage";
-export const deleteImageRequest =
-  "http://dev.trainee.dex-it.ru/api/Image/DeleteImage?fileName=";
+export const addImageRequest = "/api/Image/SaveImage";
+export const deleteImageRequest = "/api/Image/DeleteImage?fileName=";

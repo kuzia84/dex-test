@@ -28,6 +28,7 @@ import { AddFormImage } from "../../../components/addForm/addFormImage/addFormIm
 import { AddFormInfo } from "../../../components/addForm/addFormInfo/addFormInfo";
 import { AddFormRow } from "../../../components/addForm/addFormRow/addFormRow";
 import { AddFormRowCol } from "../../../components/addForm/addFormRowCol/addFormRowCol";
+import { sendTeamImgAndData } from "../../../modules/team/sendImage";
 
 interface ITeamAdd {
   teamId: number;
@@ -115,23 +116,7 @@ export const AddTeam: React.FC<ITeamAdd> = ({ teamId }) => {
   const onSubmit = (data: ITeamAddData) => {
     if (data.teamPhoto[0] || isRequired) {
       const file = data.teamPhoto[0];
-      const dataForm = new FormData();
-      dataForm.append("file", file);
-      window
-        .fetch(addImageRequest, {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          mode: "cors",
-          body: dataForm,
-        })
-        .then((response) => {
-          return response.json();
-        })
-        .then((url) => {
-          sendData(url, data);
-        });
+      sendTeamImgAndData(file, data, sendData);
     }
     if (!isRequired) {
       const url = singleTeam.imageUrl;

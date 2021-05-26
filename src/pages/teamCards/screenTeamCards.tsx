@@ -30,13 +30,14 @@ export const TeamCards: React.FC = () => {
   const teams = teamsRedux.data;
   const loadedCardsNumber = teamsRedux.count;
 
-  const teamsRequest: teamsRequestType = {
-    requesrUrl: getTeamsRequest,
-    searchText: "",
-    pageNumber: 1,
-    pageSize: 6,
-  };
-  const [teamsRequestParams, setTeamRequestParams] = useState(teamsRequest);
+  const [teamsRequestParams, setTeamRequestParams] = useState<teamsRequestType>(
+    {
+      requesrUrl: getTeamsRequest,
+      searchText: "",
+      pageNumber: 1,
+      pageSize: 6,
+    }
+  );
 
   const setPageNumber = (pageNumber: number) => {
     setTeamRequestParams((prevState) => ({
@@ -58,6 +59,19 @@ export const TeamCards: React.FC = () => {
       pageNumber: 1,
     }));
   };
+
+  useEffect(() => {
+    const parsed: teamsQueryType = queryString.parse(
+      history.location.search.substr(1)
+    );
+
+    setTeamRequestParams((prevState) => ({
+      ...prevState,
+      pageNumber: parsed.page ? Number(parsed.page) : prevState.pageNumber,
+      pageSize: parsed.pageSize ? Number(parsed.pageSize) : prevState.pageSize,
+      searchText: parsed.name ? parsed.name : prevState.searchText,
+    }));
+  }, []);
 
   useEffect(() => {
     dispatch(fetchTeamsAsync(teamsRequestParams));

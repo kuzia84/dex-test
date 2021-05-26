@@ -1,4 +1,4 @@
-const baseUrl = "http://dev.trainee.dex-it.ru";
+export const baseUrl = "http://dev.trainee.dex-it.ru";
 
 export const baseRequest = async (url: string, config: Object) => {
   const response = await fetch(baseUrl + url, {
