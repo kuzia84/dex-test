@@ -9,7 +9,10 @@ import {
   fetchDeleteTeamById,
   fetchSingleTeamAsync,
 } from "../../modules/team/teamThunk";
-import { selectSingleTeamData } from "../../modules/team/teamSelector";
+import {
+  selectSingleTeamData,
+  selectSingleTeamError,
+} from "../../modules/team/teamSelector";
 import { Page } from "../../components/page/page";
 import { PageItem } from "../../components/page/pageItem/pageItem";
 import { PageItemTop } from "../../components/page/pageItem/pageItemTop/pageItemTop";
@@ -26,6 +29,11 @@ export const Team: React.FC = () => {
     dispatch(fetchSingleTeamAsync(requestUrl));
   }, [requestUrl, dispatch]);
   const singleTeam = useAppSelector(selectSingleTeamData);
+  const singleTeamErrors = useAppSelector(selectSingleTeamError);
+  if (singleTeamErrors && singleTeamErrors.message === "Failed to fetch") {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userName");
+  }
   const deleteTeam = () => {
     if (window.confirm("Confirm Delete")) {
       dispatch(fetchDeleteTeamById(deleteTeamRequest + singleTeam.id));

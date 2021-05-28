@@ -7,7 +7,10 @@ import {
   fetchDeletePlayerById,
   fetchSinglePlayerAsync,
 } from "../../modules/player/playerThunk";
-import { selectSinglePlayerData } from "../../modules/player/playerSelector";
+import {
+  selectSinglePlayerData,
+  selectSinglePlayerError,
+} from "../../modules/player/playerSelector";
 import { deletePlayerRequest, getPlayerRequest } from "../../api/urls";
 import { Page } from "../../components/page/page";
 import { PageItem } from "../../components/page/pageItem/pageItem";
@@ -25,7 +28,14 @@ export const Player: React.FC = () => {
   useEffect(() => {
     dispatch(fetchSinglePlayerAsync(request));
   }, [request, dispatch]);
+
   const singlePlayer = useAppSelector(selectSinglePlayerData);
+  const singlePlayerErrors = useAppSelector(selectSinglePlayerError);
+  if (singlePlayerErrors && singlePlayerErrors.message === "Failed to fetch") {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userName");
+  }
+
   const deletePlayer = () => {
     if (window.confirm("Confirm Delete")) {
       dispatch(fetchDeletePlayerById(deletePlayerRequest + singlePlayer.id));

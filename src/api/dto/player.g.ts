@@ -3,24 +3,30 @@ import { IFetchSuffix } from "./components.g";
 export interface IPlayersState {
   addIsLoading: boolean;
   addFetchResult: {};
-  addErrors: null | Object;
+  addErrors: null | FetchErrorType;
   getPositionsIsLoading: boolean;
   getPositionsFetchResult: string[];
-  getPositionsError: null | Object;
+  getPositionsError: null | FetchErrorType;
   getOnePlayerIsLoading: boolean;
   getOnePlayerFetchResult: PlayerTeamNameDto;
-  getOnePlayerError: null | Object;
+  getOnePlayerError: null | FetchErrorType;
   getPlayersIsLoading: boolean;
   getPlayersFetchResult: PlayerDtoPageResult;
-  getPlayersError: null | Object;
+  getPlayersError: null | FetchErrorType;
   updateIsLoading: boolean;
   updateFetchResult: {};
-  updateErrors: null | Object;
+  updateErrors: null | FetchErrorType;
   deleteIsLoading: boolean;
   deleteFetchResult: PlayerDto;
-  deleteErrors: null | Object;
+  deleteErrors: null | FetchErrorType;
   playersFetchSuffix: IFetchSuffix;
 }
+
+export type FetchErrorType = {
+  message?: string;
+  name?: string;
+  stack?: string;
+};
 
 export interface PlayerDto {
   name: string;

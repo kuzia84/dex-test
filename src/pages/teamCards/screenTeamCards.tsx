@@ -12,6 +12,7 @@ import { useHistory } from "react-router";
 import { getTeamsRequest } from "../../api/urls";
 import {
   selectTeamsData,
+  selectTeamsErrors,
   selectTeamsIsLoading,
 } from "../../modules/team/teamSelector";
 import { fetchTeamsAsync } from "../../modules/team/teamThunk";
@@ -26,6 +27,11 @@ export const TeamCards: React.FC = () => {
   const dispatch = useAppDispatch();
   const history = useHistory();
   const teamsRedux = useAppSelector(selectTeamsData);
+  const teamsReduxErrors = useAppSelector(selectTeamsErrors);
+  if (teamsReduxErrors && teamsReduxErrors.message === "Failed to fetch") {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userName");
+  }
   const teamsReduxIsLoading = useAppSelector(selectTeamsIsLoading);
   const teams = teamsRedux.data;
   const loadedCardsNumber = teamsRedux.count;

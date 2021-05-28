@@ -4,7 +4,10 @@ import { BreadCrumbs } from "../../components/breadCrumbs/breadCrumbs";
 import { PlayerTeamNameDto } from "../../api/dto/player.g";
 import { useEffect } from "react";
 import { fetchSinglePlayerAsync } from "../../modules/player/playerThunk";
-import { selectSinglePlayerData } from "../../modules/player/playerSelector";
+import {
+  selectSinglePlayerData,
+  selectSinglePlayerError,
+} from "../../modules/player/playerSelector";
 import { getPlayerRequest } from "../../api/urls";
 import { Page } from "../../components/page/page";
 import { PageItem } from "../../components/page/pageItem/pageItem";
@@ -25,6 +28,11 @@ export const AddNewPlayer: React.FC = () => {
   const singlePlayer: PlayerTeamNameDto = useAppSelector(
     selectSinglePlayerData
   );
+  const singlePlayerErrors = useAppSelector(selectSinglePlayerError);
+  if (singlePlayerErrors && singlePlayerErrors.message === "Failed to fetch") {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userName");
+  }
 
   const breadcrumbsText = playerId
     ? `Update ${singlePlayer.name}`

@@ -4,7 +4,10 @@ import { BreadCrumbs } from "../../components/breadCrumbs/breadCrumbs";
 import { useEffect } from "react";
 import { getTeamRequest } from "../../api/urls";
 import { fetchSingleTeamAsync } from "../../modules/team/teamThunk";
-import { selectSingleTeamData } from "../../modules/team/teamSelector";
+import {
+  selectSingleTeamData,
+  selectSingleTeamError,
+} from "../../modules/team/teamSelector";
 import { Page } from "../../components/page/page";
 import { PageItem } from "../../components/page/pageItem/pageItem";
 import { PageItemTop } from "../../components/page/pageItem/pageItemTop/pageItemTop";
@@ -21,6 +24,11 @@ export const AddNewTeam: React.FC = () => {
     }
   }, [dispatch, request, id]);
   const singleTeam = useAppSelector(selectSingleTeamData);
+  const singleTeamErrors = useAppSelector(selectSingleTeamError);
+  if (singleTeamErrors && singleTeamErrors.message === "Failed to fetch") {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userName");
+  }
   const breadcrumbsText = teamId ? `Update ${singleTeam.name}` : "Add new team";
   return (
     <Page>

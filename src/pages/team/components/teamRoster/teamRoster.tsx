@@ -14,8 +14,6 @@ interface ITeamRosterProps {
 
 export const TeamRoster: React.FC<ITeamRosterProps> = ({ teamId }) => {
   const dispatch = useAppDispatch();
-  const playersRedux = useAppSelector(selectPlayersData);
-  const players = playersRedux.data;
 
   useEffect(() => {
     const playersRequest: playersRequestType = {
@@ -27,6 +25,10 @@ export const TeamRoster: React.FC<ITeamRosterProps> = ({ teamId }) => {
     };
     dispatch(fetchPlayersAsync(playersRequest));
   }, [dispatch, teamId]);
+
+  const playersRedux = useAppSelector(selectPlayersData);
+  const players = playersRedux.data;
+
   return (
     <div className={s.roster}>
       {players.length === 0 ? (

@@ -12,6 +12,7 @@ import { SelectTeams } from "../../components/selectTeams/selectTeams";
 import { useHistory } from "react-router";
 import {
   selectPlayersData,
+  selectPlayersError,
   selectPlayersIsLoading,
 } from "../../modules/player/playerSelector";
 import { fetchPlayersAsync } from "../../modules/player/playerThunk";
@@ -27,6 +28,11 @@ export const PlayersCards: React.FC = () => {
   const dispatch = useAppDispatch();
   const history = useHistory();
   const playersRedux = useAppSelector(selectPlayersData);
+  const playersReduxErrors = useAppSelector(selectPlayersError);
+  if (playersReduxErrors && playersReduxErrors.message === "Failed to fetch") {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userName");
+  }
   const playersReduxIsLoading = useAppSelector(selectPlayersIsLoading);
   const players = playersRedux.data;
   const loadedCardsNumber = playersRedux.count;
