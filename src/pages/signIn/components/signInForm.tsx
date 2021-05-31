@@ -9,6 +9,8 @@ import { signUpLnk, teamsLnk } from "../../routes";
 import { InputGroup } from "../../../components/inputGroup/iInputGroup";
 import s from "./style.module.css";
 import { Button } from "../../../components/button/button";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const SignInForm: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -17,7 +19,7 @@ export const SignInForm: React.FC = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<ISignInInputs>();
-  const singInResult = useAppSelector(selectSignInResult);
+  const signInResult = useAppSelector(selectSignInResult);
   const history = useHistory();
   const onSubmit = (data: ILoginRequest) => {
     dispatch(fetchSignIn(data));
@@ -25,37 +27,57 @@ export const SignInForm: React.FC = () => {
   const token = localStorage.getItem("token");
   useEffect(() => {
     if (token) {
-      // console.log("signIn");
+      toast.success(`Wellcome ${signInResult.name}!`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       history.push(teamsLnk);
-    } else {
-      console.log(singInResult);
     }
-  }, [token, singInResult, history]);
+    if (signInResult && signInResult.status === 401) {
+      toast.error("Incorect Login or Password", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  }, [token, history, signInResult]);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <h1 className={s.formTitle}>Sign In</h1>
-      <InputGroup
-        label="Login"
-        inputName="login"
-        errorText="Enter login"
-        register={register}
-        required
-        errors={errors}
-      />
-      <InputGroup
-        type="password"
-        label="Password"
-        inputName="password"
-        errorText="Enter password"
-        register={register}
-        required
-        errors={errors}
-      />
-      <Button>Sign In</Button>
-      <div className={s.signUpLnk}>
-        Not a member yet? <Link to={signUpLnk}>Sign up</Link>
-      </div>
-    </form>
+    <>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <h1 className={s.formTitle}>Sign In</h1>
+        <InputGroup
+          label="Login"
+          inputName="login"
+          errorText="Enter login"
+          register={register}
+          required
+          errors={errors}
+        />
+        <InputGroup
+          type="password"
+          label="Password"
+          inputName="password"
+          errorText="Enter password"
+          register={register}
+          required
+          errors={errors}
+        />
+        <Button>Sign In</Button>
+        <div className={s.signUpLnk}>
+          Not a member yet? <Link to={signUpLnk}>Sign up</Link>
+        </div>
+      </form>
+      <ToastContainer />
+    </>
   );
 };

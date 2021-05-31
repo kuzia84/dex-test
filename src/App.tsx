@@ -21,6 +21,8 @@ import {
   teamLnk,
   teamsLnk,
 } from "./pages/routes";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export function App() {
   return (
@@ -36,6 +38,7 @@ export function App() {
       <PrivateRoute path={playerLnk} component={Player} exact />
       <PrivateRoute path={newPlayerLnk} component={AddNewPlayer} exact />
       <Route render={() => <Redirect to={notFoundLnk} />} />
+      <ToastContainer />
     </Switch>
   );
 }

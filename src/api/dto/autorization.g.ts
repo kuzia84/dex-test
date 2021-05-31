@@ -12,19 +12,21 @@ export interface ILoginRequest {
   password: string;
 }
 export interface ILoginResult {
+  status?: number;
   name: string;
   avatarUrl: string;
   token: string;
 }
-export interface IBadRequest {
-  type: string;
-  title: string;
-  status: number;
-  detail: string;
-  instance: string;
-}
+export type IBadRequest = {
+  type?: string;
+  title?: string;
+  status?: number;
+  detail?: string;
+  instance?: string;
+  traceId?: string;
+};
 export interface IUnauthorizedResult {
-  statusCode: number;
+  status?: number;
 }
 
 export interface ISignInInputs {
@@ -45,6 +47,7 @@ export interface ISignUpRequest {
   password: string;
 }
 export interface ISignUpResult {
+  status?: number;
   name: string;
   avatarUrl: string;
   token: string;
